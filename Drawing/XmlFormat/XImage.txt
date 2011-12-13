@@ -1,0 +1,18 @@
+XImg is a new image format using xml.
+its format is 
+
+<Image>
+  <Point>
+    <X>100</X>
+    <Y>100</Y>
+    <Color>REd</Color>
+  </Point>
+</Image>
+
+Normally extensions are: .ximg 
+
+TODO: 
+* Load as a System.Drawing.Image
+* Convert to and from other file types
+* Render in a control
+* Create a drawing board to create XImages

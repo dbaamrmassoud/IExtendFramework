@@ -1,0 +1,7 @@
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\Any CPU\Debug\ResolveAssemblyReference.cache
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\Any CPU\Debug\Controls\AdvancedMessageBox\ResourceDictionaries\Common.baml
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\Any CPU\Debug\Controls\AdvancedMessageBox\CommandLink.g.cs
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\Any CPU\Debug\Controls\AdvancedMessageBox\TaskDialog.g.cs
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\Any CPU\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\Any CPU\Debug\IExtendFramework_MarkupCompile.cache
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\Any CPU\Debug\IExtendFramework_MarkupCompile.lref

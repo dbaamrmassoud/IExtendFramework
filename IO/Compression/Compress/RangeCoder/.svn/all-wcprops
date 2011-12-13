@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Compress/RangeCoder
+END
+RangeCoderBit.cs
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Compress/RangeCoder/RangeCoderBit.cs
+END
+RangeCoderBitTree.cs
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Compress/RangeCoder/RangeCoderBitTree.cs
+END
+RangeCoder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Compress/RangeCoder/RangeCoder.cs
+END

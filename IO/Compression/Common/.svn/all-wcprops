@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Common
+END
+InBuffer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Common/InBuffer.cs
+END
+OutBuffer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Common/OutBuffer.cs
+END
+CRC.cs
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Common/CRC.cs
+END

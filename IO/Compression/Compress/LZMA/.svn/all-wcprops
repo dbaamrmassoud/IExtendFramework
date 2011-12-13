@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Compress/LZMA
+END
+LzmaBase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Compress/LZMA/LzmaBase.cs
+END
+LzmaEncoder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Compress/LZMA/LzmaEncoder.cs
+END
+LzmaDecoder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/dotnetfireball/!svn/ver/128/trunk/libs/Fireball.Core/IO/Compression/SevenZip/Compress/LZMA/LzmaDecoder.cs
+END

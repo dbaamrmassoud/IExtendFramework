@@ -1,0 +1,158 @@
+2. Using HOTMAIL
+To send an email using HotMail, we need to add a reference to the dynamic link library for Hotmail/Gmail/AOL/Yahoo which is called System.Net.Mail.
+For the same follow the below steps:
+1.	Go to solution explorer of your project
+2.	Select add a reference
+3.	Click on .Net Tab
+4.	Go through the DLL and select System.Net.Mail.
+5.	When you have selected the correct reference you select the “OK” button and this reference will 
+be added to your projectunder references.
+6.	Now we need to add a reference in our class to the Hotmail/gmail/aol/yahoo reference we have 
+added to the project.
+
+using System.Net.Mail;
+Note: The HOTMAIL SMTP Server requires an encrypted connection (SSL) on port 25.
+And finally the code would look something like this:
+
+//method to send email to HOTMAIL
+public void sendEMailThroughHotMail()
+{
+    try
+    { 
+    //Mail Message
+        MailMessage mM = new MailMessage();
+        //Mail Address
+        mM.From = new MailAddress("sender@hotmail.com");
+        //receiver email id
+        mM.To.Add("rcver@gmail.com");
+        //subject of the email
+        mM.Subject = "your subject line will go here";
+        //deciding for the attachment
+        mM.Attachments.Add(new Attachment(@"C:\\attachedfile.jpg"));
+        //add the body of the email
+        mM.Body = "Body of the email";
+        mM.IsBodyHtml = true;
+        //SMTP client
+        SmtpClient sC = new SmtpClient("smtp.live.com");
+        //port number for Hot mail
+        sC.Port = 25;
+        //credentials to login in to hotmail account
+        sC.Credentials = new NetworkCredential("sender@hotmail.com","HotMailPassword");
+        //enabled SSL
+        sC.EnableSsl = true;
+        //Send an email
+        sC.Send(mM);
+    }//end of try block
+    catch (Exception ex)
+    {
+    
+    }//end of catch
+}//end of Email Method HotMail
+3. Using Yahoo!
+
+//Method to send email from YAHOO!!
+public void sendEMailThroughYahoo()
+{
+    try
+    {
+        //mail message
+        MailMessage mM = new MailMessage();
+        //Mail Address
+        mM.From = new MailAddress("sender@yahoo.com");
+        //emailid to send
+        mM.To.Add("recvEmailid@gmail.com");
+        //your subject line of the message
+        mM.Subject = "your subject line will go here.";
+        //now attached the file
+        mM.Attachments.Add(new Attachment(@"C:\\attachedfile.jpg"));
+        //add the body of the email
+        mM.Body = "Your Body of the email.";
+        mM.IsBodyHtml = false;
+        //SMTP 
+        SmtpClient SmtpServer = new SmtpClient();
+        //your credential will go here
+        SmtpServer.Credentials = new System.Net.NetworkCredential("sender@yahoo.com", "password");
+        //port number to login yahoo server
+        SmtpServer.Port = 587;
+        //yahoo host name
+        SmtpServer.Host = "smtp.mail.yahoo.com";
+        //Send the email
+        SmtpServer.Send(mM);
+    }//end of try block
+    catch (Exception ex)
+    {
+    }//end of catch
+}//end of Yahoo Email Method
+4. Using AOL
+
+//Method to send email from YAHOO!!
+public void sendEMailThroughAOL()
+{
+    try
+    {
+         //mail message
+        MailMessage mM = new MailMessage();
+        //Mail Address
+        mM.From = new MailAddress("sender@aol.com");
+        //emailid to send
+        mM.To.Add("recvEmailid@gmail.com");
+        //your subject line of the message
+        mM.Subject = "your subject line will go here.";
+        //now attached the file
+        mM.Attachments.Add(new Attachment(@"C:\\attachedfile.jpg"));
+        //add the body of the email
+        mM.Body = "Your Body of the email.";
+        mM.IsBodyHtml = false;
+        //SMTP 
+        SmtpClient SmtpServer = new SmtpClient();
+        //your credential will go here
+        SmtpServer.Credentials = new System.Net.NetworkCredential("sender@aol.com", "AOLpassword");
+        //port number to login yahoo server
+        SmtpServer.Port = 587;
+        //yahoo host name
+        SmtpServer.Host = "smtp.aol.com";
+        //Send the email
+        SmtpServer.Send(mM);
+    }//end of try block
+    catch (Exception ex)
+    {
+ 
+    }//end of catch
+}//end of AOLEmail Method
+5. Using Gmail
+Note: The GMAIL SMTP Server requires an encrypted connection (SSL) on port 487.
+
+//method to send email to Gmail
+public void sendEMailThroughGmail()
+{
+    try
+    {
+        //Mail Message
+        MailMessage mM = new MailMessage();
+        //Mail Address
+        mM.From = new MailAddress("sender@gmail.com");
+        //receiver email id
+        mM.To.Add("rcver@gmail.com");
+        //subject of the email
+        mM.Subject = "your subject line will go here";
+        //deciding for the attachment
+        mM.Attachments.Add(new Attachment(@"C:\\attachedfile.jpg"));
+        //add the body of the email
+        mM.Body = "Body of the email";
+        mM.IsBodyHtml = true;
+        //SMTP client
+        SmtpClient sC = new SmtpClient("smtp.gmail.com");
+        //port number for Gmail mail
+        sC.Port = 587;
+        //credentials to login in to Gmail account
+        sC.Credentials = new NetworkCredential("sender@gmail.com", "GmailPassword");
+        //enabled SSL
+        sC.EnableSsl = true;
+        //Send an email
+        sC.Send(mM);
+    }//end of try block
+    catch (Exception ex)
+    {
+ 
+    }//end of catch
+}//end of Email Method

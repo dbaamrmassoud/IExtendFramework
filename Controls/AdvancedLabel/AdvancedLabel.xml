@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>gLabel</name>
+    </assembly>
+    <members>
+        <member name="T:gLabel.gLabel">
+            <summary>
+            Label control with built-in effects like AutoFit, MouseOver, Shadow, Outer Glow, and Pulse Glow
+            </summary>
+            <remarks>v1.0.5</remarks>
+        </member>
+        <member name="M:gLabel.gLabel.EnabledColor(System.Drawing.Color)">
+            <summary>
+            Convert color to gray if Disabled else return origional color
+            </summary>
+            <param name="ColorIn">Color to Check</param>
+        </member>
+        <member name="M:gLabel.gLabel.EnableBlends(System.Drawing.Color[])">
+            <summary>
+            Convert colorblend to grayscale if Disabled else return origional colorblend
+            </summary>
+            <param name="ColorIn">Colorblend to Check</param>
+        </member>
+        <member name="P:gLabel.gLabel.MouseOver">
+            <summary>
+            Get or Set if the gLabel will Glow when the mouse is over it
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.MouseOverColor">
+            <summary>
+            Get or Set what color the gLabel will Glow when the mouse is over it
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.FeatherState">
+            <summary>
+            Get or Set if the text is glowing
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.Feather">
+            <summary>
+            Get or Set the level of feathering (blurring) of the Outer Glow
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.Pulse">
+            <summary>
+            Get or Set if the gLabel should be Pulsing or not
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.PulseSpeed">
+            <summary>
+            Get or Set how fast to pulse the gLabel
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.ShadowOffset">
+            <summary>
+            Get or Set how far to offset the shadow from the text
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.ShadowState">
+            <summary>
+            Get or Set if the gLabel displays the shadow text
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.ShadowColor">
+            <summary>
+            Get or Set what color to use for the shadow text
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.GlowState">
+            <summary>
+            Get or Set if the text is glowing
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.Glow">
+            <summary>
+            Get or Set how far out the text glows
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.GlowColor">
+            <summary>
+            Get or Set what color to use for the Glow
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.Border">
+            <summary>
+            Get or Set to show or not show the border
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.BorderColor">
+            <summary>
+            Get or Set what Color to draw the border
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.BorderWidth">
+            <summary>
+            Get or Set what Width to draw the border
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.AutoFit">
+            <summary>
+            Get or Set if the text is fitted to the DisplayRectangle or uses Font Size
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.FillType">
+            <summary>
+            The eFillType Fill Type to apply to the CButton
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.FillTypeLinear">
+            <summary>
+            The Linear Blend type
+            </summary>
+        </member>
+        <member name="P:gLabel.gLabel.ForeColorBlend">
+            <summary>
+            The ColorBlend used to fill the CButton
+            </summary>
+        </member>
+    </members>
+</doc>
