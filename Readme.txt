@@ -88,5 +88,5 @@ Compression: BZip2, GZip, Tar under LGPL License from DotNetFireball (dotnetfire
 Zip Compression from ICSharpCode.SharpZipLib, DotNetFireball - LGPL License (dotnetfireball.org)
 Win32.NativeSubclasser under LGPL License - dotnetfireball.org
 
-Everything else has no license (yet) and was created by me (mlnlover11/Elijah Frederickson)
+Everything else has no license (yet) and was created by me (Elijah Frederickson)
 Just dont kill yourself with it.
