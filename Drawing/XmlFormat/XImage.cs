@@ -60,7 +60,7 @@ namespace IExtendFramework.Drawing.XmlFormat
             return null;
         }
 
-        public Control Render(Control inControl)
+        public Control Render(ref Control inControl)
         {
             Graphics e = inControl.CreateGraphics();
             foreach (IExtendFramework.Drawing.XPoint p in Points)
