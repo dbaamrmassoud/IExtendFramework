@@ -257,6 +257,7 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="Win32\NativeSubclasser.cs" />
     <Compile Include="Win32\Win32Messages.cs" />
+    <Compile Include="Collections\SpecializedFIFOList.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\AdvancedPopupWindow\Grip.png" />
