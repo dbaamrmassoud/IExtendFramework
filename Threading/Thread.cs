@@ -12,7 +12,7 @@ using System.Threading;
 namespace IExtendFramework.Threading
 {
     /// <summary>
-    /// Description of Thread.
+    /// A Threading class
     /// </summary>
     public class Thread
     {

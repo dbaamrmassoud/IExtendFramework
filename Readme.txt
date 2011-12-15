@@ -1,4 +1,12 @@
-﻿CLASS                                             INFORMATION
+﻿IExtendFramework - an application framework and collection of useful classes.
+Written entirely in C#
+
+NON-CLASS TODO: 
+- Documentation
+- Tests
+- Examples (?)
+
+CLASS                                             INFORMATION
 -----------------------------------------------------------------------------
 IExtendFramework
   Plugins
