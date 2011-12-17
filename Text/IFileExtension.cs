@@ -20,5 +20,8 @@ namespace IExtendFramework.Text
         
         string Description
         {get;}
+        
+        string Category
+        {get; }
     }
 }

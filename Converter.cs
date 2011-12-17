@@ -39,6 +39,10 @@ namespace IExtendFramework
             if ((arg is string) && (arg.ToString() == ""))
                 return false;
             
+            // string "false" is false
+            if ((arg is string) && (arg.ToString().ToLower() == "false"))
+                return false;
+            
             // Zero is false
             if ((arg.GetType() == typeof(System.Double)) && ((Double)arg == 0))
                 return false;

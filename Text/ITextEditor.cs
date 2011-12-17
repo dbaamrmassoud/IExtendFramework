@@ -8,6 +8,7 @@
  */
 using System;
 using System.Drawing;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace IExtendFramework.Text
 {
@@ -16,6 +17,9 @@ namespace IExtendFramework.Text
     /// </summary>
     public interface ITextEditor
     {
+        DockContent DockingPanel
+        {get; }
+        
         IFileExtension Extension
         {get; }
         
@@ -32,8 +36,8 @@ namespace IExtendFramework.Text
         IDocument CurrentDocument
         {get; }
 
-        string Text
-        {get; }
+        string DocumentText
+        {get; set; }
 
 
         #region TEXT EDITOR FUNCTIONS
@@ -48,11 +52,12 @@ namespace IExtendFramework.Text
         void PrintSetup();
         void Cut();
         void Copy();
-        void Paste(string text = "");
+        void Paste();
         void Insert(int index, string text);
         void ChangeFont(Font newFont);
         void ChangeColor(Color newColor);
         void Open(string filename);
+        void SelectAll();
         #endregion
     }
 }
