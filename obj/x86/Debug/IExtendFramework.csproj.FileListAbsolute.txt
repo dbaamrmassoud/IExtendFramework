@@ -23,5 +23,5 @@ C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\x86\D
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\x86\Debug\IExtendFramework.pdb
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\x86\Debug\IExtendFramework.Encryption.EncryptionUI.resources
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\bin\Debug\WeifenLuo.WinFormsUI.Docking.dll
-C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\x86\Debug\GenerateResource.read.9.tlog
-C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\x86\Debug\GenerateResource.write.9.tlog
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\obj\x86\Debug\GenerateResource.write.1.tlog

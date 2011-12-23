@@ -80,7 +80,8 @@ X Converter                                  Simple and useful conversion facili
 X AssemblyHelper                             Functions for using System.Reflection.Assembly easier
 X Utilites                                   Useful functions
 X IExtendFrameworkException                  An exception class
-
+  Mathematics
+X   AdvancedMathProcessor                    An advanced math formula solver
 
 LICENSE INFO: 
 CPOL (CodeProject Open License): AdvancedForm (gTitleBar), AdvancedLabel (gLabel), AdvancedTrackBar (gTrackBar) Copyright (C) 2009

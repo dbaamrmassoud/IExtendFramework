@@ -679,7 +679,7 @@ namespace IExtendFramework.Collections.Generic
             if (index < 0 || index >= _items.Length) throw new ArgumentOutOfRangeException("index");
             if (newIndex < 0 || newIndex >= _items.Length) throw new ArgumentOutOfRangeException("newIndex");
 
-            int min = Math.Min(index, newIndex);
+            int min = System.Math.Min(index, newIndex);
             T[] newArray = new T[_items.Length - min];
 
             int cp_index = index - min;

@@ -17,7 +17,7 @@ using System.Globalization;
 using System.Numerics;
 using System.Windows.Forms;
 
-namespace IExtendFramework.Math
+namespace IExtendFramework.Mathematics
 {
     /// <summary>
     /// An advanced math processer to process formulas

@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace IExtendFramework.Text
 {
-    class INIDocument
+    public class INIDocument
     {
         private Dictionary<string, NameValueCollection> data =
             new Dictionary<string,NameValueCollection>();
