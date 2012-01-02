@@ -64,7 +64,7 @@ X     AOLMessage                             Class for sending email using AOL
   Drawing
 X   XPoint                                   The Point class used in XImage (Contains an X, Y, and Color)
     XmlFormat
-X     XImage                                 XImage (Xml Image) class, Render doesn't work (use "ref"?)
+X     XImage                                 XImage (Xml Image) class, Render doesn't entirely work...
   Encryption
 X   SampleObjects                            Provide sample, unchanging Keys, IVs, and Generators
 X   AESProvider                              Provide simple usage for AES
@@ -97,5 +97,5 @@ Compression: BZip2, GZip, Tar under LGPL License from DotNetFireball (dotnetfire
 Zip Compression from ICSharpCode.SharpZipLib, DotNetFireball - LGPL License (dotnetfireball.org)
 Win32.NativeSubclasser under LGPL License - dotnetfireball.org
 
-Everything else has no license (yet) and was created by me (Elijah Frederickson)
+Everything else has the WTFPL license and was created by me (Elijah Frederickson)
 Just dont kill yourself with it.

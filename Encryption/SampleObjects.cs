@@ -17,7 +17,7 @@ namespace IExtendFramework.Encryption
         //** Create A Key
         //*************************
 
-        public byte[] CreateRijndaelKeyWithSHA512(string strPassword)
+        public static byte[] CreateRijndaelKeyWithSHA512(string strPassword)
         {
             //Convert strPassword to an array and store in chrData.
             char[] chrData = strPassword.ToCharArray();
@@ -50,7 +50,7 @@ namespace IExtendFramework.Encryption
         }
 
         //This gets a key without SHA512 hashing
-        public byte[] CreateRijndaelKeyWithoutSHA512(string strPassword)
+        public static byte[] CreateRijndaelKeyWithoutSHA512(string strPassword)
         {
             byte[] bytKey = null;
             byte[] bytSalt = System.Text.Encoding.ASCII.GetBytes("saltsalt");
@@ -65,7 +65,7 @@ namespace IExtendFramework.Encryption
         //** Create An IV
         //*************************
 
-        public byte[] CreateRijndaelIVWithSHA512(string strPassword)
+        public static byte[] CreateRijndaelIVWithSHA512(string strPassword)
         {
             //Convert strPassword to an array and store in chrData.
             char[] chrData = strPassword.ToCharArray();
@@ -98,7 +98,7 @@ namespace IExtendFramework.Encryption
         }
 
         //This gets an IV without SHA512 hashing
-        public byte[] CreateRijndaelIVWithoutSHA512(string strPassword)
+        public static byte[] CreateRijndaelIVWithoutSHA512(string strPassword)
         {
             byte[] bytIV = null;
             byte[] bytSalt = System.Text.Encoding.ASCII.GetBytes("saltsalt");
@@ -109,7 +109,7 @@ namespace IExtendFramework.Encryption
             //Return the IV.
         }
 
-        public byte[] CreateDESKey()
+        public static byte[] CreateDESKey()
         {
             byte[] R = {
                 24,
@@ -124,7 +124,7 @@ namespace IExtendFramework.Encryption
             return R;
         }
 
-        public byte[] CreateDESIV()
+        public static byte[] CreateDESIV()
         {
             byte[] R = {
                 158,
@@ -139,7 +139,7 @@ namespace IExtendFramework.Encryption
             return R;
         }
 
-        public byte[] CreateTripleDESKey()
+        public static byte[] CreateTripleDESKey()
         {
             byte[] R = {
                 1,
@@ -170,7 +170,7 @@ namespace IExtendFramework.Encryption
             return R;
         }
 
-        public byte[] CreateTripleDESIV()
+        public static byte[] CreateTripleDESIV()
         {
             byte[] R = {
                 8,
@@ -185,7 +185,7 @@ namespace IExtendFramework.Encryption
             return R;
         }
 
-        public byte[] CreateAESKey()
+        public static byte[] CreateAESKey()
         {
             byte[] R = {
                 168,
@@ -224,7 +224,7 @@ namespace IExtendFramework.Encryption
             return R;
         }
 
-        public byte[] CreateAESIV()
+        public static byte[] CreateAESIV()
         {
             byte[] R = {
                 178,
@@ -247,7 +247,7 @@ namespace IExtendFramework.Encryption
             return R;
         }
 
-        public byte[] CreateRC2Key()
+        public static byte[] CreateRC2Key()
         {
             byte[] R = {
                 66,
@@ -270,7 +270,7 @@ namespace IExtendFramework.Encryption
             return R;
         }
 
-        public byte[] CreateRC2IV()
+        public static byte[] CreateRC2IV()
         {
             byte[] R = {
                 177,

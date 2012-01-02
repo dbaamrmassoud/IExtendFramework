@@ -77,9 +77,13 @@ namespace IExtendFramework.IO.Compression.Packages
 
     public sealed class Packages
     {
+        /// <summary>
+        /// private constructor for the Packages class
+        /// </summary>
         private Packages()
         {
         }
+        
         /// <summary>
         /// Unpack the package file at the selected directory
         /// </summary>
@@ -142,6 +146,7 @@ namespace IExtendFramework.IO.Compression.Packages
             PackFile.Close();
             return true;
         }
+        
         /// <summary>
         /// Create a file pack, join all the files from PackFileInfoCollection into a single file
         /// </summary>
@@ -223,7 +228,7 @@ namespace IExtendFramework.IO.Compression.Packages
             Buffer = new Byte[InfoSize];
             PackFile.Read(Buffer, 0, InfoSize);
             String FileInfo = System.Text.Encoding.Default.GetString(Buffer);
-                
+            
             String[] Files = FileInfo.Split('|');
             foreach (String File in Files) {
                 String FileName = File.Split(';')[0];
@@ -235,6 +240,50 @@ namespace IExtendFramework.IO.Compression.Packages
             }
             PackFile.Close();
             return Filenames.ToArray();
+        }
+        
+        public static byte[] GetEntry(string PackFilePath, string filename)
+        {
+            System.IO.FileStream PackFile = new System.IO.FileStream(PackFilePath, System.IO.FileMode.Open);
+            
+            byte[] Buffer = null;
+            
+            //Read File Info Size
+            Buffer = new byte[4];
+            PackFile.Read(Buffer, 0, 4);
+            
+            Byte[] ByteInfoBytesSize = Buffer;
+            
+            //Fix original array size from size 4
+            while (ByteInfoBytesSize[0] == 0) {
+                Byte[] temp = ByteInfoBytesSize;
+                ByteInfoBytesSize = new Byte[ByteInfoBytesSize.Length - 1];
+                for (int i = 0; i <= ByteInfoBytesSize.Length - 1; i++) {
+                    ByteInfoBytesSize[i] = temp[i + 1];
+                }
+            }
+            int InfoSize = int.Parse(System.Text.Encoding.Default.GetString(ByteInfoBytesSize));
+            
+            //Read File Info
+            Buffer = new byte[InfoSize];
+            PackFile.Read(Buffer, 0, InfoSize);
+            String FileInfo = System.Text.Encoding.Default.GetString(Buffer);
+            Buffer = new byte[0];
+            
+            string[] Files = FileInfo.Split('|');
+            foreach (String File in Files) {
+                string FileName = File.Split(';')[0];
+                int FileByteSize = int.Parse(File.Split(';')[1]);
+                if (filename == FileName)
+                {
+                    Buffer = new Byte[FileByteSize];
+                    PackFile.Read(Buffer, 0, FileByteSize);
+                }
+            }
+            PackFile.Close();
+            if (Buffer.Length == 0)
+                throw new Exception("Could not find file '" + filename + "'!");
+            return Buffer;
         }
     }
 }

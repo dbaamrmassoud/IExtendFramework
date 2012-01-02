@@ -8,7 +8,6 @@
  */
 using System;
 using System.Drawing;
-using WeifenLuo.WinFormsUI.Docking;
 
 namespace IExtendFramework.Text
 {
@@ -17,8 +16,6 @@ namespace IExtendFramework.Text
     /// </summary>
     public interface ITextEditor
     {
-        DockContent DockingPanel
-        {get; }
         
         IFileExtension Extension
         {get; }

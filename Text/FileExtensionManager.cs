@@ -27,18 +27,21 @@ namespace IExtendFramework.Text
         public static ITextEditor OpenDocument(string filename)
         {
             string ext = System.IO.Path.GetExtension(filename);
+            bool found = false;
             foreach (ITextEditor editor in Editors)
             {
                 if (editor.Extension.Extension.ToLower() == ext)
                 {
                     ITextEditor e = editor.Create(filename);
-                    //e.Close += 
+                    //e.Close +=
                     openEditors.Add(e);
+                    found = true;
                     return e;
                 }
             }
-            
-            throw new IExtendFrameworkException("Cannot find extension '" + ext.ToLower() + "' in extension list!");
+            if (!found)
+                throw new IExtendFrameworkException("Cannot find extension '" + ext.ToLower() + "' in extension list!");
+            return null;
         }
         
         public static void AddEditor(ITextEditor editor)

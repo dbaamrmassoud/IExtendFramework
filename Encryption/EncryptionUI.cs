@@ -23,7 +23,6 @@ namespace IExtendFramework.Encryption
         private XorProvider xorLib = new XorProvider();
         private DESProvider desLib;
         private TripleDESProvider tripleDesLib;
-        private SampleObjects objects = new SampleObjects();
         private AESProvider aesLib;
         private RC2Provider rc2Lib;
         private RSAProvider rsaLib;
@@ -32,7 +31,7 @@ namespace IExtendFramework.Encryption
         {
             string result = "";
             string result2 = "";
-            tripleDesLib = new TripleDESProvider(objects.CreateTripleDESKey(), objects.CreateTripleDESIV());
+            tripleDesLib = new TripleDESProvider(SampleObjects.CreateTripleDESKey(), SampleObjects.CreateTripleDESIV());
             if (asciiRadioButton.Checked) {
                 result = asciiLib.Encrypt(TextBox1.Text, Convert.ToInt32(codeTextBox.Text));
                 result2 = asciiLib.Decrypt(result, Convert.ToInt32(codeTextBox.Text));
@@ -42,12 +41,12 @@ namespace IExtendFramework.Encryption
                 byte[] t = myEnc.GetBytes(TextBox1.Text.ToCharArray());
                 //convert string to bytes
                 //Dim input() As Byte = m_utf8.GetBytes(TextBox1.Text.ToCharArray())
-                rijndaelLib = new RijndaelProvider(objects.CreateRijndaelKeyWithSHA512(Interaction.InputBox("Key: ")), objects.CreateRijndaelIVWithSHA512(Interaction.InputBox("IV: ")));
+                rijndaelLib = new RijndaelProvider(SampleObjects.CreateRijndaelKeyWithSHA512(Interaction.InputBox("Key: ")), SampleObjects.CreateRijndaelIVWithSHA512(Interaction.InputBox("IV: ")));
                 byte[] R = rijndaelLib.Encrypt(t);
                 result = myEnc.GetString(R);
                 result2 = myEnc.GetString(rijndaelLib.Decrypt(R));
             } else if (desRadioButton.Checked) {
-                desLib = new DESProvider(objects.CreateDESKey(), objects.CreateDESIV());
+                desLib = new DESProvider(SampleObjects.CreateDESKey(), SampleObjects.CreateDESIV());
                 result = desLib.Encrypt(TextBox1.Text);
                 result2 = desLib.Decrypt(result);
             } else if (tripleDesRadioButton.Checked) {
@@ -57,11 +56,11 @@ namespace IExtendFramework.Encryption
                 result = xorLib.Encrypt(TextBox1.Text, Convert.ToInt32(codeTextBox.Text));
                 result2 = xorLib.Decrypt(result, Convert.ToInt32(codeTextBox.Text));
             } else if (aesRadioButton.Checked) {
-                aesLib = new AESProvider(objects.CreateAESKey(), objects.CreateAESIV());
+                aesLib = new AESProvider(SampleObjects.CreateAESKey(), SampleObjects.CreateAESIV());
                 result = aesLib.Encrypt(TextBox1.Text);
                 result2 = aesLib.Decrypt(result);
             } else if (rcTwoRadioButton.Checked) {
-                rc2Lib = new RC2Provider(objects.CreateRC2Key(), objects.CreateRC2IV());
+                rc2Lib = new RC2Provider(SampleObjects.CreateRC2Key(), SampleObjects.CreateRC2IV());
                 result = rc2Lib.Encrypt(TextBox1.Text);
                 result2 = rc2Lib.Decrypt(result);
             } else if (rsaRadioButton.Checked) {
