@@ -14,12 +14,12 @@ namespace IExtendFramework.Encryption
     /// <summary>
     /// L1F3 is an encryption system that uses multiple other types in its system.
     /// </summary>
-    public sealed class L1F3
+    public sealed class L1F3Provider
     {
         /// <summary>
         /// All methods are static, no need to create an instance.
         /// </summary>
-        private L1F3()
+        private L1F3Provider()
         {
             
         }

@@ -14,46 +14,41 @@ namespace IExtendFramework.Encryption
     public class AESProvider
     {
         // define the AES
-
-        private AesCryptoServiceProvider AESCryptoServiceProvider = new AesCryptoServiceProvider();
+        
+        private static AesCryptoServiceProvider AESCryptoServiceProvider = new AesCryptoServiceProvider();
         // define the string handler
-
-        private UTF8Encoding utf8 = new UTF8Encoding();
+        
+        private static UTF8Encoding utf8 = new UTF8Encoding();
         // define the local property arrays
-        private byte[] _key;
-
-        private byte[] _iv;
-        public AESProvider(byte[] key, byte[] iv)
+        public static byte[] Key = SampleObjects.CreateAESKey();
+        
+        public static byte[] IV = SampleObjects.CreateAESIV();
+        
+        public static byte[] Encrypt(byte[] input)
         {
-            this._key = key;
-            this._iv = iv;
+            return Transform(input, AESCryptoServiceProvider.CreateEncryptor(Key, IV));
         }
-
-        public byte[] Encrypt(byte[] input)
+        
+        public static byte[] Decrypt(byte[] input)
         {
-            return Transform(input, AESCryptoServiceProvider.CreateEncryptor(_key, _iv));
+            return Transform(input, AESCryptoServiceProvider.CreateDecryptor(Key, IV));
         }
-
-        public byte[] Decrypt(byte[] input)
-        {
-            return Transform(input, AESCryptoServiceProvider.CreateDecryptor(_key, _iv));
-        }
-
-        public string Encrypt(string text)
+        
+        public static string Encrypt(string text)
         {
             byte[] input = utf8.GetBytes(text);
-            byte[] output = Transform(input, AESCryptoServiceProvider.CreateEncryptor(_key, _iv));
+            byte[] output = Transform(input, AESCryptoServiceProvider.CreateEncryptor(Key, IV));
             return utf8.GetString(output);
         }
-
-        public string Decrypt(string text)
+        
+        public static string Decrypt(string text)
         {
             byte[] input = utf8.GetBytes(text);
-            byte[] output = Transform(input, AESCryptoServiceProvider.CreateDecryptor(_key, _iv));
+            byte[] output = Transform(input, AESCryptoServiceProvider.CreateDecryptor(Key, IV));
             return utf8.GetString(output);
         }
-
-        private byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)
+        
+        private static byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)
         {
             // create the necessary streams
             MemoryStream memStream = new MemoryStream();

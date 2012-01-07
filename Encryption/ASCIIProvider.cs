@@ -11,7 +11,7 @@ namespace IExtendFramework.Encryption
     public class ASCIIProvider
     {
 
-        public string Encrypt(string line, int acode)
+        public static string Encrypt(string line, int acode)
         {
             string Encrypted = "";
             char letter = '\0';
@@ -28,7 +28,7 @@ namespace IExtendFramework.Encryption
             return Encrypted;
         }
 
-        public string Decrypt(string line, int acode)
+        public static string Decrypt(string line, int acode)
         {
             string AllText = null;
             short i = 0;

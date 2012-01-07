@@ -15,46 +15,42 @@ namespace IExtendFramework.Encryption
     public class DESProvider
     {
         // define the des provider
-
-        private DESCryptoServiceProvider m_des = new DESCryptoServiceProvider();
+        
+        private static DESCryptoServiceProvider m_des = new DESCryptoServiceProvider();
+        
         // define the string handler
-
-        private UTF8Encoding m_utf8 = new UTF8Encoding();
+        private static UTF8Encoding m_utf8 = new UTF8Encoding();
+        
         // define the local property arrays
-        private byte[] m_key;
-
-        private byte[] m_iv;
-        public DESProvider(byte[] key, byte[] iv)
+        public static byte[] Key;
+        
+        public static byte[] IV;
+        
+        public static byte[] Encrypt(byte[] input)
         {
-            this.m_key = key;
-            this.m_iv = iv;
+            return Transform(input, m_des.CreateEncryptor(Key, IV));
         }
 
-        public byte[] Encrypt(byte[] input)
+        public static byte[] Decrypt(byte[] input)
         {
-            return Transform(input, m_des.CreateEncryptor(m_key, m_iv));
+            return Transform(input, m_des.CreateDecryptor(Key, IV));
         }
 
-        public byte[] Decrypt(byte[] input)
-        {
-            return Transform(input, m_des.CreateDecryptor(m_key, m_iv));
-        }
-
-        public string Encrypt(string text)
+        public static string Encrypt(string text)
         {
             byte[] input = m_utf8.GetBytes(text);
-            byte[] output = Transform(input, m_des.CreateEncryptor(m_key, m_iv));
+            byte[] output = Transform(input, m_des.CreateEncryptor(Key, IV));
             return m_utf8.GetString(output);
         }
 
-        public string Decrypt(string text)
+        public static string Decrypt(string text)
         {
             byte[] input = m_utf8.GetBytes(text);
-            byte[] output = Transform(input, m_des.CreateDecryptor(m_key, m_iv));
+            byte[] output = Transform(input, m_des.CreateDecryptor(Key, IV));
             return m_utf8.GetString(output);
         }
 
-        private byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)
+        private static byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)
         {
             // create the necessary streams
             MemoryStream memStream = new MemoryStream();

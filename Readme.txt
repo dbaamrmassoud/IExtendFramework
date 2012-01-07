@@ -75,13 +75,16 @@ X   RC2Provider                              Provides simple RC2 usage
 X   RijndaelProvider                         Provide simple Rijndael encryption
 X   RSAProvider                              Provide simple RSA Encryption class
 X   TripleDESProvider                        A TripleDES provider
-X   XorProvider                              eXclusive OR, '^' in C#, Provides a class for using this to encrypt
+X   XorProvider                              eXclusive OR ('^' in C#). Provides a class for using this to encrypt
+    L1F3Provider                             Not an encryption type, but uses multiple types to encrypt
 X Converter                                  Simple and useful conversion facility
 X AssemblyHelper                             Functions for using System.Reflection.Assembly easier
 X Utilites                                   Useful functions
 X IExtendFrameworkException                  An exception class
   Mathematics
 X   AdvancedMathProcessor                    An advanced math formula solver
+  TypeExtensions                             Type extensions (duh)...
+  
 
 LICENSE INFO: 
 CPOL (CodeProject Open License): AdvancedForm (gTitleBar), AdvancedLabel (gLabel), AdvancedTrackBar (gTrackBar) Copyright (C) 2009

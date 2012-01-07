@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Encryption\EncryptionType.cs" />
     <Compile Include="Encryption\L1F3.cs" />
     <Compile Include="Math\Math.cs" />
     <Compile Include="AssemblyHelper.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Text\IDocument.cs" />
     <Compile Include="Text\IFileExtension.cs" />
     <Compile Include="Text\ITextEditor.cs" />
+    <Compile Include="TypeExtensions.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Win32\NativeSubclasser.cs" />
     <Compile Include="Win32\Win32Messages.cs" />
