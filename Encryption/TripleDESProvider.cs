@@ -17,45 +17,40 @@ namespace IExtendFramework.Encryption
 
         // define the triple des provider
 
-        private TripleDESCryptoServiceProvider _tripleDES = new TripleDESCryptoServiceProvider();
+        private static TripleDESCryptoServiceProvider _tripleDES = new TripleDESCryptoServiceProvider();
         // define the string handler
 
-        private UTF8Encoding _utf8 = new UTF8Encoding();
+        private static UTF8Encoding _utf8 = new UTF8Encoding();
         // define the local property arrays
-        private byte[] _key;
+        private static byte[] Key = SampleObjects.CreateTripleDESKey();
 
-        private byte[] _iv;
-        public TripleDESProvider(byte[] key, byte[] iv)
+        private static byte[] IV = SampleObjects.CreateTripleDESIV();
+
+        public static byte[] Encrypt(byte[] input)
         {
-            this._key = key;
-            this._iv = iv;
+            return Transform(input, _tripleDES.CreateEncryptor(Key, IV));
         }
 
-        public byte[] Encrypt(byte[] input)
+        public static byte[] Decrypt(byte[] input)
         {
-            return Transform(input, _tripleDES.CreateEncryptor(_key, _iv));
+            return Transform(input, _tripleDES.CreateDecryptor(Key, IV));
         }
 
-        public byte[] Decrypt(byte[] input)
-        {
-            return Transform(input, _tripleDES.CreateDecryptor(_key, _iv));
-        }
-
-        public string Encrypt(string text)
+        public static string Encrypt(string text)
         {
             byte[] input = _utf8.GetBytes(text);
-            byte[] output = Transform(input, _tripleDES.CreateEncryptor(_key, _iv));
+            byte[] output = Transform(input, _tripleDES.CreateEncryptor(Key, IV));
             return _utf8.GetString(output);
         }
 
-        public string Decrypt(string text)
+        public static string Decrypt(string text)
         {
             byte[] input = _utf8.GetBytes(text);
-            byte[] output = Transform(input, _tripleDES.CreateDecryptor(_key, _iv));
+            byte[] output = Transform(input, _tripleDES.CreateDecryptor(Key, IV));
             return _utf8.GetString(output);
         }
 
-        private byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)
+        private static byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)
         {
             // create the necessary streams
             MemoryStream memStream = new MemoryStream();

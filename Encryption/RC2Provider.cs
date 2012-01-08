@@ -15,45 +15,39 @@ namespace IExtendFramework.Encryption
     {
         // define the RC2 provider
 
-        private RC2CryptoServiceProvider m_rc2 = new RC2CryptoServiceProvider();
+        private static RC2CryptoServiceProvider m_rc2 = new RC2CryptoServiceProvider();
         // define the string handler
 
-        private UTF8Encoding m_utf8 = new UTF8Encoding();
+        private static UTF8Encoding m_utf8 = new UTF8Encoding();
         // define the local property arrays
-        private byte[] m_key;
+        private static byte[] Key = SampleObjects.CreateRC2Key();
 
-        private byte[] m_iv;
-        public RC2Provider(byte[] key, byte[] iv)
+        private static byte[] IV = SampleObjects.CreateRC2IV();
+        public static byte[] Encrypt(byte[] input)
         {
-            this.m_key = key;
-            this.m_iv = iv;
+            return Transform(input, m_rc2.CreateEncryptor(Key, IV));
         }
 
-        public byte[] Encrypt(byte[] input)
+        public static byte[] Decrypt(byte[] input)
         {
-            return Transform(input, m_rc2.CreateEncryptor(m_key, m_iv));
+            return Transform(input, m_rc2.CreateDecryptor(Key, IV));
         }
 
-        public byte[] Decrypt(byte[] input)
-        {
-            return Transform(input, m_rc2.CreateDecryptor(m_key, m_iv));
-        }
-
-        public string Encrypt(string text)
+        public static string Encrypt(string text)
         {
             byte[] input = m_utf8.GetBytes(text);
-            byte[] output = Transform(input, m_rc2.CreateEncryptor(m_key, m_iv));
+            byte[] output = Transform(input, m_rc2.CreateEncryptor(Key, IV));
             return m_utf8.GetString(output);
         }
 
-        public string Decrypt(string text)
+        public static string Decrypt(string text)
         {
             byte[] input = m_utf8.GetBytes(text);
-            byte[] output = Transform(input, m_rc2.CreateDecryptor(m_key, m_iv));
+            byte[] output = Transform(input, m_rc2.CreateDecryptor(Key, IV));
             return m_utf8.GetString(output);
         }
 
-        private byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)
+        private static byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)
         {
             // create the necessary streams
             MemoryStream memStream = new MemoryStream();

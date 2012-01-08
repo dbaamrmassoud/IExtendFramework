@@ -17,57 +17,41 @@ namespace IExtendFramework.Encryption
         {
             InitializeComponent();
         }
-        
-        private ASCIIProvider asciiLib = new ASCIIProvider();
-        private RijndaelProvider rijndaelLib;
-        private XorProvider xorLib = new XorProvider();
-        private DESProvider desLib;
-        private TripleDESProvider tripleDesLib;
-        private AESProvider aesLib;
-        private RC2Provider rc2Lib;
-        private RSAProvider rsaLib;
-        
         private void encryptButton_Click(System.Object sender, System.EventArgs e)
         {
             string result = "";
             string result2 = "";
-            tripleDesLib = new TripleDESProvider(SampleObjects.CreateTripleDESKey(), SampleObjects.CreateTripleDESIV());
             if (asciiRadioButton.Checked) {
-                result = asciiLib.Encrypt(TextBox1.Text, Convert.ToInt32(codeTextBox.Text));
-                result2 = asciiLib.Decrypt(result, Convert.ToInt32(codeTextBox.Text));
+                result = ASCIIProvider.Encrypt(TextBox1.Text, Convert.ToInt32(codeTextBox.Text));
+                result2 = ASCIIProvider.Decrypt(result, Convert.ToInt32(codeTextBox.Text));
             } else if (rijndaelRadioButton.Checked) {
                 System.Text.Encoding myEnc = null;
                 myEnc = System.Text.Encoding.GetEncoding("Windows-1252");
                 byte[] t = myEnc.GetBytes(TextBox1.Text.ToCharArray());
                 //convert string to bytes
                 //Dim input() As Byte = m_utf8.GetBytes(TextBox1.Text.ToCharArray())
-                rijndaelLib = new RijndaelProvider(SampleObjects.CreateRijndaelKeyWithSHA512(Interaction.InputBox("Key: ")), SampleObjects.CreateRijndaelIVWithSHA512(Interaction.InputBox("IV: ")));
-                byte[] R = rijndaelLib.Encrypt(t);
+                byte[] R = RijndaelProvider.Encrypt(t);
                 result = myEnc.GetString(R);
-                result2 = myEnc.GetString(rijndaelLib.Decrypt(R));
+                result2 = myEnc.GetString(RijndaelProvider.Decrypt(R));
             } else if (desRadioButton.Checked) {
-                desLib = new DESProvider(SampleObjects.CreateDESKey(), SampleObjects.CreateDESIV());
-                result = desLib.Encrypt(TextBox1.Text);
-                result2 = desLib.Decrypt(result);
+                result = DESProvider.Encrypt(TextBox1.Text);
+                result2 = DESProvider.Decrypt(result);
             } else if (tripleDesRadioButton.Checked) {
-                result = tripleDesLib.Encrypt(TextBox1.Text);
-                result2 = tripleDesLib.Decrypt(result);
+                result = TripleDESProvider.Encrypt(TextBox1.Text);
+                result2 = TripleDESProvider.Decrypt(result);
             } else if (xorRadioButton.Checked) {
-                result = xorLib.Encrypt(TextBox1.Text, Convert.ToInt32(codeTextBox.Text));
-                result2 = xorLib.Decrypt(result, Convert.ToInt32(codeTextBox.Text));
+                result = XorProvider.Encrypt(TextBox1.Text, Convert.ToInt32(codeTextBox.Text));
+                result2 = XorProvider.Decrypt(result, Convert.ToInt32(codeTextBox.Text));
             } else if (aesRadioButton.Checked) {
-                aesLib = new AESProvider(SampleObjects.CreateAESKey(), SampleObjects.CreateAESIV());
-                result = aesLib.Encrypt(TextBox1.Text);
-                result2 = aesLib.Decrypt(result);
+                result = AESProvider.Encrypt(TextBox1.Text);
+                result2 = AESProvider.Decrypt(result);
             } else if (rcTwoRadioButton.Checked) {
-                rc2Lib = new RC2Provider(SampleObjects.CreateRC2Key(), SampleObjects.CreateRC2IV());
-                result = rc2Lib.Encrypt(TextBox1.Text);
-                result2 = rc2Lib.Decrypt(result);
+                result = RC2Provider.Encrypt(TextBox1.Text);
+                result2 = RC2Provider.Decrypt(result);
             } else if (rsaRadioButton.Checked) {
-                rsaLib = new RSAProvider();
                 try {
-                    result = rsaLib.Encrypt(TextBox1.Text);
-                    result2 = rsaLib.Decrypt(result);
+                    result = RSAProvider.Encrypt(TextBox1.Text);
+                    result2 = RSAProvider.Decrypt(result);
                 } catch (Exception ex) {
                     Interaction.MsgBox(ex.ToString());
                     TextBox1.Text = ex.ToString();

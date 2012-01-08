@@ -11,7 +11,7 @@ namespace IExtendFramework.Encryption
     public class XorProvider
     {
 
-        public string Encrypt(string line, int xcode)
+        public static string Encrypt(string line, int xcode)
         {
             char letter = '\0';
             string strCode = xcode.ToString();
@@ -35,7 +35,7 @@ namespace IExtendFramework.Encryption
             return encrypted;
         }
 
-        public string Decrypt(string line, int xcode)
+        public static string Decrypt(string line, int xcode)
         {
             string AllText = null;
             short i = 0;

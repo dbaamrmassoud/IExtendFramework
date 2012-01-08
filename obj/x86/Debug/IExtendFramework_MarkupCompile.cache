@@ -16,5 +16,5 @@ DEBUG;TRACE
 17-11003545
 Controls\AdvancedMessageBox\CommandLink.xaml;Controls\AdvancedMessageBox\ResourceDictionaries\Common.xaml;Controls\AdvancedMessageBox\TaskDialog.xaml;
 
-True
+False
 
