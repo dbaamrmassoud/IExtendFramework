@@ -86,7 +86,7 @@ X IExtendFrameworkException                  An exception class
   Mathematics
 X   AdvancedMathProcessor                    An advanced math formula solver
 X TypeExtensions                             Type extensions (duh)...
-  
+  EnumHelper                                 Helps with the slow built-in enum methods
 
 LICENSE INFO: 
 CPOL (CodeProject Open License): AdvancedForm (gTitleBar), AdvancedLabel (gLabel), AdvancedTrackBar (gTrackBar) Copyright (C) 2009
@@ -96,6 +96,7 @@ CPOL (CodeProject Open License): AdvancedPopupWindow Copyright (C) 2011 by Simon
 CPOL (CodeProject Open License): AdvancedProgressBar (ProgBarPlus) Copyright (C) 2008
 CPOL (CodeProject Open License): AdvancedMessageBox (WPFTaskDialog) (C) Sean A. Hanley 2010
 CPOL (CodeProject Open License): INIDocument (TA_INIDocument)
+CPOL (CodeProject Open License): EnumHelper (Enum) Ideafixxxer 2011 (see notice in file)
 
 Compression: BZip2, GZip, Tar under LGPL License from DotNetFireball (dotnetfireball.org)
 7z compression from 7zip (7-zip.org), DotNetFireball (dotnetfireball.org)

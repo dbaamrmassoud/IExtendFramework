@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Encryption\EncryptionType.cs" />
     <Compile Include="Encryption\L1F3.cs" />
+    <Compile Include="EnumHelper.cs" />
     <Compile Include="Math\Math.cs" />
     <Compile Include="AssemblyHelper.cs" />
     <Compile Include="Collections\FIFOList.cs" />

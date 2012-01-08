@@ -1,6 +1,6 @@
 #region Licenze
 
-//    Copyright (C) 2004  Sebastian Faltoni <sebastian@dotnetIExtendFramework.net>
+//    Copyright (C) 2004  Sebastian Faltoni <sebastian@dotnetfireball.net>
 //
 //    This library is free software; you can redistribute it and/or
 //    modify it under the terms of the GNU Lesser General Public

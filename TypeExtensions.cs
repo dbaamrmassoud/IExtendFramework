@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -191,6 +192,9 @@ namespace IExtendFramework
             if (t == IterateType.NestedTypes)
                 foreach (Type ty in o.GetType().GetNestedTypes())
                     yield return t;
+            if (t == IterateType.IterateValues)
+                foreach (object o2 in (o as System.Collections.IEnumerable))
+                    yield return o2;
         }
         #endregion
         
@@ -319,6 +323,43 @@ namespace IExtendFramework
             return null;
         }
         #endregion
+        
+        /// <summary>
+        /// Fancier tostring
+        /// </summary>
+        /// <param name="obj">this object</param>
+        /// <param name="indent">don't set this. its an internally set value.</param>
+        /// <returns>the fancy Tostring output</returns>
+        public static string PrettyToString(this object obj, string indent = " ")
+        {
+            string result = "";
+            
+            // Type name
+            result += (indent == " " ? "" : indent) + "[Type '"+ obj.GetType().FullName + "']\n" + 
+                (indent == " " ? "" : indent) +
+                 "{\n";
+            
+            // Check if enumerator/iterator
+            IEnumerable ienumberable = obj as IEnumerable;
+            if (ienumberable != null)
+            {
+                result += indent + " IEnumerable Values\n";
+                foreach (object o in ienumberable)
+                    result += o.PrettyToString(indent + "  ");
+            }
+            
+            // Properties
+            result += indent + " Properties: \n";
+            PropertyInfo[] pic = obj.GetType().GetProperties();
+            foreach (PropertyInfo pi in pic)
+                result += indent + "  " + pi.Name + " = " + pi.GetValue(obj, new object[] { pi.GetIndexParameters()[0] }) + "\n";
+            
+            result += indent + " ToString: '" + obj.ToString() + "'\n";
+            result += indent + " Hashcode: '" + obj.GetHashCode() + "'\n";
+            
+            result += (indent == " " ? "" : indent) + "}\n";
+            return result;
+        }
     }
     
     public enum FormatType
@@ -349,6 +390,8 @@ namespace IExtendFramework
         Events,
         Constructors,
         ImplementedInterfaces,
-        NestedTypes
+        NestedTypes,
+        // actual iteration
+        IterateValues
     }
 }
