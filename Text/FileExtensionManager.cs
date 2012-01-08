@@ -11,17 +11,19 @@ using System.Collections.Generic;
 
 namespace IExtendFramework.Text
 {
+    public delegate void FileOpened(string filename, ITextEditor editor);
     /// <summary>
     /// Class that contains methods for opening files
     /// </summary>
     public class FileExtensionManager
     {
+        public static event FileOpened OpeningFile;
+        
         public static readonly List<ITextEditor> Editors = new List<ITextEditor>();
         private static List<ITextEditor> openEditors = new List<ITextEditor>();
         
         private FileExtensionManager()
         {
-            
         }
         
         public static ITextEditor OpenDocument(string filename)
@@ -33,7 +35,8 @@ namespace IExtendFramework.Text
                 if (editor.Extension.Extension.ToLower() == ext)
                 {
                     ITextEditor e = editor.Create(filename);
-                    //e.Close +=
+                    //e.Close += delegate() { openEditors.Remove(e); };
+                    OpeningFile(filename, e);
                     openEditors.Add(e);
                     found = true;
                     return e;

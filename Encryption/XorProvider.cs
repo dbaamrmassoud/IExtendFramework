@@ -32,7 +32,7 @@ namespace IExtendFramework.Encryption
                 //separate numbers with a space
                 encrypted += " ";
             }
-            return encrypted;
+            return encrypted.Trim();
         }
 
         public static string Decrypt(string line, int xcode)
@@ -40,13 +40,11 @@ namespace IExtendFramework.Encryption
             string AllText = null;
             short i = 0;
             char ch = '\0';
-            string strCode = xcode.ToString();
-            short Code = 0;
+            short Code = Convert.ToInt16(xcode);
             short Number = 0;
             string[] Numbers = null;
             string Decrypted = "";
-
-            Code = Convert.ToInt16(strCode);
+            
             //read encrypted numbers
             AllText = line;
             AllText = AllText.Trim();

@@ -8,6 +8,7 @@
  */
 using System;
 using System.IO;
+using System.Text;
 
 namespace IExtendFramework
 {
@@ -20,7 +21,7 @@ namespace IExtendFramework
         {
         }
         
-        public static string FormatByte(long bytes)
+        public static string FormatByteToSize(long bytes)
         {
             string result = String.Empty;
             
@@ -38,10 +39,10 @@ namespace IExtendFramework
 
         public static string FormatSpeed(long bytes)
         {
-            return FormatByte(bytes) + "/s";
+            return FormatByteToSize(bytes) + "/s";
         }
 
-        public static string Hash(string fileName)
+        public static string MD5Hash(string fileName)
         {
             string result = string.Empty;
             using (System.IO.FileStream fs = System.IO.File.OpenRead(fileName))
@@ -68,6 +69,23 @@ namespace IExtendFramework
         {
             if (Directory.Exists(path))
                 Directory.Delete(path, recursive);
+        }
+        
+        public static string ByteToString(byte[] i)
+        {
+            string o = "{ ";
+            // stick all these bytes in here
+            foreach (byte b in i)
+                o += b.ToString() + ", ";
+            // remove last ', '
+            o = o.Substring(0, o.LastIndexOf(","));
+            o += " }";
+            return o;
+        }
+        
+        public static byte[] StringToByte(string i)
+        {
+            return new UTF32Encoding().GetBytes(i.ToCharArray());
         }
     }
 }

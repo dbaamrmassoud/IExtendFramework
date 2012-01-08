@@ -1,5 +1,6 @@
 ﻿IExtendFramework - an application framework and collection of useful classes.
 Written entirely in C#
+WARNING: There are some problems decrypting data
 
 NON-CLASS TODO: 
 - Documentation
@@ -35,13 +36,14 @@ X   IDocument                                A Document interface, used in IText
 X   Permutation                              A Class for generating string permutations
 X   StringFactorials                         Gets the Factorial of a string
 X   INIDocument                              Read/Write .INI Files
+X   FileOpened                               Delegate for when a file is opened with FileExtensionManager
   Compiler
 X   ILanguage                                Interface for a language
 X   IParser                                  Interface for a parser
 X   ICompiler                                Interface for a compiler
   Win32
 X   NativeSubclasser                         A NativeWindow override
-X   Win32Messages                            Contains useful Win32 Messages in Hex, useful when overriding WndProc in controls
+X   Win32Messages                            Contains some Win32 Messages in Hex, useful when overriding WndProc in controls
   Compression
 X   Pack                                     PACK compression, can extract, create, and read filenames from a Pack file
 X   SevenZip                                 7z archive support
@@ -83,7 +85,7 @@ X Utilites                                   Useful functions
 X IExtendFrameworkException                  An exception class
   Mathematics
 X   AdvancedMathProcessor                    An advanced math formula solver
-  TypeExtensions                             Type extensions (duh)...
+X TypeExtensions                             Type extensions (duh)...
   
 
 LICENSE INFO: 

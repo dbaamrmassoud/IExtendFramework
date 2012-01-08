@@ -40,17 +40,14 @@ namespace IExtendFramework.Net.Mail
             //add the body of the email
             mM.Body = body;
             mM.IsBodyHtml = true;
-            //SMTP
-            SmtpClient SmtpServer = new SmtpClient();
-            //your credential will go here
-            SmtpServer.Credentials = new System.Net.NetworkCredential(userEmail, password);
             //port number to login hotmail server
             SmtpClient sC = new SmtpClient("smtp.live.com");
+            sC.Credentials = new System.Net.NetworkCredential(userEmail, password);
             sC.EnableSsl = true;
             //port number for Hot mail
             sC.Port = 25;
             //Send the email
-            SmtpServer.Send(mM);
+            sC.Send(mM);
         }//end of try block
     }
 }

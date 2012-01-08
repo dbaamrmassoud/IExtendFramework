@@ -113,6 +113,28 @@ namespace IExtendFramework
                 }
                 return n;
             }
+            if (t == FormatType.CreateAcronym)
+            {
+                if (s.Length == 0)
+                    return "";
+                
+                // get words
+                string[] s2 = s.Split(' ');
+                for (int i = 0; i < s2.Length; i++)
+                {
+                    string tmp = s2[i];
+                    while (!char.IsLetter(tmp[0]))
+                        tmp = tmp.Substring(1);
+                    s2[i] = tmp;
+                }
+                string result = "";
+                foreach (string str in s2)
+                {
+                    result += str[0];
+                }
+                return result.SpecialFormat(FormatType.AllUppercase);
+            }
+            
             throw new NotImplementedException("type '" + t.ToString() + "' not yet implemented!");
         }
         
@@ -172,14 +194,128 @@ namespace IExtendFramework
         }
         #endregion
         
-        #region Encryption
-        
+        #region Encryption/Decryption
         public static string Encrypt(this string s, EncryptionType e, params object[] args)
         {
             if (e == EncryptionType.ASCII)
-            {
                 return ASCIIProvider.Encrypt(s, (int) args[0]);
+            if (e == EncryptionType.AES)
+            {
+                if (args.Length >= 2)
+                {
+                    AESProvider.Key = (byte[]) args[0];
+                    AESProvider.IV = (byte[]) args[1];
+                }
+                return AESProvider.Encrypt(s);
             }
+            if (e == EncryptionType.DES)
+            {
+                if (args.Length >= 2)
+                {
+                    DESProvider.Key = (byte[]) args[0];
+                    DESProvider.IV = (byte[]) args[1];
+                }
+                return DESProvider.Encrypt(s);
+            }
+            if (e == EncryptionType.L1F3)
+            {
+                return Utilities.ByteToString(L1F3Provider.Encrypt(s));
+            }
+            if (e == EncryptionType.RC2)
+            {
+                if (args.Length >= 2)
+                {
+                    RC2Provider.Key = (byte[]) args[0];
+                    RC2Provider.IV = (byte[]) args[1];
+                }
+                return RC2Provider.Encrypt(s);
+            }
+            if (e == EncryptionType.Rijndael)
+            {
+                if (args.Length >= 2)
+                {
+                    RijndaelProvider.Key = (byte[]) args[0];
+                    RijndaelProvider.IV = (byte[]) args[1];
+                }
+                return RijndaelProvider.Encrypt(s);
+            }
+            if (e == EncryptionType.RSA)
+            {
+                return RSAProvider.Encrypt(s);
+            }
+            if (e == EncryptionType.TripleDES)
+            {
+                if (args.Length >= 2)
+                {
+                    TripleDESProvider.Key = (byte[]) args[0];
+                    TripleDESProvider.IV = (byte[]) args[1];
+                }
+                return TripleDESProvider.Encrypt(s);
+            }
+            if (e == EncryptionType.Xor)
+                return XorProvider.Encrypt(s, (int) args[0]);
+            return null;
+        }
+        
+        public static string Decrypt(this string s, EncryptionType e, params object[] args)
+        {
+            if (e == EncryptionType.ASCII)
+                return ASCIIProvider.Decrypt(s, (int) args[0]);
+            if (e == EncryptionType.AES)
+            {
+                if (args.Length >= 2)
+                {
+                    AESProvider.Key = (byte[]) args[0];
+                    AESProvider.IV = (byte[]) args[1];
+                }
+                return AESProvider.Decrypt(s);
+            }
+            if (e == EncryptionType.DES)
+            {
+                if (args.Length >= 2)
+                {
+                    DESProvider.Key = (byte[]) args[0];
+                    DESProvider.IV = (byte[]) args[1];
+                }
+                return DESProvider.Decrypt(s);
+            }
+            if (e == EncryptionType.L1F3)
+            {
+                return L1F3Provider.Decrypt(Utilities.StringToByte(s));
+            }
+            if (e == EncryptionType.RC2)
+            {
+                if (args.Length >= 2)
+                {
+                    RC2Provider.Key = (byte[]) args[0];
+                    RC2Provider.IV = (byte[]) args[1];
+                }
+                return RC2Provider.Decrypt(s);
+            }
+            if (e == EncryptionType.Rijndael)
+            {
+                if (args.Length >= 2)
+                {
+                    RijndaelProvider.Key = (byte[]) args[0];
+                    RijndaelProvider.IV = (byte[]) args[1];
+                }
+                return RijndaelProvider.Decrypt(s);
+            }
+            if (e == EncryptionType.RSA)
+            {
+                return RSAProvider.Decrypt(s);
+            }
+            if (e == EncryptionType.TripleDES)
+            {
+                if (args.Length >= 2)
+                {
+                    TripleDESProvider.Key = (byte[]) args[0];
+                    TripleDESProvider.IV = (byte[]) args[1];
+                }
+                return TripleDESProvider.Decrypt(s);
+            }
+            if (e == EncryptionType.Xor)
+                return XorProvider.Decrypt(s, (int) args[0]);
             return null;
         }
         #endregion
@@ -197,7 +333,10 @@ namespace IExtendFramework
         // Change sentence type
         ToQuestion,
         ToStatement,
-        ToExclamation
+        ToExclamation,
+        
+        // Other random stuff
+        CreateAcronym
     }
     
     public enum IterateType

@@ -19,11 +19,11 @@ namespace IExtendFramework.Encryption
         private static RijndaelManaged _Rijndael = new RijndaelManaged();
         // define the string handler
 
-        private static UTF8Encoding m_utf8 = new UTF8Encoding();
+        private static UTF32Encoding utf32 = new UTF32Encoding();
         // define the local property arrays
-        private static byte[] Key = SampleObjects.CreateRijndaelKeyWithSHA512("P455W0RD");
+        public static byte[] Key = SampleObjects.CreateRijndaelKeyWithSHA512("P455W0RD");
 
-        private static byte[] IV = SampleObjects.CreateRijndaelIVWithSHA512("P455W0RD");
+        public static byte[] IV = SampleObjects.CreateRijndaelIVWithSHA512("P455W0RD");
 
         public static byte[] Encrypt(byte[] input)
         {
@@ -37,16 +37,16 @@ namespace IExtendFramework.Encryption
 
         public static string Encrypt(string text)
         {
-            byte[] input = m_utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = Transform(input, _Rijndael.CreateEncryptor(Key, IV));
-            return m_utf8.GetString(output);
+            return utf32.GetString(output);
         }
 
         public static string Decrypt(string text)
         {
-            byte[] input = m_utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = Transform(input, _Rijndael.CreateDecryptor(Key, IV));
-            return m_utf8.GetString(output);
+            return utf32.GetString(output);
         }
 
         private static byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)

@@ -40,5 +40,6 @@ namespace IExtendFramework.Encryption
             string _out = new UTF8Encoding().GetString(_in);
             return ASCIIProvider.Decrypt(_out, 10);
         }
+        
     }
 }

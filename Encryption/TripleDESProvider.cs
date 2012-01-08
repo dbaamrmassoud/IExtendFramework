@@ -20,11 +20,11 @@ namespace IExtendFramework.Encryption
         private static TripleDESCryptoServiceProvider _tripleDES = new TripleDESCryptoServiceProvider();
         // define the string handler
 
-        private static UTF8Encoding _utf8 = new UTF8Encoding();
+        private static UTF32Encoding utf32 = new UTF32Encoding();
         // define the local property arrays
-        private static byte[] Key = SampleObjects.CreateTripleDESKey();
+        public static byte[] Key = SampleObjects.CreateTripleDESKey();
 
-        private static byte[] IV = SampleObjects.CreateTripleDESIV();
+        public static byte[] IV = SampleObjects.CreateTripleDESIV();
 
         public static byte[] Encrypt(byte[] input)
         {
@@ -38,16 +38,16 @@ namespace IExtendFramework.Encryption
 
         public static string Encrypt(string text)
         {
-            byte[] input = _utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = Transform(input, _tripleDES.CreateEncryptor(Key, IV));
-            return _utf8.GetString(output);
+            return utf32.GetString(output);
         }
 
         public static string Decrypt(string text)
         {
-            byte[] input = _utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = Transform(input, _tripleDES.CreateDecryptor(Key, IV));
-            return _utf8.GetString(output);
+            return utf32.GetString(output);
         }
 
         private static byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)

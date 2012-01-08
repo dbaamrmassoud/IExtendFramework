@@ -18,11 +18,12 @@ namespace IExtendFramework.Encryption
         private static RC2CryptoServiceProvider m_rc2 = new RC2CryptoServiceProvider();
         // define the string handler
 
-        private static UTF8Encoding m_utf8 = new UTF8Encoding();
+        private static UTF32Encoding utf32 = new UTF32Encoding();
         // define the local property arrays
-        private static byte[] Key = SampleObjects.CreateRC2Key();
-
-        private static byte[] IV = SampleObjects.CreateRC2IV();
+        public static byte[] Key = SampleObjects.CreateRC2Key();
+        
+        public static byte[] IV = SampleObjects.CreateRC2IV();
+        
         public static byte[] Encrypt(byte[] input)
         {
             return Transform(input, m_rc2.CreateEncryptor(Key, IV));
@@ -35,16 +36,16 @@ namespace IExtendFramework.Encryption
 
         public static string Encrypt(string text)
         {
-            byte[] input = m_utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = Transform(input, m_rc2.CreateEncryptor(Key, IV));
-            return m_utf8.GetString(output);
+            return utf32.GetString(output);
         }
 
         public static string Decrypt(string text)
         {
-            byte[] input = m_utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = Transform(input, m_rc2.CreateDecryptor(Key, IV));
-            return m_utf8.GetString(output);
+            return utf32.GetString(output);
         }
 
         private static byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)
@@ -57,7 +58,7 @@ namespace IExtendFramework.Encryption
             cryptStream.FlushFinalBlock();
             // Read the memory stream and convert it back into byte array
             memStream.Position = 0;
-            byte[] result = new byte[Convert.ToInt32(memStream.Length - 1) + 1];
+            byte[] result = new byte[Convert.ToInt32(memStream.Length)];
             memStream.Read(result, 0, Convert.ToInt32(result.Length));
             // close and release the streams
             memStream.Close();

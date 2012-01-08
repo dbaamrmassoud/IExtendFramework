@@ -19,12 +19,12 @@ namespace IExtendFramework.Encryption
         private static DESCryptoServiceProvider m_des = new DESCryptoServiceProvider();
         
         // define the string handler
-        private static UTF8Encoding m_utf8 = new UTF8Encoding();
+        private static UTF32Encoding utf32 = new UTF32Encoding();
         
         // define the local property arrays
-        public static byte[] Key;
+        public static byte[] Key = SampleObjects.CreateDESKey();
         
-        public static byte[] IV;
+        public static byte[] IV = SampleObjects.CreateDESIV();
         
         public static byte[] Encrypt(byte[] input)
         {
@@ -38,16 +38,16 @@ namespace IExtendFramework.Encryption
 
         public static string Encrypt(string text)
         {
-            byte[] input = m_utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = Transform(input, m_des.CreateEncryptor(Key, IV));
-            return m_utf8.GetString(output);
+            return utf32.GetString(output);
         }
 
         public static string Decrypt(string text)
         {
-            byte[] input = m_utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = Transform(input, m_des.CreateDecryptor(Key, IV));
-            return m_utf8.GetString(output);
+            return utf32.GetString(output);
         }
 
         private static byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)

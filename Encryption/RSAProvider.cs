@@ -20,13 +20,13 @@ namespace IExtendFramework.Encryption
         private static RSACryptoServiceProvider m_rsa = new RSACryptoServiceProvider();
         // define the string handler
 
-        private static UTF8Encoding m_utf8 = new UTF8Encoding();
+        private static UTF32Encoding utf32 = new UTF32Encoding();
 
         public static string Encrypt(string text)
         {
-            byte[] input = m_utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = m_rsa.Encrypt(input, false); // no OAEP padding
-            return m_utf8.GetString(output);
+            return utf32.GetString(output);
         }
 
         public static byte[] Encrypt(byte[] input)
@@ -37,10 +37,10 @@ namespace IExtendFramework.Encryption
 
         public static string Decrypt(string text)
         {
-            byte[] input = m_utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = null;
             output = m_rsa.Decrypt(input, false); // no OAEP padding
-            return m_utf8.GetString(output);
+            return utf32.GetString(output);
         }
 
         public static byte[] Decrypt(byte[] input)

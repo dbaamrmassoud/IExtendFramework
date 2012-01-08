@@ -18,7 +18,7 @@ namespace IExtendFramework.Encryption
         private static AesCryptoServiceProvider AESCryptoServiceProvider = new AesCryptoServiceProvider();
         // define the string handler
         
-        private static UTF8Encoding utf8 = new UTF8Encoding();
+        private static UTF32Encoding utf32 = new UTF32Encoding();
         // define the local property arrays
         public static byte[] Key = SampleObjects.CreateAESKey();
         
@@ -36,16 +36,16 @@ namespace IExtendFramework.Encryption
         
         public static string Encrypt(string text)
         {
-            byte[] input = utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = Transform(input, AESCryptoServiceProvider.CreateEncryptor(Key, IV));
-            return utf8.GetString(output);
+            return utf32.GetString(output);
         }
         
         public static string Decrypt(string text)
         {
-            byte[] input = utf8.GetBytes(text);
+            byte[] input = utf32.GetBytes(text);
             byte[] output = Transform(input, AESCryptoServiceProvider.CreateDecryptor(Key, IV));
-            return utf8.GetString(output);
+            return utf32.GetString(output);
         }
         
         private static byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)
