@@ -197,7 +197,7 @@ namespace IExtendFramework
                     yield return o2;
         }
         #endregion
-        
+        /*
         #region Encryption/Decryption
         public static string Encrypt(this string s, EncryptionType e, params object[] args)
         {
@@ -323,7 +323,7 @@ namespace IExtendFramework
             return null;
         }
         #endregion
-        
+        */
         /// <summary>
         /// Fancier tostring
         /// </summary>
@@ -335,9 +335,9 @@ namespace IExtendFramework
             string result = "";
             
             // Type name
-            result += (indent == " " ? "" : indent) + "[Type '"+ obj.GetType().FullName + "']\n" + 
+            result += (indent == " " ? "" : indent) + "[Type '"+ obj.GetType().FullName + "']\n" +
                 (indent == " " ? "" : indent) +
-                 "{\n";
+                "{\n";
             
             // Check if enumerator/iterator
             IEnumerable ienumberable = obj as IEnumerable;
@@ -349,11 +349,13 @@ namespace IExtendFramework
             }
             
             // Properties
-            result += indent + " Properties: \n";
-            PropertyInfo[] pic = obj.GetType().GetProperties();
-            foreach (PropertyInfo pi in pic)
-                result += indent + "  " + pi.Name + " = " + pi.GetValue(obj, new object[] { pi.GetIndexParameters()[0] }) + "\n";
-            
+            if (obj.GetType().GetProperties().Length > 0)
+            {
+                result += indent + " Properties: \n";
+                PropertyInfo[] pic = obj.GetType().GetProperties();
+                foreach (PropertyInfo pi in pic)
+                    result += indent + "  " + pi.Name + "\n"; //TODO: " = " + pi.GetValue(obj, new object[] { }) + "\n";
+            }
             result += indent + " ToString: '" + obj.ToString() + "'\n";
             result += indent + " Hashcode: '" + obj.GetHashCode() + "'\n";
             

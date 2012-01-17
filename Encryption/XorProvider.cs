@@ -10,19 +10,15 @@ namespace IExtendFramework.Encryption
 {
     public class XorProvider
     {
-
-        public static string Encrypt(string line, int xcode)
+        public static int Code = 100;
+        
+        public static string Encrypt(string line)
         {
             char letter = '\0';
-            string strCode = xcode.ToString();
             short i = 0;
             short charsInString = 0;
-            short Code = 0;
             string encrypted = "";
-
-
             //save text with encryption scheme
-            Code = Convert.ToInt16(strCode);
             charsInString = (short) line.Length;
             for (i = 0; i <= charsInString - 1; i++) {
                 letter = line.Substring(i, 1).ToCharArray()[0]; // one character, as a char
@@ -35,12 +31,11 @@ namespace IExtendFramework.Encryption
             return encrypted.Trim();
         }
 
-        public static string Decrypt(string line, int xcode)
+        public static string Decrypt(string line)
         {
             string AllText = null;
             short i = 0;
             char ch = '\0';
-            short Code = Convert.ToInt16(xcode);
             short Number = 0;
             string[] Numbers = null;
             string Decrypted = "";

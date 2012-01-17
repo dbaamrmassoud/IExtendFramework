@@ -73,6 +73,7 @@ namespace IExtendFramework
         
         public static string ByteToString(byte[] i)
         {
+            /*
             string o = "{ ";
             // stick all these bytes in here
             foreach (byte b in i)
@@ -81,6 +82,8 @@ namespace IExtendFramework
             o = o.Substring(0, o.LastIndexOf(","));
             o += " }";
             return o;
+            */
+           return new UTF32Encoding().GetString(i);
         }
         
         public static byte[] StringToByte(string i)

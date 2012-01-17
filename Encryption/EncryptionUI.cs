@@ -22,8 +22,8 @@ namespace IExtendFramework.Encryption
             string result = "";
             string result2 = "";
             if (asciiRadioButton.Checked) {
-                result = ASCIIProvider.Encrypt(TextBox1.Text, Convert.ToInt32(codeTextBox.Text));
-                result2 = ASCIIProvider.Decrypt(result, Convert.ToInt32(codeTextBox.Text));
+                result = ASCIIProvider.Encrypt(TextBox1.Text);
+                result2 = ASCIIProvider.Decrypt(result);
             } else if (rijndaelRadioButton.Checked) {
                 System.Text.Encoding myEnc = null;
                 myEnc = System.Text.Encoding.GetEncoding("Windows-1252");
@@ -40,8 +40,8 @@ namespace IExtendFramework.Encryption
                 result = TripleDESProvider.Encrypt(TextBox1.Text);
                 result2 = TripleDESProvider.Decrypt(result);
             } else if (xorRadioButton.Checked) {
-                result = XorProvider.Encrypt(TextBox1.Text, Convert.ToInt32(codeTextBox.Text));
-                result2 = XorProvider.Decrypt(result, Convert.ToInt32(codeTextBox.Text));
+                result = XorProvider.Encrypt(TextBox1.Text);
+                result2 = XorProvider.Decrypt(result);
             } else if (aesRadioButton.Checked) {
                 result = AESProvider.Encrypt(TextBox1.Text);
                 result2 = AESProvider.Decrypt(result);

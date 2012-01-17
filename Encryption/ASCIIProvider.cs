@@ -10,8 +10,9 @@ namespace IExtendFramework.Encryption
 {
     public class ASCIIProvider
     {
-
-        public static string Encrypt(string line, int acode)
+        public static int Code = 2;
+        
+        public static string Encrypt(string line)
         {
             string Encrypted = "";
             char letter = '\0';
@@ -22,13 +23,13 @@ namespace IExtendFramework.Encryption
             for (i = 0; i <= charsInFile - 1; i++) {
                 letter = line.Substring((int)i, 1).ToCharArray()[0];
                 //determine ASCII code and add acode to it
-                Encrypted = Encrypted + Strings.Chr(Strings.Asc(letter) + Convert.ToInt32(acode));
+                Encrypted = Encrypted + Strings.Chr(Strings.Asc(letter) + Code);
             }
             //return encrypted text
             return Encrypted;
         }
 
-        public static string Decrypt(string line, int acode)
+        public static string Decrypt(string line)
         {
             string AllText = null;
             short i = 0;
@@ -44,7 +45,7 @@ namespace IExtendFramework.Encryption
             for (i = 0; i <= charsInString - 1; i++) {
                 letter =AllText.Substring(i, 1).ToCharArray()[0];
                 //get character
-                Decrypted = Decrypted + Strings.Chr(Strings.Asc(letter) - Convert.ToInt32(acode));
+                Decrypted = Decrypted + Strings.Chr(Strings.Asc(letter) - Code);
                 //subtract acode
             }
             //and build new string

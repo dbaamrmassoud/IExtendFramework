@@ -76,7 +76,8 @@
     <Compile Include="Encryption\EncryptionType.cs" />
     <Compile Include="Encryption\L1F3.cs" />
     <Compile Include="EnumHelper.cs" />
-    <Compile Include="Math\Math.cs" />
+    <Compile Include="IO\EncryptedFileStream.cs" />
+    <Compile Include="Mathematics\AdvancedMathProcesser.cs" />
     <Compile Include="AssemblyHelper.cs" />
     <Compile Include="Collections\FIFOList.cs" />
     <Compile Include="Collections\Generic\FastQueue.cs" />
@@ -225,6 +226,11 @@
     <Compile Include="IO\ZipHelperEntry.cs" />
     <Compile Include="IO\ZipHelperFile.cs" />
     <None Include="Net\Mail\Mailer.txt" />
+    <Compile Include="Parser\IParserInput.cs" />
+    <Compile Include="Parser\MathParser.cs" />
+    <Compile Include="Parser\TextInput.cs" />
+    <Compile Include="Parser\ParserBase.cs" />
+    <Compile Include="Text\WordReader.cs" />
     <Compile Include="Threading\Thread.cs" />
     <Compile Include="Net\Mail\AOLMessage.cs" />
     <Compile Include="Net\Mail\GmailMessage.cs" />
@@ -328,6 +334,7 @@
     <Folder Include="IO\Compression\Zip\Compression\Streams" />
     <Folder Include="Compiler" />
     <Folder Include="Encryption" />
+    <Folder Include="Parser" />
     <Folder Include="Threading" />
     <Folder Include="Text" />
     <Folder Include="Plugins" />

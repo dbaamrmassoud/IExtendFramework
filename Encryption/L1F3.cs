@@ -26,7 +26,10 @@ namespace IExtendFramework.Encryption
         
         public static byte[] Encrypt(string _in)
         {
-            _in = ASCIIProvider.Encrypt(_in, 10);
+            int c = ASCIIProvider.Code;
+            ASCIIProvider.Code = 10;
+            _in = ASCIIProvider.Encrypt(_in);
+            ASCIIProvider.Code = c;
             byte[] _out = AESProvider.Encrypt(new UTF8Encoding().GetBytes(_in));
             _out  = TripleDESProvider.Encrypt(_out);
             
@@ -38,7 +41,10 @@ namespace IExtendFramework.Encryption
             _in = TripleDESProvider.Decrypt(_in);
             _in = AESProvider.Decrypt(_in);
             string _out = new UTF8Encoding().GetString(_in);
-            return ASCIIProvider.Decrypt(_out, 10);
+            int c = ASCIIProvider.Code;
+            ASCIIProvider.Code = 10;
+            return ASCIIProvider.Decrypt(_out);
+            ASCIIProvider.Code = c;
         }
         
     }
