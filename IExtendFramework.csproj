@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Encryption\EncryptionType.cs" />
+    <Compile Include="Encryption\H34RTProvider.cs" />
     <Compile Include="Encryption\L1F3.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="IO\EncryptedFileStream.cs" />

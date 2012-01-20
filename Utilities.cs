@@ -8,6 +8,7 @@
  */
 using System;
 using System.IO;
+using System.Security.AccessControl;
 using System.Text;
 
 namespace IExtendFramework
@@ -68,12 +69,23 @@ namespace IExtendFramework
         public static void SafeDirectoryDelete(string path, bool recursive)
         {
             if (Directory.Exists(path))
+            {
                 Directory.Delete(path, recursive);
+            }
         }
         
         public static string ByteToString(byte[] i)
         {
-            /*
+           return new UTF32Encoding().GetString(i);
+        }
+        
+        public static byte[] StringToByte(string i)
+        {
+            return new UTF32Encoding().GetBytes(i.ToCharArray());
+        }
+        
+        public static string PrettyByteToString(byte[] i)
+        {
             string o = "{ ";
             // stick all these bytes in here
             foreach (byte b in i)
@@ -82,13 +94,6 @@ namespace IExtendFramework
             o = o.Substring(0, o.LastIndexOf(","));
             o += " }";
             return o;
-            */
-           return new UTF32Encoding().GetString(i);
-        }
-        
-        public static byte[] StringToByte(string i)
-        {
-            return new UTF32Encoding().GetBytes(i.ToCharArray());
         }
     }
 }

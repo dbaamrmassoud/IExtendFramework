@@ -78,7 +78,8 @@ X   RijndaelProvider                         Provide simple Rijndael encryption
 X   RSAProvider                              Provide simple RSA Encryption class
 X   TripleDESProvider                        A TripleDES provider
 X   XorProvider                              eXclusive OR ('^' in C#). Provides a class for using this to encrypt
-    L1F3Provider                             Not an encryption type, but uses multiple types to encrypt
+X   L1F3Provider                             Not an encryption type, but uses multiple types to encrypt
+X   H34RTProvider                            A custom encryption type, using bit shifting. Very basic.
 X Converter                                  Simple and useful conversion facility
 X AssemblyHelper                             Functions for using System.Reflection.Assembly easier
 X Utilites                                   Useful functions
