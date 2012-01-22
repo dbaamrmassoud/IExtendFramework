@@ -1,11 +1,11 @@
-XImg is a new image format using xml.
+XImg/XImage is a new image format using xml.
 its format is 
 
 <Image>
   <Point>
     <X>100</X>
     <Y>100</Y>
-    <Color>REd</Color>
+    <Color>Red</Color>
   </Point>
 </Image>
 

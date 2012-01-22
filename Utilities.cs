@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Drawing;
 using System.IO;
 using System.Security.AccessControl;
 using System.Text;
@@ -16,7 +17,7 @@ namespace IExtendFramework
     /// <summary>
     /// Useful functions
     /// </summary>
-    public class Utilities
+    public sealed class Utilities
     {
         private Utilities()
         {
@@ -94,6 +95,11 @@ namespace IExtendFramework
             o = o.Substring(0, o.LastIndexOf(","));
             o += " }";
             return o;
+        }
+        
+        public static Icon BitmapToIcon(Bitmap i)
+        {
+            return Icon.FromHandle(i.GetHicon());
         }
     }
 }

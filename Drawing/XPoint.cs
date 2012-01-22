@@ -44,5 +44,11 @@ namespace IExtendFramework.Drawing
             get;
             set;
         }
+        
+        public override string ToString()
+        {
+            return string.Format("[XPoint, X={0}, Y={1}, Color={2}]", X, Y, Pen.Color.Name);
+        }
+
     }
 }

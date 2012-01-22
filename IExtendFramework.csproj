@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\XmlFormat\XImageControl.cs" />
     <Compile Include="Encryption\EncryptionType.cs" />
     <Compile Include="Encryption\H34RTProvider.cs" />
     <Compile Include="Encryption\L1F3.cs" />
