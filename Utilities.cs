@@ -25,18 +25,23 @@ namespace IExtendFramework
         
         public static string FormatByteToSize(long bytes)
         {
-            string result = String.Empty;
+            const long scale = 1024;
             
-            if (bytes < 1024)
-                result = String.Format("{0} B", bytes);
-            else if (bytes < 1024 * 1024)
-                result = String.Format("{0:0.00} KB", (float)bytes / (1024));
-            else if (bytes < 1024 * 1024 * 1024)
-                result = String.Format("{0:0.00} MB", (float)bytes / (1024 * 1024));
-            else
-                result = String.Format("{0:0.00} GB", (float)bytes / (1024 * 1024 * 1024));
-
-            return result;
+            string[] orders = new string[] { "EB", "PB", "TB", "GB", "MB", "KB", "Bytes" };
+            
+            var max = (long) Math.Pow(scale, (orders.Length - 1));
+            
+            // Go from Large to small
+            foreach (string order in orders)
+            {
+                if (bytes > max)
+                {
+                    return string.Format("{0:##.##} {1}", Decimal.Divide(bytes, max), order);
+                }
+                
+                max /= scale;
+            }
+            return bytes.ToString() + " Unknown size";
         }
 
         public static string FormatSpeed(long bytes)
@@ -77,7 +82,7 @@ namespace IExtendFramework
         
         public static string ByteToString(byte[] i)
         {
-           return new UTF32Encoding().GetString(i);
+            return new UTF32Encoding().GetString(i);
         }
         
         public static byte[] StringToByte(string i)

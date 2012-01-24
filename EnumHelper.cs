@@ -5,7 +5,9 @@
  * Time: 5:26 PM
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
- **************************************************************************
+ * 
+ ********************************************************************************
+ * 
  * This file was originally from
  * http://www.codeproject.com/KB/dotnet/enum.aspx
  * 

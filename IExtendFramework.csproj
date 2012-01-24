@@ -78,7 +78,10 @@
     <Compile Include="Encryption\H34RTProvider.cs" />
     <Compile Include="Encryption\L1F3.cs" />
     <Compile Include="EnumHelper.cs" />
+    <Compile Include="Inflector.cs" />
+    <Compile Include="IO\AdvancedFileStream.cs" />
     <Compile Include="IO\EncryptedFileStream.cs" />
+    <Compile Include="IO\IFileStream.cs" />
     <Compile Include="Mathematics\AdvancedMathProcesser.cs" />
     <Compile Include="AssemblyHelper.cs" />
     <Compile Include="Collections\FIFOList.cs" />
@@ -232,6 +235,7 @@
     <Compile Include="Parser\MathParser.cs" />
     <Compile Include="Parser\TextInput.cs" />
     <Compile Include="Parser\ParserBase.cs" />
+    <Compile Include="RegexPatterns.cs" />
     <Compile Include="Text\WordReader.cs" />
     <Compile Include="Threading\Thread.cs" />
     <Compile Include="Net\Mail\AOLMessage.cs" />

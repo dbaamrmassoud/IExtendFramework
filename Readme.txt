@@ -1,11 +1,6 @@
 ﻿IExtendFramework - an application framework and collection of useful classes.
-Written entirely in C#
-WARNING: There are some problems decrypting data
-
-NON-CLASS TODO: 
-- Documentation
-- Tests
-- Examples (?)
+Written entirely in C#...
+WARNING: There are some problems encrypting/decrypting data
 
 CLASS                                             INFORMATION
 -----------------------------------------------------------------------------
@@ -86,8 +81,8 @@ X Utilites                                   Useful functions
 X IExtendFrameworkException                  An exception class
   Mathematics
 X   AdvancedMathProcessor                    An advanced math formula solver
-X TypeExtensions                             Type extensions (duh)...
-  EnumHelper                                 Helps with the slow built-in enum methods
+X TypeExtensions                             Type extensions for very many types
+X EnumHelper                                 Helps with the slow built-in enum methods
 
 LICENSE INFO: 
 CPOL (CodeProject Open License): AdvancedForm (gTitleBar), AdvancedLabel (gLabel), AdvancedTrackBar (gTrackBar) Copyright (C) 2009
@@ -103,6 +98,10 @@ Compression: BZip2, GZip, Tar under LGPL License from DotNetFireball (dotnetfire
 7z compression from 7zip (7-zip.org), DotNetFireball (dotnetfireball.org)
 Zip Compression from ICSharpCode.SharpZipLib, DotNetFireball - LGPL License (dotnetfireball.org)
 Win32.NativeSubclasser under LGPL License - dotnetfireball.org
+
+Some of the TypeExtensions have the MIT License: http://www.opensource.org/licenses/mit-license.php
+Some of the TypeExtensions have the BSD License: http://www.opensource.org/licenses/bsd-license.php
+Inflector also is BSD license, and comes from the Subsonic Project http://subsonicproject.com
 
 Everything else has the WTFPL license and was created by me (Elijah Frederickson)
 Just dont kill yourself with it.
