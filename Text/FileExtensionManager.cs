@@ -43,7 +43,7 @@ namespace IExtendFramework.Text
                 }
             }
             if (!found)
-                throw new IExtendFrameworkException("Cannot find extension '" + ext.ToLower() + "' in extension list!");
+                throw new Exception("Cannot find extension '" + ext.ToLower() + "' in extension list!");
             return null;
         }
         

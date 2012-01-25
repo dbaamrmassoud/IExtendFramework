@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedString.cs" />
     <Compile Include="Drawing\XmlFormat\XImageControl.cs" />
     <Compile Include="Encryption\EncryptionType.cs" />
     <Compile Include="Encryption\H34RTProvider.cs" />
@@ -160,7 +161,6 @@
     <Compile Include="Encryption\RSAProvider.cs" />
     <Compile Include="Encryption\TripleDESProvider.cs" />
     <Compile Include="Encryption\XorProvider.cs" />
-    <Compile Include="IExtendFrameworkException.cs" />
     <Compile Include="IO\Compression\BZip2\BZip2.cs" />
     <Compile Include="IO\Compression\BZip2\BZip2Constants.cs" />
     <Compile Include="IO\Compression\BZip2\BZip2Exception.cs" />

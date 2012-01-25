@@ -41,12 +41,16 @@ namespace IExtendFramework.IO
         char ReadChar();
         int ReadInt();
         byte ReadByte();
-        string ReadString();
+        string ReadString(int length);
         string ReadWhiteSpace();
-        bool ReadBool();
         
-        int Position
+        long Position
         {get; set; }
+        
+        long Length
+        {
+            get;
+        }
         
         FileStreamMode FileMode
         {get; set; }
