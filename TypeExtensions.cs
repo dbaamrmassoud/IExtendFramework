@@ -24,6 +24,14 @@ namespace IExtendFramework
     /// </summary>
     public static class TypeExtensions
     {
+        public static AdvancedString ToAdvancedString(this object o)
+        {
+            if (o is AdvancedString)
+                return o as AdvancedString;
+            
+            return AdvancedString.From(o.ToString());
+        }
+        
         #region String Extensions
         /// <summary>
         /// Formats a string according to the given FormatType
@@ -93,7 +101,7 @@ namespace IExtendFramework
                     return s;
                 // other sentence types
                 if (s.EndsWith("!") ||  s.EndsWith("?"))
-                    return s.Substring(0, s.Length - 1) + "!"; //s.Substring(s.Length - 1, 1);
+                    return s.Substring(0, s.Length - 1) + "."; //s.Substring(s.Length - 1, 1);
                 
                 // anything else
                 return s + ".";
@@ -140,7 +148,7 @@ namespace IExtendFramework
                 return result.SpecialFormat(FormatType.AllUppercase);
             }
             
-            throw new NotImplementedException("type '" + t.ToString() + "' not yet implemented!");
+            throw new NotImplementedException("type '" + t.ToString() + "' not implemented or exitant!");
         }
         
         /// <summary>
@@ -167,8 +175,8 @@ namespace IExtendFramework
         /// <summary>
         /// Remove leading strings with zeros and adjust for singular/plural
         /// </summary>
-        /// <param name="str">The STR.</param>
-        /// <param name="previousStr">The previous STR.</param>
+        /// <param name="str">The string.</param>
+        /// <param name="previousStr">The previous string.</param>
         /// <param name="t">The t.</param>
         /// <returns></returns>
         private static string FormatString(this string str, string previousStr, int t) {

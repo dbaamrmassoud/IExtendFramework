@@ -1,7 +1,4 @@
-﻿// 
-//   SubSonic - http://subsonicproject.com
-// 
-//   The contents of this file are subject to the New BSD
+﻿//   The contents of this file are subject to the New BSD
 //   License (the "License"); you may not use this file
 //   except in compliance with the License. You may obtain a copy of
 //   the License at http://www.opensource.org/licenses/bsd-license.php

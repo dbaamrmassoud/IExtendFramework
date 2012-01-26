@@ -13,6 +13,10 @@ using System.Text.RegularExpressions;
 
 namespace IExtendFramework
 {
+    //******************
+    // !! BSD LICENSE !!
+    //******************
+    
     /// <summary>
     /// Inflection... used in TypeExtensions
     /// </summary>
