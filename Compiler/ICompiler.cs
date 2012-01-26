@@ -14,9 +14,9 @@ namespace IExtendFramework.Compiler
     /// <summary>
     /// A Compiler.
     /// </summary>
-    public interface ICompiler
+    public interface ICompiler<T>
     {
         CompilerResults Compile(string code);
-        CompilerResults Compile(object code);
+        CompilerResults Compile(T parsedCode);
     }
 }

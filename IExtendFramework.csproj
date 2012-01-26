@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedString.cs" />
+    <Compile Include="Controls\AdvancedTextBox.cs" />
     <Compile Include="Drawing\XmlFormat\XImageControl.cs" />
     <Compile Include="Encryption\EncryptionType.cs" />
     <Compile Include="Encryption\H34RTProvider.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Parser\TextInput.cs" />
     <Compile Include="Parser\ParserBase.cs" />
     <Compile Include="RegexPatterns.cs" />
+    <Compile Include="Text\AdvancedStringBuilder.cs" />
     <Compile Include="Text\WordReader.cs" />
     <Compile Include="Threading\Thread.cs" />
     <Compile Include="Net\Mail\AOLMessage.cs" />

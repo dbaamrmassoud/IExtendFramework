@@ -1,3 +1,5 @@
+----TAKEN FROM A CODEPROJECT ARTICLE----
+
 2. Using HOTMAIL
 To send an email using HotMail, we need to add a reference to the dynamic link library for Hotmail/Gmail/AOL/Yahoo which is called System.Net.Mail.
 For the same follow the below steps:

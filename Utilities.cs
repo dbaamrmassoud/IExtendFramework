@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Security.AccessControl;
@@ -21,6 +22,17 @@ namespace IExtendFramework
     {
         private Utilities()
         {
+        }
+        
+        public static string CharListToString(List<char> c)
+        {
+            if (c.Count == 0)
+                return "";
+            
+            StringBuilder sb = new StringBuilder();
+            foreach (char c2 in c)
+                sb.Append(c2);
+            return sb.ToString();
         }
         
         public static string FormatByteToSize(long bytes)

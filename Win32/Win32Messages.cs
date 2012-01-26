@@ -12,7 +12,7 @@ using System.IO;
 namespace IExtendFramework.Win32
 {
     /// <summary>
-    /// Some useful Win32 Messages in HEX
+    /// Some useful Win32 Messages in Hexadecimal
     /// </summary>
     public class Win32Messages
     {

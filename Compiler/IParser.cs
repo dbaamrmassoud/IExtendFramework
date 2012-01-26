@@ -13,10 +13,10 @@ namespace IExtendFramework.Compiler
     /// <summary>
     /// A Parser.
     /// </summary>
-    public interface IParser
+    public interface IParser<T>
     {
-        object Parse();
-        object Parse(string code);
+        T Parse();
+        T Parse(string code);
         
     }
 }

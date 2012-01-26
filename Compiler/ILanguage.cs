@@ -13,15 +13,15 @@ namespace IExtendFramework.Compiler
     /// <summary>
     /// A Language
     /// </summary>
-    public interface ILanguage
+    public interface ILanguage<T>
     {
         string LanguageName
         {get; }
         
-        ICompiler Compiler
+        ICompiler<T> Compiler
         {get; }
         
-        IParser Parser
+        IParser<T> Parser
         {get; }
     }
 }

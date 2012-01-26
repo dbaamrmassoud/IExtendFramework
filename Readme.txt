@@ -23,6 +23,7 @@ X   AdvancedPopupWindow                      Similar to Outlook's popup window, 
 X   AdvancedTrackBar                         A TrackBar that is easier to use than the standard one
 X   AdvancedLabel                            Much better label than the standard one
 X   ChromeProgressbar                        A Google Chrome like progress bar
+X   AdvancedTextBox                          Contains a "watermark" or "cue"
   Text
 X   ITextEditor                              Interface for a text editor
 X   FileExtensionManager                     Manager for file extensions, use for a DTMS (Document Type Management System)
@@ -93,6 +94,7 @@ CPOL (CodeProject Open License): AdvancedProgressBar (ProgBarPlus) Copyright (C)
 CPOL (CodeProject Open License): AdvancedMessageBox (WPFTaskDialog) (C) Sean A. Hanley 2010
 CPOL (CodeProject Open License): INIDocument (TA_INIDocument)
 CPOL (CodeProject Open License): EnumHelper (Enum) Ideafixxxer 2011 (see notice in file)
+CPOL : AdvancedTextBox (CTextBox/ChreneLib)
 
 Compression: BZip2, GZip, Tar under LGPL License from DotNetFireball (dotnetfireball.org)
 7z compression from 7zip (7-zip.org), DotNetFireball (dotnetfireball.org)
