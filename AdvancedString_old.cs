@@ -7,7 +7,6 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System.Text.RegularExpressions;
-using IExtendFramework.Text;
 using Microsoft.Win32;
 using System;
 using System.Collections;
@@ -15,13 +14,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Threading;
-//TODO: String.[Last]IndexOfAny(char[] anyOf[, start, count, comparisonType])
 
 namespace IExtendFramework
 {
     /// <summary>
     /// An AdvancedString.
     /// It is basically the System.String type, but more advanced.
+    /// It actually uses a string internally, but according to all my tests, it is faster.
     /// </summary>
     [Serializable]
     public class AdvancedString :
@@ -32,8 +31,7 @@ namespace IExtendFramework
         /// <summary>
         /// The string that this AdvancedString wraps
         /// </summary>
-        //private string internalString;
-        private List<char> internalString = new List<char>();
+        private string internalString;
         
         /// <summary>
         /// An empty ("") AdvancedString
@@ -49,7 +47,7 @@ namespace IExtendFramework
         /// </summary>
         public AdvancedString()
         {
-            //internalString = "";
+            internalString = "";
         }
         
         /// <summary>
@@ -58,9 +56,7 @@ namespace IExtendFramework
         /// <param name="s"></param>
         public AdvancedString(string s)
         {
-            //this.internalString = s;
-            foreach (char c in s)
-                internalString.Add(c);
+            this.internalString = s;
         }
         
         /// <summary>
@@ -69,8 +65,7 @@ namespace IExtendFramework
         /// <param name="c"></param>
         public AdvancedString(char c)
         {
-            //this.internalString = c.ToString();
-            internalString.Add(c);
+            this.internalString = c.ToString();
         }
         
         /// <summary>
@@ -79,10 +74,8 @@ namespace IExtendFramework
         /// <param name="b"></param>
         public AdvancedString(byte b)
         {
-            //this.internalString = Utilities.ByteToString(new byte[] { b});
-            internalString.AddRange(Utilities.ByteToString(new byte[] { b }).ToCharArray());
+            this.internalString = Utilities.ByteToString(new byte[] { b});
         }
-        
         
         /// <summary>
         /// Creates an AdvancedString by converting the byte array into a string
@@ -90,7 +83,7 @@ namespace IExtendFramework
         /// <param name="b"></param>
         public AdvancedString(byte[] b)
         {
-            this.internalString.AddRange(Utilities.ByteToString(b).ToCharArray());
+            this.internalString = Utilities.ByteToString(b);
         }
         
         /// <summary>
@@ -101,9 +94,9 @@ namespace IExtendFramework
         public AdvancedString(bool b, bool capitalizeFirstLetter = false)
         {
             if (capitalizeFirstLetter)
-                this.internalString.AddRange(((b == true) ? "True" : "False").ToCharArray());
+                this.internalString = (b == true) ? "True" : "False";
             else
-                this.internalString.AddRange(((b == true) ? "true" : "false").ToCharArray());
+                this.internalString = (b == true) ? "true" : "false";
         }
         
         /// <summary>
@@ -111,9 +104,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="o"></param>
         public AdvancedString(object o)
-            : this(o.ToString())
         {
-            //this.internalString = o.ToString();
+            this.internalString = o.ToString();
         }
         
         /// <summary>
@@ -155,11 +147,6 @@ namespace IExtendFramework
         {
             return new AdvancedString(b);
         }
-        
-        public AdvancedString(AdvancedString a)
-        {
-            this.internalString.AddRange(a.ToCharArray());
-        }
         #endregion
         
         #region Operator Overloaders
@@ -196,32 +183,24 @@ namespace IExtendFramework
         
         public static AdvancedString operator +(AdvancedString a1, AdvancedString a2)
         {
-            foreach (char c in a2)
-                a1.Add(c);
-            return a1;
+            return new AdvancedString(a1.ToString() + a2.ToString());
         }
         
         public static AdvancedString operator +(string a1, AdvancedString a2)
         {
-            foreach (char c in a1)
-                a2.Add(c);
-            
-            return a2;
+            return new AdvancedString(a1.ToString() + a2.ToString());
         }
         
         public static AdvancedString operator +(AdvancedString a1, string a2)
         {
-            foreach (char c in a2)
-                a1.Add(c);
-            
-            return a1;
+            return new AdvancedString(a1.ToString() + a2.ToString());
         }
         
         public static AdvancedString operator *(AdvancedString a1, int count)
         {
             AdvancedString a = new AdvancedString();
             for (int i = 0; i < count; i++)
-                a.Add(a1);
+                a += a1;
             return a;
         }
         
@@ -229,7 +208,7 @@ namespace IExtendFramework
         {
             AdvancedString a2 = new AdvancedString();
             foreach (char c in a1.internalString)
-                a2.Add((char)(c >> i));
+                a2 += new AdvancedString((char)(c >> i));
             return a2;
         }
         
@@ -237,19 +216,19 @@ namespace IExtendFramework
         {
             AdvancedString a2 = new AdvancedString();
             foreach (char c in a1.internalString)
-                a2.Add((char)(c << i));
+                a2 += new AdvancedString((char)(c << i));
             return a2;
         }
         
         public static bool operator <(AdvancedString a1, object o)
         {
-            string b = o.ToString();
-            for (int i = 0; i < a1.Length; i++)
+            string a = a1.internalString, b = o.ToString();
+            for (int i = 0; i < a.Length; i++)
             {
                 if (b.Length == i)
                     return false;
                 
-                if (a1.internalString[i] > b[i])
+                if (a[i] > b[i])
                     return false;
             }
             
@@ -258,13 +237,13 @@ namespace IExtendFramework
         
         public static bool operator >(AdvancedString a1, object o)
         {
-            string b = o.ToString();
-            for (int i = 0; i < a1.Length; i++)
+            string a = a1.internalString, b = o.ToString();
+            for (int i = 0; i < a.Length; i++)
             {
                 if (b.Length == i)
                     return false;
                 
-                if (a1.internalString[i] < b[i])
+                if (a[i] < b[i])
                     return false;
             }
             
@@ -273,13 +252,13 @@ namespace IExtendFramework
         
         public static bool operator <=(AdvancedString a1, object o)
         {
-            string b = o.ToString();
-            for (int i = 0; i < a1.Length; i++)
+            string a = a1.internalString, b = o.ToString();
+            for (int i = 0; i < a.Length; i++)
             {
                 if (b.Length == i)
                     return false;
                 
-                if (a1.internalString[i] > b[i])
+                if (a[i] > b[i])
                     return false;
             }
             
@@ -288,13 +267,13 @@ namespace IExtendFramework
         
         public static bool operator >=(AdvancedString a1, object o)
         {
-            string b = o.ToString();
-            for (int i = 0; i < a1.Length; i++)
+            string a = a1.internalString, b = o.ToString();
+            for (int i = 0; i < a.Length; i++)
             {
                 if (b.Length == i)
                     return false;
                 
-                if (a1.internalString[i] < b[i])
+                if (a[i] < b[i])
                     return false;
             }
             
@@ -303,7 +282,7 @@ namespace IExtendFramework
         
         public static bool operator false(AdvancedString a1)
         {
-            if (a1.Length == 0)
+            if (a1.internalString.Length == 0)
                 return true;
             
             return false;
@@ -311,7 +290,7 @@ namespace IExtendFramework
         
         public static bool operator true(AdvancedString a1)
         {
-            if (a1.Length != 0)
+            if (a1.internalString.Length != 0)
                 return true;
             
             return false;
@@ -324,11 +303,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public override string ToString()
         {
-            // AdvancedStringBuilder causes overflow
-            StringBuilder asb = new StringBuilder();
-            foreach (char c in internalString)
-                asb.Append(c);
-            return asb.ToString();
+            return internalString;
         }
         
         #region ENUMERATION
@@ -361,7 +336,7 @@ namespace IExtendFramework
         {
             get
             {
-                return internalString.Count;
+                return internalString.Length;
             }
         }
         
@@ -372,7 +347,7 @@ namespace IExtendFramework
         {
             get
             {
-                return internalString.Count;
+                return internalString.Length;
             }
         }
         #endregion
@@ -401,62 +376,6 @@ namespace IExtendFramework
         }
         #endregion
         
-        #region INTERNAL METHODS
-        
-        private string InternalSubstring(int low, int high = -1)
-        {
-            if (high == -1)
-                high = this.Length;
-            AdvancedStringBuilder asb = new AdvancedStringBuilder();
-            for (int i = low; i < high; i++)
-                asb.Append(internalString[i]);
-            return asb.ToString();
-        }
-        
-        private AdvancedString[] InternalSplit(AdvancedString[] sep, int count, StringSplitOptions s)
-        {
-            List<AdvancedString> r = new List<AdvancedString>();
-            List<char> old = new List<char>();
-            StringBuilder sb;
-            for (int i = 0; i < Length; i++)
-            {
-                char c = internalString[i];
-                bool wasSep = false;
-                foreach (AdvancedString sep2 in sep)
-                {
-                    if (c.ToString() == sep2.ToString())
-                    {
-                        sb = new StringBuilder();
-                        foreach (char c2 in old)
-                            sb.Append(c2);
-                        r.Add(sb.ToString());
-                        old.Clear();
-                        wasSep = true;
-                    }
-                }
-                if (!wasSep)
-                    old.Add(c);
-                if (r.Count >= count)
-                    break;
-            }
-            // add any remaining chars
-            sb = new StringBuilder();
-            foreach (char c2 in old)
-                sb.Append(c2);
-            r.Add(sb.ToString());
-            old.Clear();
-            if (s == StringSplitOptions.RemoveEmptyEntries)
-            {
-                List<AdvancedString> r2 = new List<AdvancedString>();
-                foreach (AdvancedString s3 in r)
-                    if (!AdvancedString.IsNullOrEmpty(s3))
-                        r2.Add(s3);
-                return r2.ToArray();
-            }
-            return r.ToArray();
-        }
-        #endregion
-        
         #region INDEXING
         /// <summary>
         /// Gets or sets char at the specified index
@@ -465,25 +384,18 @@ namespace IExtendFramework
         {
             get
             {
-                if (index < 0)
-                    index = Length + index;
-                
                 return internalString[index];
             }
             set
             {
-                if (index < 0)
-                    index = Length + index;
-                
-                if (index > this.Length)
+                if (index > this.internalString.Length)
                     throw new Exception("Index cannot be greater then length!");
                 
-                string a = InternalSubstring(0, index == 0 ? 0 : index - 1);
+                string a = internalString.Substring(0, index == 0 ? 0 : index - 1);
+                Console.WriteLine(a);
                 string b = "";
-                b = InternalSubstring(index);
-                //FIXME: slow performance here
-                internalString.Clear();
-                this.internalString.AddRange((a + value.ToString() + b).ToCharArray());
+                b = internalString.Substring(index);
+                this.internalString = a + value.ToString() + b;
             }
         }
         
@@ -494,40 +406,37 @@ namespace IExtendFramework
         {
             get
             {
-                // convert negative to positive
                 if (index1 < 0)
-                    index1 = this.Length + index1;
+                    index1 = this.internalString.Length + index1;
                 if (index2 < 0)
-                    index2 = this.Length + index2;
+                    index2 = this.internalString.Length + index2;
                 if (index2 < index1)
                     throw new Exception("Second slice index cannot be lower than the first!");
                 if (index1 > index2)
                     throw new Exception("First slice index cannot be greater than the second!");
-                if (index2 > internalString.Count)
-                    index2 = internalString.Count;
+                if (index2 > internalString.Length)
+                    index2 = internalString.Length;
                 
-                return InternalSubstring(index1, index2 - index1);
+                return internalString.Substring(index1, index2 - index1);
             }
             set
             {
                 // convert into positive numbers from end of string
                 if (index1 < 0)
-                    index1 = this.Length + index1;
+                    index1 = this.internalString.Length + index1;
                 if (index2 < 0)
-                    index2 = this.Length + index2;
+                    index2 = this.internalString.Length + index2;
                 if (index2 < index1)
                     throw new Exception("Second slice index cannot be lower than the first!");
                 if (index1 > index2)
                     throw new Exception("First slice index cannot be greater than the second!");
-                if (index2 > Length)
-                    index2 = Length;
+                if (index2 > internalString.Length)
+                    index2 = internalString.Length;
                 // trim value down to size
                 if (value.Length > index2)
                     value = value.Substring(0, index2 - index1);
                 
-                char[] l = (InternalSubstring(0, index1) + value.ToString() + InternalSubstring(index2)).ToCharArray();
-                internalString.Clear();
-                internalString.AddRange(l);
+                internalString = internalString.Substring(0, index1) + value.ToString() + internalString.Substring(index2);
             }
         }
         #endregion
@@ -545,15 +454,7 @@ namespace IExtendFramework
             {
                 throw new ArgumentNullException("value");
             }
-            StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < value.Length; i++)
-            {
-                sb.Append(value[i]);
-                sb.Append(separator.ToString());
-            }
-            // remove the last separator
-            sb.Remove(sb.Length - separator.Length, separator.Length);
-            return AdvancedString.From(sb.ToString());
+            return AdvancedString.Join(separator, value, 0, value.Length);
         }
         
         /// <summary>
@@ -564,15 +465,37 @@ namespace IExtendFramework
         /// <returns></returns>
         public static AdvancedString Join(AdvancedString separator, params object[] values)
         {
-            StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < values.Length; i++)
+            if (values == null)
             {
-                sb.Append(values[i].ToString());
-                sb.Append(separator.ToString());
+                throw new ArgumentNullException("values");
             }
-            // remove the last separator
-            sb.Remove(sb.Length - separator.Length, separator.Length);
-            return AdvancedString.From(sb.ToString());
+            if (values.Length == 0 || values[0] == null)
+            {
+                return AdvancedString.Empty;
+            }
+            if (separator == null)
+            {
+                separator = AdvancedString.Empty;
+            }
+            StringBuilder stringBuilder = new StringBuilder();
+            string text = values[0].ToString();
+            if (text != null)
+            {
+                stringBuilder.Append(text);
+            }
+            for (int i = 1; i < values.Length; i++)
+            {
+                stringBuilder.Append(separator);
+                if (values[i] != null)
+                {
+                    text = values[i].ToString();
+                    if (text != null)
+                    {
+                        stringBuilder.Append(text);
+                    }
+                }
+            }
+            return new AdvancedString(stringBuilder.ToString());
         }
         
         /// <summary>
@@ -837,26 +760,17 @@ namespace IExtendFramework
         public AdvancedString Slice(int start, int end)
         {
             if (start < 0)
-                start = this.Length + start;
+                start = this.internalString.Length + start;
             if (end < 0)
-                end = this.Length + end;
+                end = this.internalString.Length + end;
             if (end < start)
                 throw new Exception("Second slice index cannot be lower than the first!");
             if (start > end)
                 throw new Exception("First slice index cannot be greater than the second!");
-            if (end > Length)
-                end = Length;
+            if (end > internalString.Length)
+                end = internalString.Length;
             
-            return InternalSubstring(start, end - start);
-        }
-        
-        /// <summary>
-        /// Adds the objects string representation into this string
-        /// </summary>
-        /// <param name="o"></param>
-        public void Add(object o)
-        {
-            internalString.AddRange(o.ToString().ToCharArray());
+            return internalString.Substring(start, end - start);
         }
         
         #region SUBSTRING
@@ -867,7 +781,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Substring(int low)
         {
-            return AdvancedString.From(InternalSubstring(low));
+            return AdvancedString.From(internalString.Substring(low));
         }
         
         /// <summary>
@@ -878,7 +792,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Substring(int l, int h)
         {
-            return new AdvancedString(InternalSubstring(l, h));
+            return new AdvancedString(internalString.Substring(l, h));
         }
         #endregion
         
@@ -891,8 +805,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Insert(int index, AdvancedString s)
         {
-            internalString.InsertRange(index, s.internalString.ToArray());
-            return this;
+            return new AdvancedString(internalString.Insert(index, s.ToString()));
         }
         
         /// <summary>
@@ -903,24 +816,10 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Insert(int index, string s)
         {
-            internalString.InsertRange(index, s.ToCharArray());
-            return this;
-        }
-        
-        /// <summary>
-        /// Inserts a char at the index
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public AdvancedString Insert(int index, char c)
-        {
-            internalString.Insert(index, c);
-            return this;
+            return new AdvancedString(internalString.Insert(index, s));
         }
         #endregion
         
-        #region NULL/WHITESPACE CHECKS
         /// <summary>
         /// Checks if the AdvancedString is null or empty
         /// </summary>
@@ -928,7 +827,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public static bool IsNullOrEmpty(AdvancedString s)
         {
-            return string.IsNullOrEmpty(s.ToString());
+            return string.IsNullOrEmpty(s.internalString);
         }
         
         /// <summary>
@@ -951,9 +850,8 @@ namespace IExtendFramework
         /// <returns></returns>
         public static bool IsNullOrWhiteSpace(AdvancedString s)
         {
-            return string.IsNullOrWhiteSpace(s.ToString());
+            return string.IsNullOrWhiteSpace(s.internalString);
         }
-        #endregion
         
         #region Splitting
         /// <summary>
@@ -963,10 +861,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(params char[] separator)
         {
-            AdvancedString a = "";
-            foreach (char c in separator)
-                a += c;
-            return InternalSplit(new AdvancedString[] { a }, int.MaxValue, StringSplitOptions.None);
+            string[] s = internalString.Split(separator);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -977,10 +876,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(char[] separator, int count)
         {
-            AdvancedString a = "";
-            foreach (char c in separator)
-                a += c;
-            return InternalSplit(new AdvancedString[] { a }, count, StringSplitOptions.None);
+            string[] s = internalString.Split(separator, count, StringSplitOptions.None);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -991,10 +891,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(char[] separator, StringSplitOptions options)
         {
-            AdvancedString a = "";
-            foreach (char c in separator)
-                a += c;
-            return InternalSplit(new AdvancedString[] { a }, int.MaxValue, options);
+            string[] s = internalString.Split(separator, 2147483647, options);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1006,10 +907,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(char[] separator, int count, StringSplitOptions options)
         {
-            AdvancedString a = "";
-            foreach (char c in separator)
-                a += c;
-            return InternalSplit(new AdvancedString[] { a }, count, options);
+            string[] s = internalString.Split(separator, count, options);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1020,10 +922,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(string[] separator, StringSplitOptions options)
         {
-            List<AdvancedString> a = new List<AdvancedString>();
-            foreach (string s in separator)
-                a.Add(s);
-            return InternalSplit(a.ToArray(), int.MaxValue, options);
+            return this.Split(separator, 2147483647, options);
         }
         
         /// <summary>
@@ -1034,10 +933,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(string[] separator, int count)
         {
+            string[] s = internalString.Split(separator, count, StringSplitOptions.None);
             List<AdvancedString> a = new List<AdvancedString>();
-            foreach (string s in separator)
-                a.Add(s);
-            return InternalSplit(a.ToArray(), count, StringSplitOptions.None);
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1049,10 +949,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(string[] separator, int count, StringSplitOptions options)
         {
+            string[] s = internalString.Split(separator, count, options);
             List<AdvancedString> a = new List<AdvancedString>();
-            foreach (string s in separator)
-                a.Add(s);
-            return InternalSplit(a.ToArray(), count, options);
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1062,7 +963,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(char separator)
         {
-            return InternalSplit(new AdvancedString[] { new AdvancedString(separator) }, int.MaxValue, StringSplitOptions.None);
+            string[] s = internalString.Split(new char[] { separator}, 2147483647, StringSplitOptions.None);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1073,8 +978,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(char separator, int count)
         {
-            AdvancedString a = separator;
-            return InternalSplit(new AdvancedString[] { a } , count, StringSplitOptions.None);
+            string[] s = internalString.Split(new char[] {separator}, count, StringSplitOptions.None);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1085,8 +993,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(char separator, StringSplitOptions o)
         {
-            AdvancedString a = separator;
-            return InternalSplit(new AdvancedString[] { a } , int.MaxValue, o);
+            string[] s = internalString.Split(new char[] {separator}, 2147483647, o);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1096,8 +1007,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(string separator)
         {
-            AdvancedString a = separator;
-            return InternalSplit(new AdvancedString[] { a } , int.MaxValue, StringSplitOptions.None);
+            string[] s = internalString.Split(new string[] { separator}, 2147483647, StringSplitOptions.None);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1108,8 +1022,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(string separator, int count)
         {
-            AdvancedString a = separator;
-            return InternalSplit(new AdvancedString[] { a } , count, StringSplitOptions.None);
+            string[] s = internalString.Split(new string[] {separator}, count, StringSplitOptions.None);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1120,8 +1037,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(string separator, StringSplitOptions o)
         {
-            AdvancedString a = separator;
-            return InternalSplit(new AdvancedString[] { a } , int.MaxValue, o);
+            string[] s = internalString.Split(new string[] {separator}, 2147483647, o);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1131,7 +1051,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(AdvancedString separator)
         {
-            return InternalSplit(new AdvancedString[] { separator } , int.MaxValue, StringSplitOptions.None);
+            string[] s = internalString.Split(new string[] { separator.ToString()}, 2147483647, StringSplitOptions.None);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1142,7 +1066,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(AdvancedString separator, int count)
         {
-            return InternalSplit(new AdvancedString[] { separator } , count, StringSplitOptions.None);
+            string[] s = internalString.Split(new string[] {separator.ToString()}, count, StringSplitOptions.None);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         
         /// <summary>
@@ -1153,7 +1081,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString[] Split(AdvancedString separator, StringSplitOptions o)
         {
-            return InternalSplit(new AdvancedString[] { separator } , int.MaxValue, o);
+            string[] s = internalString.Split(new string[] {separator.ToString()}, 2147483647, o);
+            List<AdvancedString> a = new List<AdvancedString>();
+            foreach (string s2 in s)
+                a.Add(new AdvancedString(s2));
+            return a.ToArray();
         }
         #endregion
         
@@ -1164,25 +1096,17 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Trim()
         {
-            while (internalString[0] == ' ')
-                internalString.RemoveAt(0);
-            while (internalString[internalString.Count - 1] == ' ')
-                internalString.RemoveAt(internalString.Count - 1);
-            return this;
+            return new AdvancedString(internalString.Trim());
         }
         
-        public AdvancedString TrimStart()
+        /// <summary>
+        /// Trims whitespace from the string
+        /// </summary>
+        /// <param name="tchars"></param>
+        /// <returns></returns>
+        public AdvancedString Trim(params char[] tchars)
         {
-            while (internalString[0] == ' ')
-                internalString.RemoveAt(0);
-            return this;
-        }
-        
-        public AdvancedString TrimEnd()
-        {
-            while (internalString[internalString.Count - 1] == ' ')
-                internalString.RemoveAt(internalString.Count - 1);
-            return this;
+            return new AdvancedString(internalString.Trim(tchars));
         }
         #endregion
         
@@ -1197,7 +1121,7 @@ namespace IExtendFramework
         public int IndexOf(char c, int index = 0, int count = -1)
         {
             if (count == -1)
-                count = Length;
+                count = internalString.Length;
             
             return internalString.IndexOf(c, index, count);
         }
@@ -1209,35 +1133,12 @@ namespace IExtendFramework
         /// <param name="index">Where the char was found (-1 if not found)</param>
         /// <param name="count">Maximum length to search</param>
         /// <returns></returns>
-        public int IndexOf(string c, int startIndex = 0, int count = -1, StringComparison comparisonType = StringComparison.CurrentCulture)
+        public int IndexOf(string c, int index = 0, int count = -1)
         {
             if (count == -1)
-                count = Length;
+                count = internalString.Length;
             
-            switch (comparisonType)
-            {
-                case StringComparison.CurrentCulture:
-                    return CultureInfo.CurrentCulture.CompareInfo.IndexOf(this.ToString(), c, startIndex, count, CompareOptions.None);
-
-                case StringComparison.CurrentCultureIgnoreCase:
-                    return CultureInfo.CurrentCulture.CompareInfo.IndexOf(this.ToString(), c, startIndex, count, CompareOptions.IgnoreCase);
-
-                case StringComparison.InvariantCulture:
-                    return CultureInfo.InvariantCulture.CompareInfo.IndexOf(this.ToString(), c, startIndex, count, CompareOptions.None);
-
-                case StringComparison.InvariantCultureIgnoreCase:
-                    return CultureInfo.InvariantCulture.CompareInfo.IndexOf(this.ToString(), c, startIndex, count, CompareOptions.IgnoreCase);
-
-                case StringComparison.Ordinal:
-                    return CultureInfo.InvariantCulture.CompareInfo.IndexOf(this.ToString(), c, startIndex, count, CompareOptions.Ordinal);
-
-                case StringComparison.OrdinalIgnoreCase:
-                    throw new Exception("Comparison not supported!");
-                    //return TextInfo.IndexOfStringOrdinalIgnoreCase(this, c, startIndex, count);
-
-                default:
-                    throw new ArgumentException("Unknown comparison type!");
-            }
+            return internalString.IndexOf(c, index, count);
         }
         
         /// <summary>
@@ -1247,12 +1148,12 @@ namespace IExtendFramework
         /// <param name="index">Where the char was found (-1 if not found)</param>
         /// <param name="count">Maximum length to search</param>
         /// <returns></returns>
-        public int IndexOf(AdvancedString c, int index = 0, int count = -1, StringComparison sc = StringComparison.CurrentCulture)
+        public int IndexOf(AdvancedString c, int index = 0, int count = -1)
         {
             if (count == -1)
-                count = Length;
+                count = internalString.Length;
             
-            return this.IndexOf(c.ToString(), index, count, sc);
+            return internalString.IndexOf(c.internalString, index, count);
         }
         
         /// <summary>
@@ -1265,7 +1166,7 @@ namespace IExtendFramework
         public int LastIndexOf(char c, int index = 0, int count = -1)
         {
             if (count == -1)
-                count = Length;
+                count = internalString.Length;
             
             return internalString.LastIndexOf(c, index, count);
         }
@@ -1277,35 +1178,12 @@ namespace IExtendFramework
         /// <param name="index">Where the char was found (-1 if not found)</param>
         /// <param name="count">Maximum length to search</param>
         /// <returns></returns>
-        public int LastIndexOf(string c, int index = 0, int count = -1, StringComparison comparisonType = StringComparison.CurrentCulture)
+        public int LastIndexOf(string c, int index = 0, int count = -1)
         {
             if (count == -1)
-                count = Length;
+                count = internalString.Length;
             
-            switch (comparisonType)
-            {
-                case StringComparison.CurrentCulture:
-                    return CultureInfo.CurrentCulture.CompareInfo.LastIndexOf(this.ToString(), c, index, count, CompareOptions.None);
-
-                case StringComparison.CurrentCultureIgnoreCase:
-                    return CultureInfo.CurrentCulture.CompareInfo.LastIndexOf(this.ToString(), c, index, count, CompareOptions.IgnoreCase);
-
-                case StringComparison.InvariantCulture:
-                    return CultureInfo.InvariantCulture.CompareInfo.LastIndexOf(this.ToString(), c, index, count, CompareOptions.None);
-
-                case StringComparison.InvariantCultureIgnoreCase:
-                    return CultureInfo.InvariantCulture.CompareInfo.LastIndexOf(this.ToString(), c, index, count, CompareOptions.IgnoreCase);
-
-                case StringComparison.Ordinal:
-                    return CultureInfo.InvariantCulture.CompareInfo.LastIndexOf(this.ToString(), c, index, count, CompareOptions.Ordinal);
-
-                case StringComparison.OrdinalIgnoreCase:
-                    throw new Exception("Comparison not supported!");
-                    //return TextInfo.LastIndexOfStringOrdinalIgnoreCase(this, c, startIndex, count);
-
-                default:
-                    throw new ArgumentException("Unknown comparison type!");
-            }
+            return internalString.LastIndexOf(c, index, count);
         }
         
         /// <summary>
@@ -1318,9 +1196,75 @@ namespace IExtendFramework
         public int LastIndexOf(AdvancedString c, int index = 0, int count = -1)
         {
             if (count == -1)
-                count = Length;
+                count = internalString.Length;
             
-            return this.LastIndexOf(c.ToString(), index, count);
+            return internalString.LastIndexOf(c.ToString(), index, count);
+        }
+        
+        /// <summary>
+        /// Gets the last index of any char
+        /// </summary>
+        /// <param name="anyOf">the chars to search for</param>
+        /// <returns></returns>
+        public int LastIndexOfAny(char[] anyOf)
+        {
+            return internalString.LastIndexOfAny(anyOf);
+        }
+        
+        /// <summary>
+        /// Gets the last index of any specified char
+        /// </summary>
+        /// <param name="anyOf">the chars</param>
+        /// <param name="startIndex">the start index</param>
+        /// <returns></returns>
+        public int LastIndexOfAny(char[] anyOf, int startIndex)
+        {
+            return internalString.LastIndexOfAny(anyOf, startIndex);
+        }
+        
+        /// <summary>
+        /// Gets the last index of any specified char
+        /// </summary>
+        /// <param name="anyOf">thes chars</param>
+        /// <param name="startIndex">the start index</param>
+        /// <param name="count">The length to search</param>
+        /// <returns></returns>
+        public int LastIndexOfAny(char[] anyOf, int startIndex, int count)
+        {
+            return internalString.LastIndexOfAny(anyOf, startIndex, count);
+        }
+        
+        /// <summary>
+        /// Gets the index of any specified char
+        /// </summary>
+        /// <param name="anyOf"></param>
+        /// <returns></returns>
+        public int IndexOfAny(char[] anyOf)
+        {
+            return internalString.IndexOfAny(anyOf);
+        }
+        
+        /// <summary>
+        /// Gets the index of any specified char
+        /// </summary>
+        /// <param name="anyOf"></param>
+        /// <param name="startIndex">The index to start at</param>
+        /// <returns></returns>
+        public int IndexOfAny(char[] anyOf, int startIndex)
+        {
+            return internalString.IndexOfAny(anyOf, startIndex);
+        }
+        
+        /// <summary>
+        /// Gets the index of any specified char
+        /// </summary>
+        /// <param name="anyOf">the chars to find</param>
+        /// <param name="startIndex">The index to start at</param>
+        /// <param name="count">The length to search</param>
+        /// <returns></returns>
+        public int IndexOfAny(char[] anyOf, int startIndex, int count)
+        {
+            return internalString.IndexOfAny(anyOf, startIndex, count);
         }
         
         /// <summary>
@@ -1335,10 +1279,10 @@ namespace IExtendFramework
             
             while (true)
             {
-                if (i > Length)
+                if (i > internalString.Length)
                     break;
                 
-                int t = this.IndexOf(s.ToString(), i);
+                int t = internalString.IndexOf(s.ToString(), i);
                 if (t == -1)
                     break;
                 
@@ -1363,10 +1307,10 @@ namespace IExtendFramework
             
             while (true)
             {
-                if (i > Length)
+                if (i > internalString.Length)
                     break;
                 
-                int t = this.IndexOf(s, i);
+                int t = internalString.IndexOf(s, i);
                 if (t == -1)
                     break;
                 
@@ -1391,7 +1335,7 @@ namespace IExtendFramework
             
             while (true)
             {
-                if (i > Length)
+                if (i > internalString.Length)
                     break;
                 
                 int t = internalString.IndexOf(s, i);
@@ -1408,7 +1352,6 @@ namespace IExtendFramework
         }
         #endregion
         
-        #region PADDING
         /// <summary>
         /// Pads the string to left with the specified length of the string
         /// </summary>
@@ -1417,9 +1360,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString PadLeft(int count, char padChar = ' ')
         {
-            while (this.Length < count)
-                this.Insert(0, padChar);
-            return this;
+            return new AdvancedString(internalString.PadLeft(count, padChar));
         }
         
         /// <summary>
@@ -1430,13 +1371,20 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString PadRight(int count, char padChar = ' ')
         {
-            while (this.Length < count)
-                this.Add(padChar);
-            return this;
+            return new AdvancedString(internalString.PadRight(count, padChar));
         }
-        #endregion
         
         #region Start/End With
+        /// <summary>
+        /// Checks if the string starts with s
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="sc"></param>
+        /// <returns></returns>
+        public bool StartsWith(string s, StringComparison sc = StringComparison.CurrentCulture)
+        {
+            return internalString.StartsWith(s, sc);
+        }
         
         /// <summary>
         /// Checks if the string starts with s
@@ -1447,19 +1395,18 @@ namespace IExtendFramework
         /// <returns></returns>
         public bool StartsWith(string s, bool ignoreCase, CultureInfo c)
         {
-            return c.CompareInfo.IsPrefix(this.ToString(), s, ignoreCase == true ? CompareOptions.IgnoreCase : CompareOptions.None);
+            return internalString.StartsWith(s, ignoreCase, c);
         }
         
         /// <summary>
-        /// Checks if the string starts with s
+        /// Checks if the string ends with s
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="ignoreCase">whether to check for case or not</param>
-        /// <param name="c"></param>
+        /// <param name="s">The string to search for</param>
+        /// <param name="sc"></param>
         /// <returns></returns>
-        public bool StartsWith(string s, bool ignoreCase = false)
+        public bool EndsWith(string s, StringComparison sc = StringComparison.CurrentCulture)
         {
-            return CultureInfo.CurrentCulture.CompareInfo.IsPrefix(this.ToString(), s, ignoreCase == true ? CompareOptions.IgnoreCase : CompareOptions.None);
+            return internalString.EndsWith(s, sc);
         }
         
         /// <summary>
@@ -1471,19 +1418,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public bool EndsWith(string s, bool ignoreCase, CultureInfo c)
         {
-            return c.CompareInfo.IsSuffix(this.ToString(), s, ignoreCase == true ? CompareOptions.IgnoreCase : CompareOptions.None);
-        }
-        
-        /// <summary>
-        /// Checks if the string ends with s
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="ignoreCase"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public bool EndsWith(string s, bool ignoreCase = false)
-        {
-            return CultureInfo.CurrentCulture.CompareInfo.IsSuffix(this.ToString(), s, ignoreCase == true ? CompareOptions.IgnoreCase : CompareOptions.None);
+            return internalString.EndsWith(s, ignoreCase, c);
         }
         #endregion
         
@@ -1494,20 +1429,16 @@ namespace IExtendFramework
         /// <returns></returns>
         public int CompareTo(object obj)
         {
-            return this.Equals(obj) == true ? 1 : 0;
+            return internalString.CompareTo(obj);
         }
         
-        #region ToCharArray
         /// <summary>
         /// Converts to a char array
         /// </summary>
         /// <returns></returns>
         public char[] ToCharArray()
         {
-            List<char> cl = new List<char>();
-            foreach (char c in this)
-                cl.Add(c);
-            return cl.ToArray();
+            return internalString.ToCharArray();
         }
         
         /// <summary>
@@ -1518,12 +1449,8 @@ namespace IExtendFramework
         /// <returns></returns>
         public char[] ToCharArray(int startIndex, int length)
         {
-            List<char> ret = new List<char>();
-            for (int i = startIndex; i < length; i++)
-                ret.Add(internalString[i]);
-            return ret.ToArray();
+            return internalString.ToCharArray(startIndex, length);
         }
-        #endregion
         
         #region CONCAT
         /// <summary>
@@ -1586,7 +1513,7 @@ namespace IExtendFramework
         /// <returns>The copy</returns>
         public static AdvancedString Copy(AdvancedString old)
         {
-            return old.Clone() as AdvancedString;
+            return new AdvancedString(old.internalString);
         }
         
         /// <summary>
@@ -1596,9 +1523,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Format(params object[] args)
         {
-            string t = this.ToString();
-            this.internalString.Clear();
-            this.internalString.AddRange((string.Format(t, args)).ToCharArray());
+            this.internalString = string.Format(this.internalString, args);
             return this;
         }
         
@@ -1608,7 +1533,7 @@ namespace IExtendFramework
         /// <param name="f">the AdvancedString format</param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static AdvancedString FormatAdvancedString(AdvancedString f, params object[] args)
+        public static AdvancedString Format(AdvancedString f, params object[] args)
         {
             return f.Format(args);
         }
@@ -1621,8 +1546,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Remove(int startIndex, int count)
         {
-            internalString.RemoveRange(startIndex, count);
-            return this;
+            return internalString.Remove(startIndex, count);
         }
         
         /// <summary>
@@ -1632,13 +1556,8 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Remove(int startIndex)
         {
-            string s = InternalSubstring(startIndex, Length);
-            
-            internalString.Clear();
-            internalString.AddRange(s.ToCharArray());
-            return this;
+            return internalString.Substring(0, startIndex);
         }
-        
         
         /// <summary>
         /// Replaces strings
@@ -1648,7 +1567,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Replace(string old, string n)
         {
-            return Replace(old.ToAdvancedString(), n.ToAdvancedString());
+            return internalString.Replace(old, n);
         }
         
         /// <summary>
@@ -1659,13 +1578,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Replace(char old, char n)
         {
-            for(int i = 0; i < internalString.Count; i++)
-            {
-                char c = internalString[i];
-                if (c == old)
-                    internalString[i] = n;
-            }
-            return this;
+            return internalString.Replace(old, n);
         }
         
         /// <summary>
@@ -1676,15 +1589,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Replace(AdvancedString old, AdvancedString n)
         {
-            for (int i = 0; i < Length; i++)
-            {
-                // collect the string
-                List<char> cList = new List<char>();
-                for (int i2 = i; i < i + old.Length; i++)
-                    cList.Add(internalString[i2]);
-                string s = Utilities.CharListToString(cList);
-            }
-            return this;
+            return internalString.Replace(old.ToString(), n.ToString());
         }
         
         /// <summary>
@@ -1693,9 +1598,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString ToUpper()
         {
-            for(int i = 0; i < Length; i++)
-                internalString[i] = char.ToUpper(internalString[i]);
-            return this;
+            return AdvancedString.From(internalString.ToUpper());
         }
         
         /// <summary>
@@ -1704,9 +1607,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString ToLower()
         {
-            for(int i = 0; i < Length; i++)
-                internalString[i] = char.ToLower(internalString[i]);
-            return this;
+            return AdvancedString.From(internalString.ToLower());
         }
         
         /// <summary>
@@ -1756,22 +1657,17 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString ToExclamation()
         {
-            if (string.IsNullOrEmpty(ToString()))
-                return this;
+            if (string.IsNullOrEmpty(internalString))
+                return internalString;
             
-            if (EndsWith("!"))
-                return this;
+            if (internalString.EndsWith("!"))
+                return internalString;
             // other sentence types
-            if (EndsWith(".") ||  EndsWith("?"))
-            {
-                string s = InternalSubstring(0, Length - 1);
-                internalString.Clear();
-                internalString.AddRange(s.ToCharArray());
-            }
+            if (internalString.EndsWith(".") ||  internalString.EndsWith("?"))
+                return internalString.Substring(0, internalString.Length - 1) + "!"; //s.Substring(s.Length - 1, 1);
             
             // anything else
-            this.Add("!");
-            return this;
+            return internalString + "!";
         }
         
         /// <summary>
@@ -1780,22 +1676,17 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString ToQuestion()
         {
-            if (string.IsNullOrEmpty(ToString()))
-                return this;
+            if (string.IsNullOrEmpty(internalString))
+                return internalString;
             
-            if (EndsWith("?"))
-                return this;
+            if (internalString.EndsWith("?"))
+                return internalString;
             // other sentence types
-            if (EndsWith(".") ||  EndsWith("!"))
-            {
-                string s = InternalSubstring(0, Length - 1);
-                internalString.Clear();
-                internalString.AddRange(s.ToCharArray());
-            }
+            if (internalString.EndsWith(".") ||  internalString.EndsWith("!"))
+                return internalString.Substring(0, internalString.Length - 1) + "?"; //s.Substring(s.Length - 1, 1);
             
             // anything else
-            this.Add("?");
-            return this;
+            return internalString + "?";
         }
         
         /// <summary>
@@ -1804,24 +1695,18 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString ToSentence()
         {
-            if (string.IsNullOrEmpty(this.ToString()))
-                return this;
+            if (string.IsNullOrEmpty(internalString))
+                return internalString;
             
-            if (this.EndsWith("."))
-                return this;
+            if (internalString.EndsWith("."))
+                return internalString;
             // other sentence types
-            if (EndsWith("?") ||  EndsWith("!"))
-            {
-                string s = InternalSubstring(0, Length - 1);
-                internalString.Clear();
-                internalString.AddRange(s.ToCharArray());
-            }
+            if (internalString.EndsWith("!") ||  internalString.EndsWith("?"))
+                return internalString.Substring(0, internalString.Length - 1) + "."; //s.Substring(s.Length - 1, 1);
             
             // anything else
-            this.Add(".");
-            return this;
+            return internalString + ".";
         }
-        
         
         /// <summary>
         /// Checks if the string is a palindrome (same forward and back)
@@ -1829,9 +1714,9 @@ namespace IExtendFramework
         /// <returns></returns>
         public bool IsPalindrome()
         {
-            if (Length == 1 || Length == 0)
+            if (internalString.Length == 1 || internalString.Length == 0)
                 return true;
-            return IsPalindrome(this.ToString());
+            return IsPalindrome(internalString);
         }
         
         /// <summary>
@@ -1854,7 +1739,6 @@ namespace IExtendFramework
             return false;
         }
         
-        /*
         /// <summary>
         /// Checks if the AdvancedString contains the specified string
         /// </summary>
@@ -1884,17 +1768,14 @@ namespace IExtendFramework
         {
             return internalString.Contains(s.ToString());
         }
-         */
+        
         /// <summary>
         /// Returns a copy of this AdvancedString
         /// </summary>
         /// <returns></returns>
         public object Clone()
         {
-            AdvancedString a = new AdvancedString();
-            foreach (char c in internalString)
-                a.Add(c);
-            return a;
+            return new AdvancedString(this.internalString);
         }
         
         /// <summary>
@@ -1915,7 +1796,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public bool ToBoolean(IFormatProvider provider)
         {
-            return bool.Parse(this.ToString());
+            return bool.Parse(internalString);
         }
         
         /// <summary>
@@ -1925,7 +1806,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public char ToChar(IFormatProvider provider)
         {
-            return char.Parse(this.ToString());
+            return char.Parse(internalString);
         }
         
         /// <summary>
@@ -1935,7 +1816,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public sbyte ToSByte(IFormatProvider provider)
         {
-            return sbyte.Parse(this.ToString());
+            return sbyte.Parse(internalString);
         }
         
         /// <summary>
@@ -1945,7 +1826,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public byte ToByte(IFormatProvider provider)
         {
-            return byte.Parse(this.ToString());
+            return byte.Parse(internalString);
         }
         
         /// <summary>
@@ -1955,7 +1836,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public short ToInt16(IFormatProvider provider)
         {
-            return Int16.Parse(this.ToString());
+            return Int16.Parse(internalString);
         }
         
         /// <summary>
@@ -1965,7 +1846,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public ushort ToUInt16(IFormatProvider provider)
         {
-            return UInt16.Parse(this.ToString());
+            return UInt16.Parse(internalString);
         }
         
         /// <summary>
@@ -1975,7 +1856,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public int ToInt32(IFormatProvider provider)
         {
-            return Int32.Parse(this.ToString());
+            return Int32.Parse(internalString);
         }
         
         /// <summary>
@@ -1985,7 +1866,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public uint ToUInt32(IFormatProvider provider)
         {
-            return UInt32.Parse(this.ToString());
+            return UInt32.Parse(internalString);
         }
         
         /// <summary>
@@ -1995,7 +1876,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public long ToInt64(IFormatProvider provider)
         {
-            return Int64.Parse(this.ToString());
+            return Int64.Parse(internalString);
         }
         
         /// <summary>
@@ -2005,7 +1886,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public ulong ToUInt64(IFormatProvider provider)
         {
-            return UInt64.Parse(this.ToString());
+            return UInt64.Parse(internalString);
         }
         
         /// <summary>
@@ -2015,7 +1896,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public float ToSingle(IFormatProvider provider)
         {
-            return float.Parse(this.ToString());
+            return float.Parse(internalString);
         }
         
         /// <summary>
@@ -2025,7 +1906,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public double ToDouble(IFormatProvider provider)
         {
-            return double.Parse(this.ToString());
+            return double.Parse(internalString);
         }
         
         /// <summary>
@@ -2035,7 +1916,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public decimal ToDecimal(IFormatProvider provider)
         {
-            return decimal.Parse(this.ToString());
+            return decimal.Parse(internalString);
         }
         
         /// <summary>
@@ -2045,7 +1926,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public DateTime ToDateTime(IFormatProvider provider)
         {
-            return DateTime.Parse(this.ToString());
+            return DateTime.Parse(internalString);
         }
         
         /// <summary>
@@ -2055,7 +1936,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public string ToString(IFormatProvider provider)
         {
-            return this.ToString();
+            return internalString;
         }
         
         /// <summary>
@@ -2065,7 +1946,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public object ToType(Type conversionType, IFormatProvider provider)
         {
-            throw new NotSupportedException();
+            throw new Exception();
         }
         #endregion
         
@@ -2101,13 +1982,12 @@ namespace IExtendFramework
         {
             AdvancedString ret = "";
             // go through the string backwards
-            for (int i = Length - 1; i >= 0; i--)
+            for (int i = internalString.Length - 1; i >= 0; i--)
                 ret += internalString[i];
             
             return ret;
         }
         
-        #region TRUNCATE
         /// <summary>
         /// Truncates from the given index
         /// </summary>
@@ -2115,9 +1995,9 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Truncate(int lengthFromEnd)
         {
-            string result = this.ToString();
-            if ((lengthFromEnd > 0) && (Length > lengthFromEnd - 1))
-                result = result.Remove(Length - lengthFromEnd, lengthFromEnd);
+            string result = internalString;
+            if ((lengthFromEnd > 0) && (internalString.Length > lengthFromEnd - 1))
+                result = result.Remove(internalString.Length - lengthFromEnd, lengthFromEnd);
             return result;
         }
         
@@ -2128,14 +2008,14 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Truncate(string TruncateDownTo)
         {
-            int removeDownTo = this.ToString().LastIndexOf(TruncateDownTo);
+            int removeDownTo = internalString.LastIndexOf(TruncateDownTo);
             int removeFromEnd = 0;
             if (removeDownTo > 0)
-                removeFromEnd = Length - removeDownTo;
+                removeFromEnd = internalString.Length - removeDownTo;
             
-            string result = this.ToString();
+            string result = internalString;
             
-            if (Length > removeFromEnd - 1)
+            if (internalString.Length > removeFromEnd - 1)
                 result = result.Remove(removeDownTo, removeFromEnd);
             
             return result;
@@ -2148,14 +2028,14 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Truncate(AdvancedString TruncateDownTo)
         {
-            int removeDownTo = this.ToString().LastIndexOf(TruncateDownTo.ToString());
+            int removeDownTo = internalString.LastIndexOf(TruncateDownTo.ToString());
             int removeFromEnd = 0;
             if (removeDownTo > 0)
-                removeFromEnd = Length - removeDownTo;
+                removeFromEnd = internalString.Length - removeDownTo;
             
-            string result = this.ToString();
+            string result = internalString;
             
-            if (Length > removeFromEnd - 1)
+            if (internalString.Length > removeFromEnd - 1)
                 result = result.Remove(removeDownTo, removeFromEnd);
             
             return result;
@@ -2171,16 +2051,15 @@ namespace IExtendFramework
             int removeDownTo = internalString.LastIndexOf(TruncateDownTo);
             int removeFromEnd = 0;
             if (removeDownTo > 0)
-                removeFromEnd = Length - removeDownTo;
+                removeFromEnd = internalString.Length - removeDownTo;
             
-            string result = this.ToString();
+            string result = internalString;
             
-            if (Length > removeFromEnd - 1)
+            if (internalString.Length > removeFromEnd - 1)
                 result = result.Remove(removeDownTo, removeFromEnd);
             
             return result;
         }
-        #endregion
         
         /// <summary>
         /// Removes extra spaces
@@ -2188,10 +2067,11 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString RemoveExtraSpaces()
         {
-            AdvancedString[] lines = InternalSplit(new AdvancedString[] { ' ' }, int.MaxValue, StringSplitOptions.RemoveEmptyEntries);
+            char[] delim = { ' ' };
+            string[] lines = internalString.Split(delim, StringSplitOptions.RemoveEmptyEntries);
             StringBuilder sb = new StringBuilder();
-            foreach (AdvancedString s in lines) {
-                if (!String.IsNullOrEmpty(s.Trim().ToString()))
+            foreach (string s in lines) {
+                if (!String.IsNullOrEmpty(s.Trim()))
                     sb.Append(s + " ");
             }
             //remove the last pipe
@@ -2209,7 +2089,7 @@ namespace IExtendFramework
             Regex reg = new Regex(regexString.ToString(), RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
 
             List<AdvancedString> result = new List<AdvancedString>();
-            foreach (Match m in reg.Matches(this.ToString()))
+            foreach (Match m in reg.Matches(internalString.ToString()))
                 result.Add(m.Value.ToAdvancedString());
             return result;
         }
@@ -2231,6 +2111,5 @@ namespace IExtendFramework
             }
             return r;
         }
-        
     }
 }

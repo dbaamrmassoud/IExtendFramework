@@ -73,8 +73,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AdvancedString.cs" />
-    <Compile Include="AdvancedString2.cs" />
+    <None Include="AdvancedString_old.cs" />
+    <Compile Include="AdvancedString.cs" />
     <Compile Include="Controls\AdvancedTextBox.cs" />
     <Compile Include="Drawing\XmlFormat\XImageControl.cs" />
     <Compile Include="Encryption\EncryptionType.cs" />
