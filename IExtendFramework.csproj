@@ -73,13 +73,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdvancedString.cs" />
+    <None Include="AdvancedString.cs" />
+    <Compile Include="AdvancedString2.cs" />
     <Compile Include="Controls\AdvancedTextBox.cs" />
     <Compile Include="Drawing\XmlFormat\XImageControl.cs" />
     <Compile Include="Encryption\EncryptionType.cs" />
     <Compile Include="Encryption\H34RTProvider.cs" />
     <Compile Include="Encryption\L1F3.cs" />
-    <Compile Include="EnumHelper.cs" />
+    <Compile Include="Enums\EnumHelper.cs" />
+    <Compile Include="Enums\EnumStringAttribute.cs" />
     <Compile Include="Inflector.cs" />
     <Compile Include="IO\AdvancedFileStream.cs" />
     <Compile Include="IO\EncryptedFileStream.cs" />
@@ -342,6 +344,7 @@
     <Folder Include="IO\Compression\Zip\Compression\Streams" />
     <Folder Include="Compiler" />
     <Folder Include="Encryption" />
+    <Folder Include="Enums" />
     <Folder Include="Parser" />
     <Folder Include="Threading" />
     <Folder Include="Text" />

@@ -407,10 +407,10 @@ namespace IExtendFramework
         /// <param name="asciiCode">The ASCII code.</param>
         /// <returns></returns>
         public static string AsciiToUnicode(this int asciiCode) {
-            Encoding ascii = Encoding.UTF32;
+            Encoding utf = Encoding.UTF32;
             char c = (char)asciiCode;
-            Byte[] b = ascii.GetBytes(c.ToString());
-            return ascii.GetString((b));
+            Byte[] b = utf.GetBytes(c.ToString());
+            return utf.GetString((b));
         }
 
 
@@ -720,6 +720,18 @@ namespace IExtendFramework
                 throw new ArgumentException(string.Format(
                     "Could not remove value from enumerated type '{0}'.", typeof(T).Name), ex);
             }
+        }
+        
+        public static AdvancedString ToReadableString(this Enum val)
+        {
+            // Gets the field info for the value
+            FieldInfo fi = val.GetType().GetField(val.ToString());
+            Enums.EnumStringAttribute[] attribs = (Enums.EnumStringAttribute[]) fi.GetCustomAttributes(typeof(Enums.EnumStringAttribute), false);
+            if (attribs.Length == 0)
+                return val.ToAdvancedString();
+            else
+                return attribs[0].Value;
+            
         }
         #endregion
         

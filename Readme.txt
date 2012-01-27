@@ -83,7 +83,10 @@ X IExtendFrameworkException                  An exception class
   Mathematics
 X   AdvancedMathProcessor                    An advanced math formula solver
 X TypeExtensions                             Type extensions for very many types
+  Enums
 X EnumHelper                                 Helps with the slow built-in enum methods
+  EnumStringAttribute                        An attribute for specifying a way to get enum to readable string
+  EnumToStringExtension                      Actually in TypeExtensions.cs...
 
 LICENSE INFO: 
 CPOL (CodeProject Open License): AdvancedForm (gTitleBar), AdvancedLabel (gLabel), AdvancedTrackBar (gTrackBar) Copyright (C) 2009

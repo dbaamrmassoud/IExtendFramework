@@ -6,6 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using System;
 using System.Collections;
@@ -17,14 +18,14 @@ using System.Threading;
 namespace IExtendFramework
 {
     /// <summary>
-    /// An AdvancedString. 
+    /// An AdvancedString.
     /// It is basically the System.String type, but more advanced.
     /// It actually uses a string internally, but according to all my tests, it is faster.
     /// </summary>
     [Serializable]
-    public class AdvancedString : 
+    public class AdvancedString :
         IEnumerable, IEnumerable<char>,
-    IComparable, ICloneable, IConvertible, 
+    IComparable, ICloneable, IConvertible,
     IComparable<AdvancedString>, IEquatable<AdvancedString>
     {
         /// <summary>
@@ -305,7 +306,7 @@ namespace IExtendFramework
             return internalString;
         }
         
-        #region Enumeration
+        #region ENUMERATION
         
         /// <summary>
         /// Creates an enumerator for this
@@ -327,6 +328,7 @@ namespace IExtendFramework
         }
         #endregion
         
+        #region LENGTH
         /// <summary>
         /// The Length of this string
         /// </summary>
@@ -348,6 +350,7 @@ namespace IExtendFramework
                 return internalString.Length;
             }
         }
+        #endregion
         
         #region Equals and GetHashCode implementation
         /// <summary>
@@ -373,6 +376,7 @@ namespace IExtendFramework
         }
         #endregion
         
+        #region INDEXING
         /// <summary>
         /// Gets or sets char at the specified index
         /// </summary>
@@ -435,8 +439,9 @@ namespace IExtendFramework
                 internalString = internalString.Substring(0, index1) + value.ToString() + internalString.Substring(index2);
             }
         }
+        #endregion
         
-        #region Join
+        #region JOIN
         /// <summary>
         /// Joins some AdvancedStrings together
         /// </summary>
@@ -768,6 +773,7 @@ namespace IExtendFramework
             return internalString.Substring(start, end - start);
         }
         
+        #region SUBSTRING
         /// <summary>
         /// Gets the specified substring
         /// </summary>
@@ -788,7 +794,9 @@ namespace IExtendFramework
         {
             return new AdvancedString(internalString.Substring(l, h));
         }
+        #endregion
         
+        #region INSERT
         /// <summary>
         /// Inserts an AdvancedString at the index
         /// </summary>
@@ -810,6 +818,7 @@ namespace IExtendFramework
         {
             return new AdvancedString(internalString.Insert(index, s));
         }
+        #endregion
         
         /// <summary>
         /// Checks if the AdvancedString is null or empty
@@ -1080,6 +1089,7 @@ namespace IExtendFramework
         }
         #endregion
         
+        #region TRIMMING
         /// <summary>
         /// Trims whitespace from the string
         /// </summary>
@@ -1098,6 +1108,7 @@ namespace IExtendFramework
         {
             return new AdvancedString(internalString.Trim(tchars));
         }
+        #endregion
         
         #region IndexOf
         /// <summary>
@@ -1256,6 +1267,89 @@ namespace IExtendFramework
             return internalString.IndexOfAny(anyOf, startIndex, count);
         }
         
+        /// <summary>
+        /// Returns all the indexes of the specified string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public List<int> IndexOfAll(AdvancedString s)
+        {
+            List<int> r = new List<int>();
+            int i = 0;
+            
+            while (true)
+            {
+                if (i > internalString.Length)
+                    break;
+                
+                int t = internalString.IndexOf(s.ToString(), i);
+                if (t == -1)
+                    break;
+                
+                r.Add(t);
+                
+                // make sure its actually counting up
+                i += (t == 0 ? 1 : t);
+            }
+            
+            return r;
+        }
+        
+        /// <summary>
+        /// Returns all indexes of the specified string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public List<int> IndexOfAll(string s)
+        {
+            List<int> r = new List<int>();
+            int i = 0;
+            
+            while (true)
+            {
+                if (i > internalString.Length)
+                    break;
+                
+                int t = internalString.IndexOf(s, i);
+                if (t == -1)
+                    break;
+                
+                r.Add(t);
+                
+                // make sure its actually counting up
+                i += (t == 0 ? 1 : t);
+            }
+            
+            return r;
+        }
+        
+        /// <summary>
+        /// Returns all the indexes of the specified char
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public List<int> IndexOfAll(char s)
+        {
+            List<int> r = new List<int>();
+            int i = 0;
+            
+            while (true)
+            {
+                if (i > internalString.Length)
+                    break;
+                
+                int t = internalString.IndexOf(s, i);
+                if (t == -1)
+                    break;
+                
+                r.Add(t);
+                
+                // make sure its actually counting up
+                i += (t == 0 ? 1 : t);
+            }
+            
+            return r;
+        }
         #endregion
         
         /// <summary>
@@ -1280,6 +1374,7 @@ namespace IExtendFramework
             return new AdvancedString(internalString.PadRight(count, padChar));
         }
         
+        #region Start/End With
         /// <summary>
         /// Checks if the string starts with s
         /// </summary>
@@ -1325,6 +1420,7 @@ namespace IExtendFramework
         {
             return internalString.EndsWith(s, ignoreCase, c);
         }
+        #endregion
         
         /// <summary>
         /// Compares to an object
@@ -1356,6 +1452,7 @@ namespace IExtendFramework
             return internalString.ToCharArray(startIndex, length);
         }
         
+        #region CONCAT
         /// <summary>
         /// Sticks a bunch of AdvancedStrings together
         /// </summary>
@@ -1407,6 +1504,7 @@ namespace IExtendFramework
                 a += a2.ToString();
             return a;
         }
+        #endregion
         
         /// <summary>
         /// Returns a copy of the specified AdvancedString
@@ -1895,31 +1993,71 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="lengthFromEnd"></param>
         /// <returns></returns>
-        public AdvancedString Chop(int lengthFromEnd)
+        public AdvancedString Truncate(int lengthFromEnd)
         {
             string result = internalString;
             if ((lengthFromEnd > 0) && (internalString.Length > lengthFromEnd - 1))
                 result = result.Remove(internalString.Length - lengthFromEnd, lengthFromEnd);
             return result;
         }
-       
+        
         /// <summary>
         /// Truncates from the index of the given string
         /// </summary>
-        /// <param name="chopDownTo"></param>
+        /// <param name="TruncateDownTo"></param>
         /// <returns></returns>
-        public AdvancedString Chop(string chopDownTo)
+        public AdvancedString Truncate(string TruncateDownTo)
         {
-            int removeDownTo = internalString.LastIndexOf(chopDownTo);
+            int removeDownTo = internalString.LastIndexOf(TruncateDownTo);
             int removeFromEnd = 0;
             if (removeDownTo > 0)
                 removeFromEnd = internalString.Length - removeDownTo;
-                                    
+            
             string result = internalString;
-                                                        
+            
             if (internalString.Length > removeFromEnd - 1)
                 result = result.Remove(removeDownTo, removeFromEnd);
-                                    
+            
+            return result;
+        }
+        
+        /// <summary>
+        /// Truncates from the index of the given string
+        /// </summary>
+        /// <param name="TruncateDownTo"></param>
+        /// <returns></returns>
+        public AdvancedString Truncate(AdvancedString TruncateDownTo)
+        {
+            int removeDownTo = internalString.LastIndexOf(TruncateDownTo.ToString());
+            int removeFromEnd = 0;
+            if (removeDownTo > 0)
+                removeFromEnd = internalString.Length - removeDownTo;
+            
+            string result = internalString;
+            
+            if (internalString.Length > removeFromEnd - 1)
+                result = result.Remove(removeDownTo, removeFromEnd);
+            
+            return result;
+        }
+        
+        /// <summary>
+        /// Truncates from the index of the given char
+        /// </summary>
+        /// <param name="TruncateDownTo"></param>
+        /// <returns></returns>
+        public AdvancedString Truncate(char TruncateDownTo)
+        {
+            int removeDownTo = internalString.LastIndexOf(TruncateDownTo);
+            int removeFromEnd = 0;
+            if (removeDownTo > 0)
+                removeFromEnd = internalString.Length - removeDownTo;
+            
+            string result = internalString;
+            
+            if (internalString.Length > removeFromEnd - 1)
+                result = result.Remove(removeDownTo, removeFromEnd);
+            
             return result;
         }
         
@@ -1937,8 +2075,41 @@ namespace IExtendFramework
                     sb.Append(s + " ");
             }
             //remove the last pipe
-            AdvancedString result = sb.ToAdvancedString().Chop(1);
+            AdvancedString result = sb.ToAdvancedString().Truncate(1);
             return result.Trim();
+        }
+        
+        /// <summary>
+        /// Finds all occurrences of the specified regex
+        /// </summary>
+        /// <param name="regexString"></param>
+        /// <returns></returns>
+        public List<AdvancedString> Find(AdvancedString regexString)
+        {
+            Regex reg = new Regex(regexString.ToString(), RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
+
+            List<AdvancedString> result = new List<AdvancedString>();
+            foreach (Match m in reg.Matches(internalString.ToString()))
+                result.Add(m.Value.ToAdvancedString());
+            return result;
+        }
+        
+        /// <summary>
+        /// Returns an inverted casing of all chars in the string
+        /// e.g. Abc = aBC
+        /// </summary>
+        /// <returns></returns>
+        public AdvancedString InvertCases()
+        {
+            AdvancedString r = "";
+            foreach (char c in internalString)
+            {
+                if (char.IsLower(c))
+                    r += char.ToUpper(c);
+                else
+                    r += char.ToLower(c);
+            }
+            return r;
         }
     }
 }

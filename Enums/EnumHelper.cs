@@ -8,7 +8,7 @@
  * 
  ********************************************************************************
  * 
- * This file was originally from
+ * The EnumHelper<T> class was originally from
  * http://www.codeproject.com/KB/dotnet/enum.aspx
  * 
  * Author: Boris Dongarov (ideafixxxer)
@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-namespace IExtendFramework
+namespace IExtendFramework.Enums
 {
     /// <summary>
     /// Helper class for enum types

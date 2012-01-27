@@ -79,7 +79,6 @@ namespace IExtendFramework.Controls
 			this.InitializeComponent();
 
 			//
-			// TODO : Add constructor code after InitializeComponents
 			//
 		}
 	}

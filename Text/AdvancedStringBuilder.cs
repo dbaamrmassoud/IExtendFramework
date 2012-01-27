@@ -23,22 +23,7 @@ namespace IExtendFramework.Text
     /// </summary>
     public class AdvancedStringBuilder
     {
-        private LinkedList<AdvancedString> strings;
-        
-        /// <summary>
-        /// The strings this AdvancedStringBuilder is composed of.
-        /// </summary>
-        private LinkedList<AdvancedString> Strings
-        {
-            get
-            {
-                return this.strings;
-            }
-            set
-            {
-                this.strings = value;
-            }
-        }
+        private LinkedList<AdvancedString> Strings;
         
         /// <summary>
         /// Returns the collected string
@@ -117,7 +102,7 @@ namespace IExtendFramework.Text
         /// <param name="str">The string to prefix.</param>
         public void Prepend(string str)
         {
-            this.Insert(str, InsertType.Beginning);
+            this.Insert(str.ToAdvancedString(), InsertType.Beginning);
         }
         
         /// <summary>
@@ -126,7 +111,7 @@ namespace IExtendFramework.Text
         /// <param name="str">The string to suffix.</param>
         public void Append(string str)
         {
-            this.Insert(str, InsertType.End);
+            this.Insert(str.ToAdvancedString(), InsertType.End);
         }
         
         /// <summary>
@@ -135,7 +120,7 @@ namespace IExtendFramework.Text
         /// <param name="s"></param>
         public void AppendLine(string s)
         {
-            this.Insert(s + Environment.NewLine, InsertType.End);
+            this.Insert(s.ToAdvancedString() + Environment.NewLine, InsertType.End);
         }
         
         /// <summary>
@@ -144,7 +129,25 @@ namespace IExtendFramework.Text
         /// <param name="str">The string to suffix.</param>
         public void Append(AdvancedString str)
         {
-            this.Insert(str.ToString(), InsertType.End);
+            this.Insert(str, InsertType.End);
+        }
+        
+        /// <summary>
+        /// Add a char to the end
+        /// </summary>
+        /// <param name="c"></param>
+        public void Append(char c)
+        {
+            this.Insert(c.ToAdvancedString(), InsertType.End);
+        }
+        
+        /// <summary>
+        /// Add a char to the beginning
+        /// </summary>
+        /// <param name="c"></param>
+        public void Prepend(char c)
+        {
+            this.Insert(c.ToAdvancedString(), InsertType.Beginning);
         }
         
         /// <summary>
@@ -153,15 +156,15 @@ namespace IExtendFramework.Text
         /// <param name="s"></param>
         public void AppendLine(AdvancedString s)
         {
-            this.Insert(s.ToString() + Environment.NewLine, InsertType.End);
+            this.Insert(s + Environment.NewLine, InsertType.End);
         }
         
-        public void Insert(string s, InsertType t)
+        public void Insert(AdvancedString s, InsertType t)
         {
             if (t == InsertType.Beginning)
-                strings.AddFirst(new AdvancedString(s));
+                Strings.AddFirst(s);
             else if (t == InsertType.End)
-                strings.AddLast(new AdvancedString(s));
+                Strings.AddLast(s);
         }
         
         /// <summary>

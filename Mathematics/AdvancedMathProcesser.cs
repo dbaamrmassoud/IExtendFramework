@@ -179,7 +179,7 @@ namespace IExtendFramework.Mathematics
                 while (reAddSub.IsMatch(Input) & !(Regex.Match(Input, NumType).Groups[0].Value == Input)) {
                     Input = reAddSub.Replace(Input, DoAddSub).ToString().Replace(" ", "");
                     if (saveAddSub == Input) {
-                        break; // TODO: might not be correct. Was : Exit While
+                        break;
                     } else {
                         saveAddSub = Input;
                     }
