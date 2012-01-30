@@ -155,13 +155,13 @@ namespace IExtendFramework.Text
         {
             get
             {
-                if(t == null || t == Type.Missing)
+                if(t == null || t == (System.Type)Type.Missing)
                     return this[section][key];
                 return GetValue(section, key, null, t);
             }
             set
             {
-                if (t == null || t == Type.Missing)
+                if (t == null || t == (System.Type)Type.Missing)
                     this[section][key] = String.Empty;
                 else
                     SetValue(section, key, value);

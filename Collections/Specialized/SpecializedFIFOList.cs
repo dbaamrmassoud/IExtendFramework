@@ -13,7 +13,7 @@ namespace IExtendFramework.Collections
     /// It acts as a First-in-first-out List(Of T)
     /// </summary>
     /// <remarks><see cref="System.Collections.Queue">Based off of Queue</see></remarks>
-    public class SpecializedFIFOList<T>
+    public class FIFOList<T>
     {
         
         private List<T> _internalCollection = new List<T>();

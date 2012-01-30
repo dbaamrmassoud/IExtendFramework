@@ -16,6 +16,8 @@ namespace IExtendFramework.IO
     /// </summary>
     public interface IFileStream
     {
+        void Close();
+        
         void Write(string s);
         void Write(int i);
         void Write(char c);

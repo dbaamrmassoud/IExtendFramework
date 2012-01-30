@@ -328,24 +328,16 @@ namespace IExtendFramework.IO
                 throw new InvalidOperationException("Cannot read from a write stream!");
         }
         
-        /*
-        public static AdvancedFileStream operator <<(AdvancedFileStream afs, object o)
-        {
-            afs.Write(o);
-            return afs;
-        }
-        
-        public static AdvancedFileStream operator >>(AdvancedFileStream afs, object o)
-        {
-            if (o is int)
-                return afs.ReadInt();
-            return null;
-        }
-         */
-        
         public void Dispose()
         {
+            if (_file != null)
+                _file.Close();
+        }
+        
+        public void Close()
+        {
             _file.Close();
+            _file = null;
         }
     }
 }

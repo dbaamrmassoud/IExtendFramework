@@ -11,10 +11,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using IExtendFramework.Collections.Generic;
+using IExtendFramework.Collections.Specialized;
 using IExtendFramework.Encryption;
 
 namespace IExtendFramework
@@ -1562,6 +1565,77 @@ namespace IExtendFramework
         }
         #endregion
         
+        public static LazyReadOnlyCollection<T> ToReadOnly<T>(this IEnumerable<T> items)
+        {
+            return new LazyReadOnlyCollection<T>(items.ToList<T>());
+        }
+        
+        public static void MemSet(this List<byte> mem, int offset, int length)
+        {
+            if (mem.Count < offset + length)
+            {
+                for (int i = 0; i < offset + length; ++i)
+                {
+                    mem.Add((byte)0);
+                }
+            }
+        }
+
+        public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
+        {
+            foreach (T item in items)
+            {
+                action(item);
+            }
+        }
+
+        public static IEnumerable<T> AsEnumerable<T>(this T item)
+        {
+            yield return item;
+        }
+
+        public static void CheckNotNull(this object obj, string name)
+        {
+            if (obj == null)
+            {
+                throw new ArgumentNullException(name);
+            }
+        }
+
+        public static void CheckNotNullOrEmpty(this string obj, string name)
+        {
+            obj.CheckNotNull(name);
+            if (obj.Length == 0)
+            {
+                throw new ArgumentException("String is empty.");
+            }
+        }
+
+        public static void Skip(this Stream source, long advanceAmount)
+        {
+            byte[] buffer = new byte[32 * 1024];
+            int read = 0;
+            int readCount = 0;
+            do
+            {
+                readCount = buffer.Length;
+                if (readCount > advanceAmount)
+                {
+                    readCount = (int)advanceAmount;
+                }
+                read = source.Read(buffer, 0, readCount);
+                if (read < 0)
+                {
+                    break;
+                }
+                advanceAmount -= read;
+                if (advanceAmount == 0)
+                {
+                    break;
+                }
+            } while (true);
+        }
+
     }
 
     public enum FormatType

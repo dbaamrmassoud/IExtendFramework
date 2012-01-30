@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Threading;
-//TODO: String.[Last]IndexOfAny(char[] anyOf[, start, count, comparisonType])
 
 namespace IExtendFramework
 {
@@ -30,19 +29,24 @@ namespace IExtendFramework
     IComparable<AdvancedString>, IEquatable<AdvancedString>
     {
         /// <summary>
-        /// The string that this AdvancedString wraps
+        /// The internal "string" 
         /// </summary>
-        //private string internalString;
         private List<char> internalString = new List<char>();
         
         /// <summary>
         /// An empty ("") AdvancedString
         /// </summary>
         public static readonly AdvancedString Empty = new AdvancedString("");
+        /// <summary>
+        /// Maximum string length
+        /// </summary>
         public static readonly int MaxLength = int.MaxValue;
+        /// <summary>
+        /// Minimum string length (0)
+        /// </summary>
         public static readonly int MinLength = 0;
         
-        #region Init
+        #region INIT
         
         /// <summary>
         /// Create an empty AdvancedString
@@ -403,14 +407,15 @@ namespace IExtendFramework
         
         #region INTERNAL METHODS
         
-        private string InternalSubstring(int low, int high = -1)
+        private AdvancedString InternalSubstring(int low, int high = -1)
         {
             if (high == -1)
                 high = this.Length;
+            
             AdvancedStringBuilder asb = new AdvancedStringBuilder();
             for (int i = low; i < high; i++)
                 asb.Append(internalString[i]);
-            return asb.ToString();
+            return asb.ToAdvancedString();
         }
         
         private AdvancedString[] InternalSplit(AdvancedString[] sep, int count, StringSplitOptions s)
@@ -478,8 +483,8 @@ namespace IExtendFramework
                 if (index > this.Length)
                     throw new Exception("Index cannot be greater then length!");
                 
-                string a = InternalSubstring(0, index == 0 ? 0 : index - 1);
-                string b = "";
+                AdvancedString a = InternalSubstring(0, index == 0 ? 0 : index - 1);
+                AdvancedString b = "";
                 b = InternalSubstring(index);
                 //FIXME: slow performance here
                 internalString.Clear();
@@ -490,7 +495,7 @@ namespace IExtendFramework
         /// <summary>
         /// Slices the string, also allows setting slice sections
         /// </summary>
-        public string this[int index1, int index2]
+        public AdvancedString this[int index1, int index2]
         {
             get
             {
@@ -500,13 +505,17 @@ namespace IExtendFramework
                 if (index2 < 0)
                     index2 = this.Length + index2;
                 if (index2 < index1)
-                    throw new Exception("Second slice index cannot be lower than the first!");
-                if (index1 > index2)
-                    throw new Exception("First slice index cannot be greater than the second!");
-                if (index2 > internalString.Count)
-                    index2 = internalString.Count;
-                
-                return InternalSubstring(index1, index2 - index1);
+                {
+                    AdvancedString o = InternalSubstring(index2, index1);
+                    return o.Reverse().ToString();
+                }
+                else
+                {
+                    if (index2 > internalString.Count)
+                        index2 = internalString.Count;
+                    
+                    return InternalSubstring(index1, index2 - index1);
+                }
             }
             set
             {
@@ -840,14 +849,21 @@ namespace IExtendFramework
                 start = this.Length + start;
             if (end < 0)
                 end = this.Length + end;
-            if (end < start)
-                throw new Exception("Second slice index cannot be lower than the first!");
-            if (start > end)
-                throw new Exception("First slice index cannot be greater than the second!");
             if (end > Length)
                 end = Length;
             
-            return InternalSubstring(start, end - start);
+            if (end < start)
+            {
+                AdvancedString o = InternalSubstring(start, end);
+                return o.Reverse();
+            }
+            else
+            {
+                if (end > internalString.Count)
+                    end = internalString.Count;
+                
+                return InternalSubstring(start, end - start);
+            }
         }
         
         /// <summary>
@@ -867,7 +883,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Substring(int low)
         {
-            return AdvancedString.From(InternalSubstring(low));
+            return InternalSubstring(low);
         }
         
         /// <summary>
@@ -928,7 +944,12 @@ namespace IExtendFramework
         /// <returns></returns>
         public static bool IsNullOrEmpty(AdvancedString s)
         {
-            return string.IsNullOrEmpty(s.ToString());
+            if (s == null)
+                return true;
+            if (s.Length == 0)
+                return true;
+            
+            return false;
         }
         
         /// <summary>
@@ -951,11 +972,17 @@ namespace IExtendFramework
         /// <returns></returns>
         public static bool IsNullOrWhiteSpace(AdvancedString s)
         {
-            return string.IsNullOrWhiteSpace(s.ToString());
+            if (s == null || s.Length == 0)
+                return true;
+            foreach (char c in s)
+                if (!char.IsWhiteSpace(c))
+                    return false;
+            
+            return true;
         }
         #endregion
         
-        #region Splitting
+        #region SPLITTING
         /// <summary>
         /// splits the string
         /// </summary>
@@ -1406,6 +1433,42 @@ namespace IExtendFramework
             
             return r;
         }
+        
+        public int IndexOfAny(char[] c)
+        {
+            int r = -1;
+            int index = 0;
+            foreach (char c1 in internalString)
+            {
+                foreach (char c2 in c)
+                {
+                    if (c1 == c2)
+                    {
+                        r = index;
+                        break;
+                    }
+                }
+                index++;
+            }
+            return r;
+        }
+        
+        public int LastIndexOfAny(char[] c)
+        {
+            int r = -1;
+            int index = Count - 1;
+            for(int i = Length - 1; i > 0; i--)
+            {
+                char c2 = internalString[i];
+                foreach(char c1 in c)
+                {
+                    if (c2 == c1)
+                        r = index;
+                }
+                index--;
+            }
+            return r;
+        }
         #endregion
         
         #region PADDING
@@ -1598,7 +1661,9 @@ namespace IExtendFramework
         {
             string t = this.ToString();
             this.internalString.Clear();
-            this.internalString.AddRange((string.Format(t, args)).ToCharArray());
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat(t, args);
+            this.internalString.AddRange(sb.ToString().ToCharArray());
             return this;
         }
         
@@ -1632,13 +1697,12 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Remove(int startIndex)
         {
-            string s = InternalSubstring(startIndex, Length);
+            AdvancedString s = InternalSubstring(startIndex, Length);
             
             internalString.Clear();
             internalString.AddRange(s.ToCharArray());
             return this;
         }
-        
         
         /// <summary>
         /// Replaces strings
@@ -1725,7 +1789,7 @@ namespace IExtendFramework
             {
                 if (wasLastCharEndOfSentence)
                 {
-                    r += c.ToString().ToUpper();
+                    r += char.ToUpper(c);
                     wasLastCharEndOfSentence = false;
                 }
                 else
@@ -1764,7 +1828,7 @@ namespace IExtendFramework
             // other sentence types
             if (EndsWith(".") ||  EndsWith("?"))
             {
-                string s = InternalSubstring(0, Length - 1);
+                AdvancedString s = InternalSubstring(0, Length - 1);
                 internalString.Clear();
                 internalString.AddRange(s.ToCharArray());
             }
@@ -1788,7 +1852,7 @@ namespace IExtendFramework
             // other sentence types
             if (EndsWith(".") ||  EndsWith("!"))
             {
-                string s = InternalSubstring(0, Length - 1);
+                AdvancedString s = InternalSubstring(0, Length - 1);
                 internalString.Clear();
                 internalString.AddRange(s.ToCharArray());
             }
@@ -1804,7 +1868,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString ToSentence()
         {
-            if (string.IsNullOrEmpty(this.ToString()))
+            if (AdvancedString.IsNullOrEmpty(this))
                 return this;
             
             if (this.EndsWith("."))
@@ -1812,7 +1876,7 @@ namespace IExtendFramework
             // other sentence types
             if (EndsWith("?") ||  EndsWith("!"))
             {
-                string s = InternalSubstring(0, Length - 1);
+                AdvancedString s = InternalSubstring(0, Length - 1);
                 internalString.Clear();
                 internalString.AddRange(s.ToCharArray());
             }
@@ -1831,7 +1895,7 @@ namespace IExtendFramework
         {
             if (Length == 1 || Length == 0)
                 return true;
-            return IsPalindrome(this.ToString());
+            return IsPalindrome(this);
         }
         
         /// <summary>
@@ -1839,7 +1903,7 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private bool IsPalindrome(string s)
+        private bool IsPalindrome(AdvancedString s)
         {
             if (s.Length == 1 || s.Length == 0)
                 return true;
@@ -1854,7 +1918,7 @@ namespace IExtendFramework
             return false;
         }
         
-        /*
+        
         /// <summary>
         /// Checks if the AdvancedString contains the specified string
         /// </summary>
@@ -1862,7 +1926,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public bool Contains(AdvancedString s)
         {
-            return internalString.Contains(s.ToString());
+            return IndexOf(s) >= 0;
         }
         
         /// <summary>
@@ -1872,7 +1936,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public bool Contains(string s)
         {
-            return internalString.Contains(s.ToString());
+            return IndexOf(s) >= 0;
         }
         
         /// <summary>
@@ -1882,9 +1946,9 @@ namespace IExtendFramework
         /// <returns></returns>
         public bool Contains(char s)
         {
-            return internalString.Contains(s.ToString());
+            return IndexOf(s) >= 0;
         }
-         */
+        
         /// <summary>
         /// Returns a copy of this AdvancedString
         /// </summary>
@@ -2191,7 +2255,7 @@ namespace IExtendFramework
             AdvancedString[] lines = InternalSplit(new AdvancedString[] { ' ' }, int.MaxValue, StringSplitOptions.RemoveEmptyEntries);
             StringBuilder sb = new StringBuilder();
             foreach (AdvancedString s in lines) {
-                if (!String.IsNullOrEmpty(s.Trim().ToString()))
+                if (AdvancedString.IsNullOrEmpty(s.Trim()))
                     sb.Append(s + " ");
             }
             //remove the last pipe

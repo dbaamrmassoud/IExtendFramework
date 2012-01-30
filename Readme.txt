@@ -84,10 +84,15 @@ X IExtendFrameworkException                  An exception class
 X   AdvancedMathProcessor                    An advanced math formula solver
 X TypeExtensions                             Type extensions for very many types
   Enums
-X EnumHelper                                 Helps with the slow built-in enum methods
-  EnumStringAttribute                        An attribute for specifying a way to get enum to readable string
-  EnumToStringExtension                      Actually in TypeExtensions.cs...
-
+X   EnumHelper                               Helps with the slow built-in enum methods
+X   EnumStringAttribute                      An attribute for specifying a way to get enum to readable string
+X   EnumToStringExtension                    Actually in TypeExtensions.cs...
+X  AdvancedString                            A much faster, mutable version of System.String, with no managed code, and more built-in functions
+  Events                                     
+    CommonEventHandler                       Can listen to all types of events of all types of objects
+  Xml
+    Sgml                                     (namespace) contains stuff for parsing Xml/Html using XmlReader
+    Html                                     (namespace) contains stuff for parsing and creating Html documents
 LICENSE INFO: 
 CPOL (CodeProject Open License): AdvancedForm (gTitleBar), AdvancedLabel (gLabel), AdvancedTrackBar (gTrackBar) Copyright (C) 2009
 CPOL (CodeProject Open License): ChromeProgressBar Copyright (C) 2011
@@ -98,6 +103,9 @@ CPOL (CodeProject Open License): AdvancedMessageBox (WPFTaskDialog) (C) Sean A. 
 CPOL (CodeProject Open License): INIDocument (TA_INIDocument)
 CPOL (CodeProject Open License): EnumHelper (Enum) Ideafixxxer 2011 (see notice in file)
 CPOL : AdvancedTextBox (CTextBox/ChreneLib)
+CPOL : CommonEventHandler (EventHandlerFactory)
+
+Freewar: UnRar archiving (Nunrar http://nunrar.codeplex.com)
 
 Compression: BZip2, GZip, Tar under LGPL License from DotNetFireball (dotnetfireball.org)
 7z compression from 7zip (7-zip.org), DotNetFireball (dotnetfireball.org)

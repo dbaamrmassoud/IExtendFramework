@@ -11,7 +11,7 @@ using System.IO;
 namespace IExtendFramework.Text
 {
 	/// <summary>
-	/// A String Permutation Utility
+	/// A String Permutation Utilities
 	/// </summary>
 	/// <remarks></remarks>
 	public class Permutation

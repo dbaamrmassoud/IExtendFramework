@@ -198,5 +198,18 @@ namespace IExtendFramework.Text
         {
             return this.Value;
         }
+        
+        public AdvancedString ToAdvancedString()
+        {
+            AdvancedString a = "";
+            foreach (AdvancedString s in this.Strings)
+            {
+                foreach (char c in s) 
+                {
+                    a.Add(c);
+                }
+            }
+            return a;
+        }
     }
 }
