@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>IExtendFramework\IExtendFramework.csproj</id>
+    <version>1.0.0</version>
+    <author>mlnlover11</author>
+    <authors>mlnlover11</authors>
+    <owners>mlnlover11</owners>
+    <projectUrl>https://github.com/mlnlover11/IExtendFramework</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An application framework</description>
+    <releaseNotes>First NuGet release</releaseNotes>
+    <copyright>Copyright 2012 mlnlover11 Productions</copyright>
+    <tags>Framework C# CSharp</tags>
+  </metadata>
+</package>

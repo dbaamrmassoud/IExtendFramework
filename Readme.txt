@@ -105,7 +105,7 @@ CPOL (CodeProject Open License): EnumHelper (Enum) Ideafixxxer 2011 (see notice 
 CPOL : AdvancedTextBox (CTextBox/ChreneLib)
 CPOL : CommonEventHandler (EventHandlerFactory)
 
-Freewar: UnRar archiving (Nunrar http://nunrar.codeplex.com)
+Freeware: UnRar archiving (Nunrar http://nunrar.codeplex.com)
 
 Compression: BZip2, GZip, Tar under LGPL License from DotNetFireball (dotnetfireball.org)
 7z compression from 7zip (7-zip.org), DotNetFireball (dotnetfireball.org)
