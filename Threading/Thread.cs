@@ -19,6 +19,8 @@ namespace IExtendFramework.Threading
         private EventHandler Event;
         object sender;
         EventArgs e;
+        System.Threading.Thread thread;
+        
         public Thread(EventHandler e)
         {
             this.Event = e;
@@ -27,7 +29,7 @@ namespace IExtendFramework.Threading
         public void Start(object sender = null, EventArgs e = null)
         {
             ThreadStart job = new ThreadStart(_Start);
-            System.Threading.Thread thread = new System.Threading.Thread(job);
+            thread = new System.Threading.Thread(job);
             thread.SetApartmentState(ApartmentState.MTA);
             this.e = e;
             this.sender = sender;
@@ -37,6 +39,16 @@ namespace IExtendFramework.Threading
         private void _Start()
         {
             Event.Invoke(sender, e);
+        }
+        
+        public bool IsRunning
+        {
+            get
+            {
+                if (thread == null)
+                    return false;
+                return thread.IsAlive;
+            }
         }
     }
 }

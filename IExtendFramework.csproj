@@ -328,6 +328,7 @@
     <Compile Include="IO\ZipHelperEntry.cs" />
     <Compile Include="IO\ZipHelperFile.cs" />
     <None Include="Net\Mail\Mailer.txt" />
+    <Compile Include="Net\RepeatedPing.cs" />
     <Compile Include="Parser\IParserInput.cs" />
     <Compile Include="Parser\MathParser.cs" />
     <Compile Include="Parser\TextInput.cs" />
@@ -336,6 +337,37 @@
     <Compile Include="Random\RandomNumberGenerator.cs" />
     <Compile Include="Random\RandomStringGenerator.cs" />
     <Compile Include="RegexPatterns.cs" />
+    <Compile Include="StringTemplates.cs" />
+    <Compile Include="Text\GDF\GDFBuilder.cs" />
+    <Compile Include="Text\GDF\GDFBuilder.UnWrapped.cs" />
+    <Compile Include="Text\GDF\GDFCell.cs" />
+    <Compile Include="Text\GDF\GDFDisplayBox.cs" />
+    <Compile Include="Text\GDF\GDFDisplayBox.designer.cs">
+      <DependentUpon>GDFDisplayBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Text\GDF\GDFPage.cs" />
+    <Compile Include="Text\GDF\GDFPageManager.cs" />
+    <Compile Include="Text\GDF\GDFRow.cs" />
+    <Compile Include="Text\RTF\IRTFCell.cs" />
+    <Compile Include="Text\RTF\IRtfProcessor.cs" />
+    <Compile Include="Text\RTF\IRTFRow.cs" />
+    <Compile Include="Text\RTF\RTFAlignment.cs" />
+    <Compile Include="Text\RTF\RTFBorderSide.cs" />
+    <Compile Include="Text\RTF\RTFBuilder.cs" />
+    <Compile Include="Text\RTF\RTFBuilder.RTFFonts.cs" />
+    <Compile Include="Text\RTF\RTFBuilder.RTFFormatWrap.cs" />
+    <Compile Include="Text\RTF\RTFBuilder.RTFParaWrap.cs" />
+    <Compile Include="Text\RTF\RTFBuilder.UnWrapped.cs" />
+    <Compile Include="Text\RTF\RTFBuilderbase.cs" />
+    <Compile Include="Text\RTF\RTFBuilderParser.cs" />
+    <Compile Include="Text\RTF\RTFCell.cs" />
+    <Compile Include="Text\RTF\RTFCellDefinition.cs" />
+    <Compile Include="Text\RTF\RTFCellDefinitionBuilder.cs" />
+    <Compile Include="Text\RTF\RTFFont.cs" />
+    <Compile Include="Text\RTF\RTFImage.cs" />
+    <Compile Include="Text\RTF\RTFRow.cs" />
+    <Compile Include="Text\RTF\RTFRowDefinition.cs" />
+    <Compile Include="Text\RTF\RTFUtil.cs" />
     <Compile Include="Xml\Html\HtmlDocument.cs" />
     <Compile Include="Xml\Html\Nodes\HtmlAbbreviationNode.cs" />
     <Compile Include="Xml\Html\Nodes\HtmlAddressNode.cs" />
@@ -395,6 +427,9 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="Win32\NativeSubclasser.cs" />
     <Compile Include="Win32\Win32Messages.cs" />
+    <EmbeddedResource Include="Text\GDF\GDFDisplayBox.resx">
+      <DependentUpon>GDFDisplayBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Xml\Sgml\Html.dtd" />
     <None Include="Xml\Html\Nodes\readme.html" />
   </ItemGroup>
@@ -470,6 +505,8 @@
     <Folder Include="Events" />
     <Folder Include="IO\Compression\Rar" />
     <Folder Include="Random" />
+    <Folder Include="Text\GDF" />
+    <Folder Include="Text\RTF" />
     <Folder Include="Xml" />
     <Folder Include="Xml\Html" />
     <Folder Include="Xml\Html\Nodes" />

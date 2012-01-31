@@ -28,6 +28,11 @@ namespace IExtendFramework.IO
         {
         }
         
+        public void Write(byte b)
+        {
+            Bytes.Add(b);
+        }
+        
         public override void Write(byte[] buffer, int offset, int count)
         {
             Bytes.AddRange(buffer.Slice(offset, count));

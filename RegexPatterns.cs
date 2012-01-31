@@ -9,7 +9,7 @@
 //   rights and limitations under the License.
 // 
     /// <summary>
-    /// Summary for the RegexPattern class
+    /// Some useful Regex patterns
     /// </summary>
     public class RegexPattern {
         public const string ALPHA = "[^a-zA-Z]";

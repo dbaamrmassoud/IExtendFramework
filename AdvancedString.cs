@@ -229,6 +229,14 @@ namespace IExtendFramework
             return a;
         }
         
+        public static AdvancedString operator *(int count, AdvancedString a1)
+        {
+            AdvancedString a = new AdvancedString();
+            for (int i = 0; i < count; i++)
+                a.Add(a1);
+            return a;
+        }
+        
         public static AdvancedString operator >>(AdvancedString a1, int i)
         {
             AdvancedString a2 = new AdvancedString();
