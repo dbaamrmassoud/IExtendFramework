@@ -18,8 +18,8 @@ namespace IExtendFramework.Controls
     /// Non-visual component to show a notification window in the right lower
     /// corner of the screen.
     /// </summary>
+    [ToolboxBitmapAttribute(typeof(AdvancedPopup), "Icon.ico")]
     [DefaultEvent("Click")]
-    [ToolboxItem(true)]
     public class AdvancedPopup : Component
     {
         /// <summary>
@@ -33,7 +33,7 @@ namespace IExtendFramework.Controls
         public event EventHandler Close;
 
         private bool disposed = false;
-        private AdvancedPopupWindow frmPopup;
+        private PopupNotifierForm frmPopup;
         private Timer tmrAnimation;
         private Timer tmrWait;
 
@@ -256,7 +256,7 @@ namespace IExtendFramework.Controls
             AnimationDuration = 1000;
             Size = new Size(400, 100);
 
-            frmPopup = new AdvancedPopupWindow(this);
+            frmPopup = new PopupNotifierForm(this);
             frmPopup.TopMost = true;
             frmPopup.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             frmPopup.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

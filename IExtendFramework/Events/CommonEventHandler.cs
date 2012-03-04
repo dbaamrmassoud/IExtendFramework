@@ -12,7 +12,7 @@ namespace IExtendFramework.Events
     public delegate void CommonEventHandlerDelegate(Type EventType, object[] args);
 
     /// <summary>
-    /// Summary description for EventHandlerFactory.
+    /// Creates EventHandlers for every type of event
     /// </summary>
     public class CommonEventHandler
     {
@@ -21,7 +21,7 @@ namespace IExtendFramework.Events
         private string helperName;
 
         /// <summary>
-        /// Creates the EventHandlerFactory.
+        /// Creates the CommonEventHandler.
         /// </summary>
         /// <param name="Name">Name of the Factory. Is used as naming component of the event handlers to create.</param>
         public CommonEventHandler(string Name)

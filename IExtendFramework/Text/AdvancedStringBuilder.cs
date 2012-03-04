@@ -206,7 +206,7 @@ namespace IExtendFramework.Text
             {
                 foreach (char c in s) 
                 {
-                    a.Add(c);
+                    a.Append(c);
                 }
             }
             return a;

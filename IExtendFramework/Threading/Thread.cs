@@ -50,5 +50,10 @@ namespace IExtendFramework.Threading
                 return thread.IsAlive;
             }
         }
+        
+        public void Stop()
+        {
+            thread.Suspend();
+        }
     }
 }

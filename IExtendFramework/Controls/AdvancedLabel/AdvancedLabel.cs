@@ -606,9 +606,9 @@ namespace IExtendFramework.Controls
                     }
                     Padding TextMargin = new Padding(pad);
                     if (this.ShadowState) {
-                        var _with1 = _ShadowOffset;
-                        TextMargin.Right += Convert.ToInt32(_with1.X);
-                        TextMargin.Bottom += Convert.ToInt32(_with1.Y + ((_with1.Y) / 3));
+                        
+                        TextMargin.Right += Convert.ToInt32(_ShadowOffset.X);
+                        TextMargin.Bottom += Convert.ToInt32(_ShadowOffset.Y + ((_ShadowOffset.Y) / 3));
                     }
 
                     //Get a rectangle for the area to paint the text

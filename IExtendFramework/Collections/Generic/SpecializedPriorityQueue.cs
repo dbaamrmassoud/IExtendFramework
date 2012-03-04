@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace IExtendFramework.Collections.Specialized
+namespace IExtendFramework.Collections.Generic
 {
     /// <summary>
     /// Uses priority to decide what to give next

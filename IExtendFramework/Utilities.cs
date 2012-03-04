@@ -18,11 +18,15 @@ using IExtendFramework.Collections.Specialized;
 namespace IExtendFramework
 {
     /// <summary>
+    /// A delegate that can be used when invoking a Wpf Control using Dispatcher
+    /// </summary>
+    public delegate void WpfInvokeControlDelegate();
+    
+    /// <summary>
     /// Useful functions
     /// </summary>
     public static class Utilities
     {
-        
         public static string CharListToString(List<char> c)
         {
             if (c.Count == 0)
@@ -93,12 +97,12 @@ namespace IExtendFramework
         
         public static string ByteToString(byte[] i)
         {
-            return new UTF32Encoding().GetString(i);
+            return new ASCIIEncoding().GetString(i);
         }
         
         public static byte[] StringToByte(string i)
         {
-            return new UTF32Encoding().GetBytes(i.ToCharArray());
+            return new ASCIIEncoding().GetBytes(i.ToCharArray());
         }
         
         public static string PrettyByteToString(byte[] i)

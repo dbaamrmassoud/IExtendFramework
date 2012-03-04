@@ -149,9 +149,11 @@ namespace IExtendFramework.Parser
         protected void ReadWhitespace()
         {
             bool s = true;
-            while (s)
+            bool s2 = true;
+            while (s || s2)
             { 
                 Match(' ', out s);
+                Match('\t', out s2);
             }
         }
         
@@ -168,9 +170,12 @@ namespace IExtendFramework.Parser
         
         protected string ReadToSet(string terminalSet, bool matchToSet, bool consumeLastChar)
         {
+            int a = 0;
             string s = "";
             while (true)
             {
+                Console.WriteLine(a.ToString() + " :" + s);
+                a++;
                 if (!Input.HasInput(position))
                     break;
                 char symbol = Input.GetInputSymbol(position);

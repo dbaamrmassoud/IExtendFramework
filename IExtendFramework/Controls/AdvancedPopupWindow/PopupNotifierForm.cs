@@ -11,17 +11,15 @@ using System;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using IExtendFramework;
 
 namespace IExtendFramework.Controls
 {
     /// <summary>
     /// This is the form of the actual notification window.
     /// </summary>
-    internal class AdvancedPopupWindow : System.Windows.Forms.Form
+    internal class PopupNotifierForm : System.Windows.Forms.Form
     {
-        private static Image image = Image.FromStream(AssemblyHelper.GetEmbeddedResource("IExtendFramework.Controls.AdvancedPopupWindow.Grip.png"));
-        
+        private static Image Grip = Image.FromStream(AssemblyHelper.GetEmbeddedResource("IExtendFramework.Controls.AdvancedPopupWindow.Grip.png"));
         /// <summary>
         /// Event that is raised when the text is clicked.
         /// </summary>
@@ -63,7 +61,7 @@ namespace IExtendFramework.Controls
         /// Create a new instance.
         /// </summary>
         /// <param name="parent">PopupNotifier</param>
-        public AdvancedPopupWindow(AdvancedPopup parent)
+        public PopupNotifierForm(AdvancedPopup parent)
         {
             Parent = parent;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -319,7 +317,7 @@ namespace IExtendFramework.Controls
             e.Graphics.DrawRectangle(penBorder, rcForm);
             if (Parent.ShowGrip)
             {
-                e.Graphics.DrawImage(image, (int)((this.Width - image.Width) / 2), (int)((Parent.HeaderHeight - 3) / 2));
+                e.Graphics.DrawImage(Grip, (int)((this.Width - Grip.Width) / 2), (int)((Parent.HeaderHeight - 3) / 2));
             }
             if (Parent.ShowCloseButton)
             {

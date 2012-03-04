@@ -1,24 +1,24 @@
 ﻿/*
  * User: elijah
- * Date: 3/3/2012
- * Time: 5:31 PM
+ * Date: 1/28/2012
+ * Time: 3:15 PM
  */
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace IExtendFramework.Collections.Generic
+namespace IExtendFramework.Collections
 {
     /// <summary>
     /// Grows and shrinks as necessary
     /// </summary>
-    public class TinyList<T> : IEnumerable
+    public class TinyList : IEnumerable
     {
         /// <summary>
-        /// The list of Ts it contains
+        /// The list of objects it contains
         /// </summary>
-        private T[] me = new T[1];
+        private object[] me = new object[1];
         
         /// <summary>
         /// Creates a new TinyList
@@ -31,7 +31,7 @@ namespace IExtendFramework.Collections.Generic
         /// Adds an item to the list
         /// </summary>
         /// <param name="o"></param>
-        public void Add(T o)
+        public void Add(object o)
         {
             GrowOne();
             me[Count - 1] = o;
@@ -41,7 +41,7 @@ namespace IExtendFramework.Collections.Generic
         /// Removes the specified item from the list
         /// </summary>
         /// <param name="o"></param>
-        public void Remove(T o)
+        public void Remove(object o)
         {
             int index = Array.IndexOf(me, o);
             
@@ -53,7 +53,7 @@ namespace IExtendFramework.Collections.Generic
         /// </summary>
         public void Clear()
         {
-            me = new T[1];
+            me = new object[1];
         }
         
         /// <summary>
@@ -68,7 +68,7 @@ namespace IExtendFramework.Collections.Generic
         /// <summary>
         /// Get or set the item at the specified index
         /// </summary>
-        public T this[int index]
+        public object this[int index]
         {
             get
             {
@@ -113,7 +113,7 @@ namespace IExtendFramework.Collections.Generic
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
-        public int IndexOf(T o)
+        public int IndexOf(object o)
         {
             return Array.IndexOf(me, o);
         }
@@ -124,7 +124,7 @@ namespace IExtendFramework.Collections.Generic
         private void GrowOne()
         {
             // add an empty one on the end
-            T[] newArray = new T[Count + 1];
+            object[] newArray = new object[Count + 1];
             for (int i = 0; i < me.Length; i++)
                 newArray[i] = me[i];
             me = newArray;
@@ -136,7 +136,7 @@ namespace IExtendFramework.Collections.Generic
         /// <param name="ignoredIndex"></param>
         private void ShrinkOne(int ignoredIndex)
         {
-            T[] newArray = new T[Count - 1];
+            object[] newArray = new object[Count - 1];
             int position = 0;
             for (int i = 0; i < me.Length; i++)
             {
@@ -148,7 +148,7 @@ namespace IExtendFramework.Collections.Generic
             me = newArray;
         }
         
-        public T[] ToArray()
+        public object[] ToArray()
         {
             return this.me;
         }

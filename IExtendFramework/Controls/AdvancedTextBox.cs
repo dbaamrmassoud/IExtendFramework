@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
+//using System.Windows.Controls;
 using System.Drawing;
 using System.ComponentModel;
 
 namespace IExtendFramework.Controls.TextBoxes
 {
-    public class CTextBox : TextBox
+    public class AdvancedTextBox : TextBox
     {
         #region Fields
 
@@ -29,7 +30,7 @@ namespace IExtendFramework.Controls.TextBoxes
 
         #region Constructors
 
-        public CTextBox()
+        public AdvancedTextBox()
         {
             Initialize();
         }
@@ -130,7 +131,7 @@ namespace IExtendFramework.Controls.TextBoxes
 
         #endregion
 
-        #region CTextBox Events
+        #region AdvancedTextBox Events
 
         private void ThisHasFocus(object sender, EventArgs e)
         {

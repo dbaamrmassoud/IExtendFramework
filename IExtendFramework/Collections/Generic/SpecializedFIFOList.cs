@@ -6,7 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
-namespace IExtendFramework.Collections
+namespace IExtendFramework.Collections.Generic
 {
     /// <summary>
     /// A Simple "Reverse" Queue.
@@ -16,7 +16,7 @@ namespace IExtendFramework.Collections
     public class FIFOList<T>
     {
         
-        private List<T> _internalCollection = new List<T>();
+        private List<T> _internalCollection = new List<T>(50);
         
         public int Count {
             get { return _internalCollection.Count; }

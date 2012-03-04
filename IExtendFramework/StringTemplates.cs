@@ -35,5 +35,6 @@ namespace IExtendFramework
         /// Contains first, middle, and last names
         /// </summary>
         public const string FULLNAME = "{0} {1} {2}";
+        
     }
 }

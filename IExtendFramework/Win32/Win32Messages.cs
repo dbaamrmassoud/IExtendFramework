@@ -8,6 +8,7 @@
  */
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace IExtendFramework.Win32
 {
@@ -19,6 +20,20 @@ namespace IExtendFramework.Win32
         private Win32Messages()
         {
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int HT_CAPTION = 0x2;
+        
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
         
         public static readonly int WM_SYSCOMMAND = 0x112;
         public static readonly int SC_MINIMIZE = 0xF020;

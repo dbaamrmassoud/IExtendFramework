@@ -37,14 +37,6 @@ namespace IExtendFramework.Collections.Generic
     /// <typeparam name="T"></typeparam>
     public class LightCollection<T> : ILightCollection<T>, ICloneable, IList
     {
-        #region Static Members
-
-        internal static string InternalGetResourceError(string key)
-        {
-            return string.Empty;
-        }
-
-        #endregion
 
         #region Nested Types
 

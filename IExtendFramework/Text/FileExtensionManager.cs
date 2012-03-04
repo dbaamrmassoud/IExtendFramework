@@ -11,6 +11,15 @@ using System.Collections.Generic;
 
 namespace IExtendFramework.Text
 {
+    public class InvalidFileTypeException : Exception
+    {
+        public InvalidFileTypeException(string msg)
+            :base(msg)
+        {
+            
+        }
+    }
+    
     public delegate void FileOpened(string filename, ITextEditor editor);
     /// <summary>
     /// Class that contains methods for opening files
@@ -43,7 +52,7 @@ namespace IExtendFramework.Text
                 }
             }
             if (!found)
-                throw new Exception("Cannot find extension '" + ext.ToLower() + "' in extension list!");
+                throw new InvalidFileTypeException("Cannot find extension '" + ext.ToLower() + "' in extension list!");
             return null;
         }
         

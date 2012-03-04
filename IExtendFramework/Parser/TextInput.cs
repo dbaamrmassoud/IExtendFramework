@@ -86,5 +86,11 @@ namespace IExtendFramework.Parser
         {
             return InputText.Substring(start, length);
         }
+        
+        public override string ToString()
+        {
+            return InputText;
+        }
+
     }
 }

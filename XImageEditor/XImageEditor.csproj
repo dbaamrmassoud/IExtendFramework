@@ -73,7 +73,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IExtendFramework.csproj">
+    <ProjectReference Include="..\IExtendFramework\IExtendFramework.csproj">
       <Project>{555B1E7D-E629-48A7-87A4-0AFBB69290FC}</Project>
       <Name>IExtendFramework</Name>
     </ProjectReference>

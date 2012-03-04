@@ -6,6 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using IExtendFramework.Text;
 using Microsoft.Win32;
@@ -19,17 +20,20 @@ using System.Threading;
 namespace IExtendFramework
 {
     /// <summary>
-    /// An AdvancedString.
-    /// It is basically the System.String type, but more advanced.
+    /// An advanced, mutable, fast string type
     /// </summary>
     [Serializable]
     public class AdvancedString :
-        IEnumerable, IEnumerable<char>,
-    IComparable, ICloneable, IConvertible,
-    IComparable<AdvancedString>, IEquatable<AdvancedString>
+        IEnumerable,
+    IEnumerable<char>,
+    IComparable,
+    ICloneable,
+    IConvertible,
+    IComparable<AdvancedString>,
+    IEquatable<AdvancedString>
     {
         /// <summary>
-        /// The internal "string" 
+        /// The internal "string"
         /// </summary>
         private List<char> internalString = new List<char>();
         
@@ -182,6 +186,12 @@ namespace IExtendFramework
         {
             return AdvancedString.From(o);
         }
+        
+        // Implicit conversion from AdvancedString to String
+        public static implicit operator String(AdvancedString a)
+        {
+            return a.ToString();
+        }
         #endregion
         
         public static bool operator ==(AdvancedString lhs, AdvancedString rhs)
@@ -201,14 +211,14 @@ namespace IExtendFramework
         public static AdvancedString operator +(AdvancedString a1, AdvancedString a2)
         {
             foreach (char c in a2)
-                a1.Add(c);
+                a1.Append(c);
             return a1;
         }
         
         public static AdvancedString operator +(string a1, AdvancedString a2)
         {
             foreach (char c in a1)
-                a2.Add(c);
+                a2.Append(c);
             
             return a2;
         }
@@ -216,7 +226,7 @@ namespace IExtendFramework
         public static AdvancedString operator +(AdvancedString a1, string a2)
         {
             foreach (char c in a2)
-                a1.Add(c);
+                a1.Append(c);
             
             return a1;
         }
@@ -225,7 +235,7 @@ namespace IExtendFramework
         {
             AdvancedString a = new AdvancedString();
             for (int i = 0; i < count; i++)
-                a.Add(a1);
+                a.Append(a1);
             return a;
         }
         
@@ -233,7 +243,7 @@ namespace IExtendFramework
         {
             AdvancedString a = new AdvancedString();
             for (int i = 0; i < count; i++)
-                a.Add(a1);
+                a.Append(a1);
             return a;
         }
         
@@ -241,7 +251,7 @@ namespace IExtendFramework
         {
             AdvancedString a2 = new AdvancedString();
             foreach (char c in a1.internalString)
-                a2.Add((char)(c >> i));
+                a2.Append((char)(c >> i));
             return a2;
         }
         
@@ -249,7 +259,7 @@ namespace IExtendFramework
         {
             AdvancedString a2 = new AdvancedString();
             foreach (char c in a1.internalString)
-                a2.Add((char)(c << i));
+                a2.Append((char)(c << i));
             return a2;
         }
         
@@ -494,9 +504,9 @@ namespace IExtendFramework
                 AdvancedString a = InternalSubstring(0, index == 0 ? 0 : index - 1);
                 AdvancedString b = "";
                 b = InternalSubstring(index);
-                //FIXME: slow performance here
                 internalString.Clear();
-                this.internalString.AddRange((a + value.ToString() + b).ToCharArray());
+                // adds the AdvancedStrings together. Should be quite fast.
+                this.internalString.AddRange((a + value.ToAdvancedString() + b).ToCharArray());
             }
         }
         
@@ -878,7 +888,7 @@ namespace IExtendFramework
         /// Adds the objects string representation into this string
         /// </summary>
         /// <param name="o"></param>
-        public void Add(object o)
+        public void Append(object o)
         {
             internalString.AddRange(o.ToString().ToCharArray());
         }
@@ -1320,24 +1330,23 @@ namespace IExtendFramework
             switch (comparisonType)
             {
                 case StringComparison.CurrentCulture:
-                    return CultureInfo.CurrentCulture.CompareInfo.LastIndexOf(this.ToString(), c, index, count, CompareOptions.None);
+                    return CultureInfo.CurrentCulture.CompareInfo.LastIndexOf(this, c, index, count, CompareOptions.None);
 
                 case StringComparison.CurrentCultureIgnoreCase:
-                    return CultureInfo.CurrentCulture.CompareInfo.LastIndexOf(this.ToString(), c, index, count, CompareOptions.IgnoreCase);
+                    return CultureInfo.CurrentCulture.CompareInfo.LastIndexOf(this, c, index, count, CompareOptions.IgnoreCase);
 
                 case StringComparison.InvariantCulture:
-                    return CultureInfo.InvariantCulture.CompareInfo.LastIndexOf(this.ToString(), c, index, count, CompareOptions.None);
+                    return CultureInfo.InvariantCulture.CompareInfo.LastIndexOf(this, c, index, count, CompareOptions.None);
 
                 case StringComparison.InvariantCultureIgnoreCase:
-                    return CultureInfo.InvariantCulture.CompareInfo.LastIndexOf(this.ToString(), c, index, count, CompareOptions.IgnoreCase);
+                    return CultureInfo.InvariantCulture.CompareInfo.LastIndexOf(this, c, index, count, CompareOptions.IgnoreCase);
 
                 case StringComparison.Ordinal:
-                    return CultureInfo.InvariantCulture.CompareInfo.LastIndexOf(this.ToString(), c, index, count, CompareOptions.Ordinal);
+                    return CultureInfo.InvariantCulture.CompareInfo.LastIndexOf(this, c, index, count, CompareOptions.Ordinal);
 
                 case StringComparison.OrdinalIgnoreCase:
-                    throw new Exception("Comparison not supported!");
+                    throw new NotSupportedException("Comparison not supported!");
                     //return TextInfo.LastIndexOfStringOrdinalIgnoreCase(this, c, startIndex, count);
-
                 default:
                     throw new ArgumentException("Unknown comparison type!");
             }
@@ -1502,7 +1511,7 @@ namespace IExtendFramework
         public AdvancedString PadRight(int count, char padChar = ' ')
         {
             while (this.Length < count)
-                this.Add(padChar);
+                this.Append(padChar);
             return this;
         }
         #endregion
@@ -1842,7 +1851,7 @@ namespace IExtendFramework
             }
             
             // anything else
-            this.Add("!");
+            this.Append("!");
             return this;
         }
         
@@ -1866,7 +1875,7 @@ namespace IExtendFramework
             }
             
             // anything else
-            this.Add("?");
+            this.Append("?");
             return this;
         }
         
@@ -1890,7 +1899,7 @@ namespace IExtendFramework
             }
             
             // anything else
-            this.Add(".");
+            this.Append(".");
             return this;
         }
         
@@ -1965,7 +1974,7 @@ namespace IExtendFramework
         {
             AdvancedString a = new AdvancedString();
             foreach (char c in internalString)
-                a.Add(c);
+                a.Append(c);
             return a;
         }
         
@@ -1987,7 +1996,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public bool ToBoolean(IFormatProvider provider)
         {
-            return bool.Parse(this.ToString());
+            return bool.Parse(this);
         }
         
         /// <summary>
@@ -1997,7 +2006,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public char ToChar(IFormatProvider provider)
         {
-            return char.Parse(this.ToString());
+            return char.Parse(this);
         }
         
         /// <summary>
@@ -2007,7 +2016,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public sbyte ToSByte(IFormatProvider provider)
         {
-            return sbyte.Parse(this.ToString());
+            return sbyte.Parse(this);
         }
         
         /// <summary>
@@ -2017,7 +2026,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public byte ToByte(IFormatProvider provider)
         {
-            return byte.Parse(this.ToString());
+            return byte.Parse(this);
         }
         
         /// <summary>
@@ -2027,7 +2036,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public short ToInt16(IFormatProvider provider)
         {
-            return Int16.Parse(this.ToString());
+            return Int16.Parse(this);
         }
         
         /// <summary>
@@ -2037,7 +2046,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public ushort ToUInt16(IFormatProvider provider)
         {
-            return UInt16.Parse(this.ToString());
+            return UInt16.Parse(this);
         }
         
         /// <summary>
@@ -2047,7 +2056,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public int ToInt32(IFormatProvider provider)
         {
-            return Int32.Parse(this.ToString());
+            return Int32.Parse(this);
         }
         
         /// <summary>
@@ -2057,7 +2066,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public uint ToUInt32(IFormatProvider provider)
         {
-            return UInt32.Parse(this.ToString());
+            return UInt32.Parse(this);
         }
         
         /// <summary>
@@ -2067,7 +2076,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public long ToInt64(IFormatProvider provider)
         {
-            return Int64.Parse(this.ToString());
+            return Int64.Parse(this);
         }
         
         /// <summary>
@@ -2077,7 +2086,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public ulong ToUInt64(IFormatProvider provider)
         {
-            return UInt64.Parse(this.ToString());
+            return UInt64.Parse(this);
         }
         
         /// <summary>
@@ -2087,7 +2096,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public float ToSingle(IFormatProvider provider)
         {
-            return float.Parse(this.ToString());
+            return float.Parse(this);
         }
         
         /// <summary>
@@ -2097,7 +2106,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public double ToDouble(IFormatProvider provider)
         {
-            return double.Parse(this.ToString());
+            return double.Parse(this);
         }
         
         /// <summary>
@@ -2107,7 +2116,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public decimal ToDecimal(IFormatProvider provider)
         {
-            return decimal.Parse(this.ToString());
+            return decimal.Parse(this);
         }
         
         /// <summary>
@@ -2117,7 +2126,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public DateTime ToDateTime(IFormatProvider provider)
         {
-            return DateTime.Parse(this.ToString());
+            return DateTime.Parse(this);
         }
         
         /// <summary>
@@ -2201,16 +2210,16 @@ namespace IExtendFramework
         public AdvancedString Truncate(string TruncateDownTo)
         {
             int removeDownTo = this.ToString().LastIndexOf(TruncateDownTo);
+            if (removeDownTo == -1)
+                return AdvancedString.Empty;
             int removeFromEnd = 0;
             if (removeDownTo > 0)
                 removeFromEnd = Length - removeDownTo;
             
-            string result = this.ToString();
-            
             if (Length > removeFromEnd - 1)
-                result = result.Remove(removeDownTo, removeFromEnd);
+                return this.Remove(removeDownTo, removeFromEnd);
             
-            return result;
+            return AdvancedString.Empty;
         }
         
         /// <summary>
@@ -2220,7 +2229,7 @@ namespace IExtendFramework
         /// <returns></returns>
         public AdvancedString Truncate(AdvancedString TruncateDownTo)
         {
-            int removeDownTo = this.ToString().LastIndexOf(TruncateDownTo.ToString());
+            int removeDownTo = this.LastIndexOf(TruncateDownTo.ToString());
             int removeFromEnd = 0;
             if (removeDownTo > 0)
                 removeFromEnd = Length - removeDownTo;
@@ -2304,5 +2313,19 @@ namespace IExtendFramework
             return r;
         }
         
+        /// <summary>
+        /// Creates a string by concatenating 's' n times
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="times"></param>
+        /// <returns></returns>
+        public static AdvancedString Repeat(AdvancedString s, int n)
+        {
+            AdvancedString a = new AdvancedString();
+            for (int i = 1; i <= n; i++)
+                a.Append(s);
+            
+            return a;
+        }
     }
 }

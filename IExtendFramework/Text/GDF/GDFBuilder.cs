@@ -239,7 +239,7 @@ namespace IExtendFramework.Text.GDF
                     font = new Font("Arial", _fontSize * 0.6F, _fontStyle, GraphicsUnit.Pixel);
                 }
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
                 font = new Font("Arial", _fontSize * 0.6F, _fontStyle, GraphicsUnit.Pixel);
             }

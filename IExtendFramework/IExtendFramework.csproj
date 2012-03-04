@@ -16,6 +16,21 @@
     <NoStdLib>False</NoStdLib>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -39,6 +54,12 @@
     <Optimize>True</Optimize>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -75,20 +96,31 @@
   <ItemGroup>
     <Compile Include="AdvancedString.cs" />
     <Compile Include="Collections\Generic\PriorityQueue.cs" />
+    <Compile Include="Collections\Generic\SpecializedFIFOList.cs" />
+    <Compile Include="Collections\Generic\SpecializedPriorityQueue.cs" />
     <Compile Include="Collections\Generic\TinyList.cs" />
     <Compile Include="Collections\Priority.cs" />
     <Compile Include="Collections\Specialized\LazyReadOnlyCollection.cs" />
-    <Compile Include="Collections\Specialized\SpecializedPriorityQueue.cs" />
-    <Compile Include="Collections\Specialized\SpecializedFIFOList.cs" />
     <Compile Include="Collections\Specialized\StringCollection.cs" />
-    <Compile Include="Controls\AdvancedTextBox.cs" />
-    <Compile Include="Drawing\XmlFormat\XImageControl.cs" />
+    <Compile Include="Collections\TinyList.cs" />
+    <Compile Include="Controls\AdvancedTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\AdvancedTrackBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AdvancedTrackBar.Designer.cs">
+      <DependentUpon>AdvancedTrackBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\XmlFormat\XImageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Encryption\EncryptionType.cs" />
     <Compile Include="Encryption\H34RTProvider.cs" />
     <Compile Include="Encryption\L1F3.cs" />
     <Compile Include="Enums\EnumHelper.cs" />
     <Compile Include="Enums\EnumStringAttribute.cs" />
-    <Compile Include="Events\EventHandlerFactory.cs" />
+    <Compile Include="Events\CommonEventHandler.cs" />
     <Compile Include="Inflector.cs" />
     <Compile Include="IO\AdvancedFileStream.cs" />
     <Compile Include="IO\Compression\Rar\Archive\FileInfoRarArchiveVolume.cs" />
@@ -215,26 +247,42 @@
     <Compile Include="Controls\AdvancedMessageBox\TaskDialogViewModel.cs" />
     <Compile Include="Controls\AdvancedMessageBox\UnsafeNativeMethods.cs" />
     <Compile Include="Controls\AdvancedMessageBox\VistaActiveTaskDialog.cs" />
-    <Compile Include="Controls\AdvancedPopupWindow\PopupNotifier.cs" />
-    <Compile Include="Controls\AdvancedPopupWindow\PopupNotifierForm.cs" />
-    <Compile Include="Controls\AdvancedProgressBar\CornersDialog.cs" />
+    <Compile Include="Controls\AdvancedPopupWindow\PopupNotifier.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\AdvancedPopupWindow\PopupNotifierForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\AdvancedProgressBar\CornersDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Controls\AdvancedProgressBar\CornersDialog.Designer.cs">
       <DependentUpon>CornersDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AdvancedProgressBar\DropdownColorBlender.cs" />
+    <Compile Include="Controls\AdvancedProgressBar\DropdownColorBlender.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\AdvancedProgressBar\DropdownColorBlender.designer.cs">
       <DependentUpon>DropdownColorBlender.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AdvancedProgressBar\FocalPointsDialog.cs" />
+    <Compile Include="Controls\AdvancedProgressBar\FocalPointsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Controls\AdvancedProgressBar\FocalPointsDialog.Designer.cs">
       <DependentUpon>FocalPointsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AdvancedProgressBar\ProgressBar.cs" />
+    <Compile Include="Controls\AdvancedProgressBar\ProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\AdvancedProgressBar\ProgressBar.designer.cs">
       <DependentUpon>ProgressBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ChromeProgressBar.cs" />
-    <Compile Include="Controls\InputBox.cs" />
+    <Compile Include="Controls\ChromeProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Controls\InputBox.Designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
@@ -252,7 +300,9 @@
     <Compile Include="Encryption\ASCIIProvider.cs" />
     <Compile Include="Encryption\SampleObjects.cs" />
     <Compile Include="Encryption\DESProvider.cs" />
-    <Compile Include="Encryption\EncryptionUI.cs" />
+    <Compile Include="Encryption\EncryptionUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Encryption\EncryptionUI.Designer.cs">
       <DependentUpon>EncryptionUI.cs</DependentUpon>
     </Compile>
@@ -331,7 +381,10 @@
     <Compile Include="IO\ZipHelperEntry.cs" />
     <Compile Include="IO\ZipHelperFile.cs" />
     <None Include="Net\Mail\Mailer.txt" />
-    <Compile Include="Net\RepeatedPing.cs" />
+    <Compile Include="Net\AsyncHostNameResolver.cs" />
+    <Compile Include="Net\HostPinger.cs" />
+    <Compile Include="Net\IPRouteTracer.cs" />
+    <Compile Include="Net\IPScanner.cs" />
     <Compile Include="Parser\IParserInput.cs" />
     <Compile Include="Parser\MathParser.cs" />
     <Compile Include="Parser\TextInput.cs" />
@@ -340,11 +393,14 @@
     <Compile Include="Random\RandomNumberGenerator.cs" />
     <Compile Include="Random\RandomStringGenerator.cs" />
     <Compile Include="RegexPatterns.cs" />
+    <Compile Include="Serializer.cs" />
     <Compile Include="StringTemplates.cs" />
     <Compile Include="Text\GDF\GDFBuilder.cs" />
     <Compile Include="Text\GDF\GDFBuilder.UnWrapped.cs" />
     <Compile Include="Text\GDF\GDFCell.cs" />
-    <Compile Include="Text\GDF\GDFDisplayBox.cs" />
+    <Compile Include="Text\GDF\GDFDisplayBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Text\GDF\GDFDisplayBox.designer.cs">
       <DependentUpon>GDFDisplayBox.cs</DependentUpon>
     </Compile>
@@ -404,20 +460,22 @@
     <Compile Include="Plugins\IPluginManager.cs" />
     <Compile Include="Plugins\StaticPluginInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controls\AdvancedLabel\AdvancedLabel.cs" />
+    <Compile Include="Controls\AdvancedLabel\AdvancedLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\AdvancedLabel\AdvancedLabel.Designer.cs">
       <DependentUpon>AdvancedLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="Text\INIDocument.cs" />
-    <Compile Include="Controls\AdvancedTrackBar.cs" />
-    <Compile Include="Controls\AdvancedTrackBar.Designer.cs">
-      <DependentUpon>AdvancedTrackBar.cs</DependentUpon>
+    <Compile Include="Controls\AdvancedForm\TitleBar.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\AdvancedForm\TitleBar.cs" />
     <Compile Include="Controls\AdvancedForm\TitleBar.Designer.cs">
       <DependentUpon>TitleBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AdvancedForm\TitleBarForm.cs" />
+    <Compile Include="Controls\AdvancedForm\TitleBarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Controls\AdvancedForm\TitleBarForm.Designer.cs">
       <DependentUpon>TitleBarForm.cs</DependentUpon>
     </Compile>
@@ -430,6 +488,9 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="Win32\NativeSubclasser.cs" />
     <Compile Include="Win32\Win32Messages.cs" />
+    <EmbeddedResource Include="Controls\AdvancedTrackBar.resx">
+      <DependentUpon>AdvancedTrackBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Text\GDF\GDFDisplayBox.resx">
       <DependentUpon>GDFDisplayBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -466,63 +527,28 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Collections" />
-    <Folder Include="Collections\Generic" />
-    <Folder Include="Collections\Specialized" />
-    <Folder Include="Controls" />
-    <Folder Include="Controls\AdvancedLabel" />
-    <Folder Include="Controls\AdvancedMessageBox\DesignData" />
-    <Folder Include="Controls\AdvancedMessageBox\ResourceDictionaries" />
-    <Folder Include="Controls\AdvancedMessageBox\Resources" />
-    <Folder Include="Controls\AdvancedPopupWindow" />
-    <Folder Include="Controls\AdvancedProgressBar" />
-    <Folder Include="Controls\AdvancedMessageBox" />
-    <Folder Include="Controls\AdvancedNotifyIcon" />
-    <Folder Include="Controls\AdvancedForm" />
-    <Folder Include="IO" />
-    <Folder Include="IO\Compression" />
-    <Folder Include="IO\Compression\BZip2" />
-    <Folder Include="IO\Compression\Checksums" />
-    <Folder Include="IO\Compression\Core" />
-    <Folder Include="IO\Compression\Encryption" />
-    <Folder Include="IO\Compression\GZip" />
-    <Folder Include="IO\Compression\Rar\Archive" />
-    <Folder Include="IO\Compression\Rar\Common" />
-    <Folder Include="IO\Compression\Rar\Headers" />
-    <Folder Include="IO\Compression\Rar\Unpack" />
-    <Folder Include="IO\Compression\Rar\Reader" />
-    <Folder Include="IO\Compression\SevenZip" />
-    <Folder Include="IO\Compression\SevenZip\Common" />
-    <Folder Include="IO\Compression\SevenZip\Compress" />
-    <Folder Include="IO\Compression\SevenZip\Compress\LZ" />
-    <Folder Include="IO\Compression\SevenZip\Compress\LZMA" />
-    <Folder Include="IO\Compression\SevenZip\Compress\RangeCoder" />
-    <Folder Include="IO\Compression\Tar" />
-    <Folder Include="IO\Compression\Zip" />
-    <Folder Include="IO\Compression\Zip\Compression" />
-    <Folder Include="IO\Compression\Zip\Compression\Streams" />
-    <Folder Include="Compiler" />
-    <Folder Include="Encryption" />
-    <Folder Include="Enums" />
-    <Folder Include="Events" />
-    <Folder Include="IO\Compression\Rar" />
-    <Folder Include="Random" />
-    <Folder Include="Text\GDF" />
-    <Folder Include="Text\RTF" />
-    <Folder Include="Xml" />
-    <Folder Include="Xml\Html" />
-    <Folder Include="Xml\Html\Nodes" />
-    <Folder Include="Xml\Sgml" />
-    <Folder Include="Parser" />
-    <Folder Include="Threading" />
-    <Folder Include="Text" />
-    <Folder Include="Plugins" />
-    <Folder Include="Win32" />
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\AdvancedTrackBar.resx">
-      <DependentUpon>AdvancedTrackBar.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\AdvancedForm\TitleBar.resx">
       <DependentUpon>TitleBar.cs</DependentUpon>
     </EmbeddedResource>
