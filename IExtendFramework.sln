@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-# SharpDevelop 4.2.0.8485-alpha
+# SharpDevelop 4.2.0.8659-Beta 2
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IExtendFramework", "IExtendFramework\IExtendFramework.csproj", "{555B1E7D-E629-48A7-87A4-0AFBB69290FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IExtendFrameworkTester", "..\IExtendFrameworkTester\IExtendFrameworkTester.csproj", "{151A159A-270F-4BF0-8840-3F781418DA34}"

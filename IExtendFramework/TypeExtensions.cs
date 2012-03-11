@@ -1149,6 +1149,9 @@ namespace IExtendFramework
         public static bool IsUSTelephoneNumber(this string telephoneNumber) {
             return Regex.IsMatch(telephoneNumber, RegexPattern.US_TELEPHONE);
         }
+public static bool IsUSShortTelephoneNumber(this string meh) {
+    return Regex.IsMatch(meh, RegexPattern.US_TELEPHONE_SHORT);
+}
 
         /// <summary>
         /// Determines whether the specified string is a valid currency string using the referenced regex string.

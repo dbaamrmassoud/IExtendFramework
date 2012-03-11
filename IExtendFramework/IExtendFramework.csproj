@@ -381,6 +381,7 @@
     <Compile Include="IO\ZipHelperEntry.cs" />
     <Compile Include="IO\ZipHelperFile.cs" />
     <None Include="Net\Mail\Mailer.txt" />
+    <Compile Include="Mathematics\Math.cs" />
     <Compile Include="Net\AsyncHostNameResolver.cs" />
     <Compile Include="Net\HostPinger.cs" />
     <Compile Include="Net\IPRouteTracer.cs" />
@@ -389,6 +390,7 @@
     <Compile Include="Parser\MathParser.cs" />
     <Compile Include="Parser\TextInput.cs" />
     <Compile Include="Parser\ParserBase.cs" />
+    <Compile Include="Random\RandomBooleanGenerator.cs" />
     <Compile Include="Random\RandomDateGenerator.cs" />
     <Compile Include="Random\RandomNumberGenerator.cs" />
     <Compile Include="Random\RandomStringGenerator.cs" />
@@ -427,6 +429,9 @@
     <Compile Include="Text\RTF\RTFRow.cs" />
     <Compile Include="Text\RTF\RTFRowDefinition.cs" />
     <Compile Include="Text\RTF\RTFUtil.cs" />
+    <Compile Include="Win32\HotKeyRegister.cs" />
+    <Compile Include="Win32\KeyModifiers.cs" />
+    <Compile Include="Win32\Webcam.cs" />
     <Compile Include="Xml\Html\HtmlDocument.cs" />
     <Compile Include="Xml\Html\Nodes\HtmlAbbreviationNode.cs" />
     <Compile Include="Xml\Html\Nodes\HtmlAddressNode.cs" />
@@ -487,7 +492,7 @@
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Win32\NativeSubclasser.cs" />
-    <Compile Include="Win32\Win32Messages.cs" />
+    <Compile Include="Win32\Win32.cs" />
     <EmbeddedResource Include="Controls\AdvancedTrackBar.resx">
       <DependentUpon>AdvancedTrackBar.cs</DependentUpon>
     </EmbeddedResource>

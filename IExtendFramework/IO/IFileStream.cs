@@ -12,7 +12,7 @@ using System.Collections.Generic;
 namespace IExtendFramework.IO
 {
     /// <summary>
-    /// Description of IFileStream.
+    /// Filestream interface
     /// </summary>
     public interface IFileStream
     {

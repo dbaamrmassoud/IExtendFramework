@@ -24,14 +24,19 @@ namespace IExtendFramework.Mathematics
     /// </summary>
     public class AdvancedMathProcesser
     {
-        //RegEx for Real and Complex numbers
+        //Regex for Real and Complex numbers
         static string Real = "(?<!([E][+-][0-9]+))([-]?\\d+\\.?\\d*([E][+-][0-9]+)?(?!([i0-9.E]))|[-]?\\d*\\.?\\d+([E][+-][0-9]+)?)(?![i0-9.E])";
         
         static string Img = "(?<!([E][+-][0-9]+))([-]?\\d+\\.?\\d*([E][+-][0-9]+)?(?![0-9.E])(?:i)|([-]?\\d*\\.?\\d+)?([E][+-][0-9]+)?\\s*(?:i)(?![0-9.E]))";
         
         public static string Calculate(string Formula)
         {
-            return EvaluateBrackets(Formula.Replace(" ", "")) + "\n";
+            string ret = EvaluateBrackets(Formula.Replace(" ", "")) + "\n";
+            // remove parens
+            ret = ret.Substring(1);
+            ret = ret.Substring(0, ret.Length - 2);
+            //TODO: eval hex
+            return ret;
         }
         
         static string EvaluateBrackets(string input)
@@ -41,9 +46,9 @@ namespace IExtendFramework.Mathematics
             
             string pattern = "(?>\\( (?<LEVEL>)(?<CURRENT>)| (?=\\))(?<LAST-CURRENT>)(?(?<=\\(\\k<LAST>)(?<-LEVEL> \\)))|\\[ (?<LEVEL>)(?<CURRENT>)|(?=\\])(?<LAST-CURRENT>)(?(?<=\\[\\k<LAST>)(?<-LEVEL> \\] ))|[^()\\[\\]]*)+(?(LEVEL)(?!))";
             
-            MatchCollection MAtchBracets = Regex.Matches(input, pattern, RegexOptions.IgnorePatternWhitespace);
+            MatchCollection MatchBrackets = Regex.Matches(input, pattern, RegexOptions.IgnorePatternWhitespace);
             
-            CaptureCollection captures = MAtchBracets[0].Groups["LAST"].Captures;
+            CaptureCollection captures = MatchBrackets[0].Groups["LAST"].Captures;
             
             List<string> ListOfPara = new List<string>();
             
@@ -228,7 +233,6 @@ namespace IExtendFramework.Mathematics
             n2 = GenerateComplexNumberFromString(m.Groups["No2"].Value);
             switch (m.Groups["Operator"].Value) {
                 case "/":
-                    
                     return string.Format(new ComplexFormatter(), "{0:I0}", (n1 / n2));
                 case "*":
                     return string.Format(new ComplexFormatter(), "{0:I0}", (n1 * n2));
@@ -347,9 +351,9 @@ namespace IExtendFramework.Mathematics
         {
             switch (m.Groups["Const"].Value.ToUpper()) {
                 case "PI":
-                    return Math.PI.ToString().Replace(",", ".");
+                    return System.Math.PI.ToString().Replace(",", ".");
                 case "E":
-                    return Math.E.ToString().Replace(",", ".");
+                    return System.Math.E.ToString().Replace(",", ".");
                 default:
                     return Convert.ToString(1);
             }
@@ -388,7 +392,6 @@ namespace IExtendFramework.Mathematics
         
         private class ComplexFormatter : IFormatProvider, ICustomFormatter
         {
-            
             public object GetFormat(Type formatType)
             {
                 if (object.ReferenceEquals(formatType, typeof(ICustomFormatter))) {
@@ -425,7 +428,7 @@ namespace IExtendFramework.Mathematics
                             if (c1.Imaginary >= 0) {
                                 s = String.Format("{0}+{1}i", c1.Real.ToString("r"), c1.Imaginary.ToString("r"));
                             } else {
-                                s = String.Format("{0}-{1}i", c1.Real.ToString("r"), Math.Abs(c1.Imaginary).ToString("r"));
+                                s = String.Format("{0}-{1}i", c1.Real.ToString("r"), System.Math.Abs(c1.Imaginary).ToString("r"));
                             }
                         }
                         return s.Replace(",", ".");

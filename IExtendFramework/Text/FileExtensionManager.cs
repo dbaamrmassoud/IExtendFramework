@@ -14,7 +14,7 @@ namespace IExtendFramework.Text
     public class InvalidFileTypeException : Exception
     {
         public InvalidFileTypeException(string msg)
-            :base(msg)
+            : base(msg)
         {
             
         }
@@ -45,7 +45,8 @@ namespace IExtendFramework.Text
                 {
                     ITextEditor e = editor.Create(filename);
                     //e.Close += delegate() { openEditors.Remove(e); };
-                    OpeningFile(filename, e);
+                    if (OpeningFile != null)
+                        OpeningFile(filename, e);
                     openEditors.Add(e);
                     found = true;
                     return e;

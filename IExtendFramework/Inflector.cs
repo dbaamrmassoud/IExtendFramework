@@ -337,7 +337,6 @@ namespace IExtendFramework
             return underscoredWord.Replace('_', '-');
         }
 
-
         #region Nested type: InflectorRule
 
         /// <summary>

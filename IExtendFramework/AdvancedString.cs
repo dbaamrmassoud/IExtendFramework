@@ -217,10 +217,12 @@ namespace IExtendFramework
         
         public static AdvancedString operator +(string a1, AdvancedString a2)
         {
-            foreach (char c in a1)
-                a2.Append(c);
+            AdvancedString a = "";
+            a.internalString.AddRange(a1.ToCharArray());
+            foreach (char c in a2)
+                a.Append(c);
             
-            return a2;
+            return a;
         }
         
         public static AdvancedString operator +(AdvancedString a1, string a2)
