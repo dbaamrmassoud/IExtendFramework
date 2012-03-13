@@ -12,6 +12,9 @@ namespace IExtendFramework
     /// </summary>
     public class StringTemplates
     {
+        /// <summary>
+        /// Format: {0}@{1}.{2}
+        /// </summary>
         public const string EMAIL_TEMPLATE = "{0}@{1}.{2}";
         /// <summary>
         /// Format of http://{0}.{1} ({0} = url, {1} = ext, a.k.a. com, net

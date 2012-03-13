@@ -93,6 +93,8 @@ IExtendFramework
   Xml
     Sgml                                     (namespace) contains stuff for parsing Xml/Html using XmlReader
     Html                                     (namespace) contains stuff for parsing and creating Html documents
+  School
+    Grade/Grades                             Provides a way to manipulate grades (from Preschool-12th grade)
 LICENSE INFO: 
 CPOL (CodeProject Open License): AdvancedForm (gTitleBar), AdvancedLabel (gLabel), AdvancedTrackBar (gTrackBar) Copyright (C) 2009
 CPOL (CodeProject Open License): ChromeProgressBar Copyright (C) 2011

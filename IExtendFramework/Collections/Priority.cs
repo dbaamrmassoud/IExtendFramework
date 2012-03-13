@@ -9,15 +9,15 @@ namespace IExtendFramework.Collections
 {
     public enum Priority
     {
-        [Enums.EnumString("Highest Priority")]
+        [Enums.ReadableEnumAttribute("Highest Priority")]
         Highest = 5,
-        [Enums.EnumString("High Priority")]
+        [Enums.ReadableEnumAttribute("High Priority")]
         High = 4,
-        [Enums.EnumString("Normal Priority")]
+        [Enums.ReadableEnumAttribute("Normal Priority")]
         Normal = 3,
-        [Enums.EnumString("Low Priority")]
+        [Enums.ReadableEnumAttribute("Low Priority")]
         Low = 2,
-        [Enums.EnumString("Lowest Priority")]
+        [Enums.ReadableEnumAttribute("Lowest Priority")]
         Lowest = 1,
     }
 }

@@ -15,23 +15,23 @@ namespace IExtendFramework.Encryption
     /// </summary>
     public enum EncryptionType
     {
-        [Enums.EnumString("AES Encryption")]
+        [Enums.ReadableEnumAttribute("AES Encryption")]
         AES,
-        [Enums.EnumString("ASCII Encryption")]
+        [Enums.ReadableEnumAttribute("ASCII Encryption")]
         ASCII,
-        [Enums.EnumString("DES Encryption")]
+        [Enums.ReadableEnumAttribute("DES Encryption")]
         DES,
-        [Enums.EnumString("L1F3 Encryption")]
+        [Enums.ReadableEnumAttribute("L1F3 Encryption")]
         L1F3,
-        [Enums.EnumString("RC2 Encryption")]
+        [Enums.ReadableEnumAttribute("RC2 Encryption")]
         RC2,
-        [Enums.EnumString("Rijndael Encryption")]
+        [Enums.ReadableEnumAttribute("Rijndael Encryption")]
         Rijndael,
-        [Enums.EnumString("RSA Encryption")]
+        [Enums.ReadableEnumAttribute("RSA Encryption")]
         RSA,
-        [Enums.EnumString("TripleDES Encryption")]
+        [Enums.ReadableEnumAttribute("TripleDES Encryption")]
         TripleDES,
-        [Enums.EnumString("Xor Encryption")]
+        [Enums.ReadableEnumAttribute("Xor Encryption")]
         Xor
     }
 }

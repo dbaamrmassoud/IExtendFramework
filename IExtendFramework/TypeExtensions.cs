@@ -729,7 +729,7 @@ namespace IExtendFramework
         {
             // Gets the field info for the value
             FieldInfo fi = val.GetType().GetField(val.ToString());
-            Enums.EnumStringAttribute[] attribs = (Enums.EnumStringAttribute[]) fi.GetCustomAttributes(typeof(Enums.EnumStringAttribute), false);
+            Enums.ReadableEnumAttribute[] attribs = (Enums.ReadableEnumAttribute[]) fi.GetCustomAttributes(typeof(Enums.ReadableEnumAttribute), false);
             if (attribs.Length == 0)
                 return val.ToAdvancedString();
             else

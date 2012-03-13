@@ -119,7 +119,7 @@
     <Compile Include="Encryption\H34RTProvider.cs" />
     <Compile Include="Encryption\L1F3.cs" />
     <Compile Include="Enums\EnumHelper.cs" />
-    <Compile Include="Enums\EnumStringAttribute.cs" />
+    <Compile Include="Enums\ReadableAttribute.cs" />
     <Compile Include="Events\CommonEventHandler.cs" />
     <Compile Include="Inflector.cs" />
     <Compile Include="IO\AdvancedFileStream.cs" />
@@ -429,6 +429,7 @@
     <Compile Include="Text\RTF\RTFRow.cs" />
     <Compile Include="Text\RTF\RTFRowDefinition.cs" />
     <Compile Include="Text\RTF\RTFUtil.cs" />
+    <Compile Include="School\Grade.cs" />
     <Compile Include="Win32\HotKeyRegister.cs" />
     <Compile Include="Win32\KeyModifiers.cs" />
     <Compile Include="Win32\Webcam.cs" />
@@ -596,6 +597,9 @@
     <Resource Include="Controls\AdvancedMessageBox\Resources\exparr-up3.bmp" />
     <EmbeddedResource Include="Controls\AdvancedMessageBox\Resources\shield-16.png" />
     <EmbeddedResource Include="Controls\AdvancedMessageBox\Resources\shield-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="School" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

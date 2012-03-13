@@ -13,17 +13,17 @@ namespace IExtendFramework.Enums
     /// <summary>
     /// Specifies an easy way to get readable enum string values
     /// </summary>
-    public class EnumStringAttribute : Attribute
+    public class ReadableEnumAttribute : Attribute
     {
         public AdvancedString Value
         { get; set; }
         
-        public EnumStringAttribute(string v)
+        public ReadableEnumAttribute(string v)
         {
             this.Value = v;
         }
         
-        public EnumStringAttribute(AdvancedString v)
+        public ReadableEnumAttribute(AdvancedString v)
         {
             this.Value = v;
         }
