@@ -127,7 +127,7 @@ namespace IExtendFramework.IO.Compression.Rar.Archive
         }
 #endif
         /// <summary>
-        /// Takes a seekable Stream as a source
+        /// Takes a seekable Stream as a sources
         /// </summary>
         /// <param name="stream"></param>
         public static RarArchive Open(Stream stream)
@@ -137,7 +137,7 @@ namespace IExtendFramework.IO.Compression.Rar.Archive
         }
 
         /// <summary>
-        /// Takes a seekable Stream as a source
+        /// Takes a seekable Stream as a sources
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="options"></param>

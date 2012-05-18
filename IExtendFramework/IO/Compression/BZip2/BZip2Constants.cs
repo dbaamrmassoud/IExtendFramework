@@ -162,11 +162,11 @@ namespace IExtendFramework.IO.Compression.BZip2
  * 
  * Copyright (C) 1996-1998 Julian R Seward.  All rights reserved.
  * 
- * Redistribution and use in source and binary forms, with or without
+ * Redistribution and use in sources and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
  * 
- * 1. Redistributions of source code must retain the above copyright
+ * 1. Redistributions of sources code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
  * 
  * 2. The origin of this software must not be misrepresented; you must 
@@ -174,7 +174,7 @@ namespace IExtendFramework.IO.Compression.BZip2
  * software in a product, an acknowledgment in the product 
  * documentation would be appreciated but is not required.
  * 
- * 3. Altered source versions must be plainly marked as such, and must
+ * 3. Altered sources versions must be plainly marked as such, and must
  * not be misrepresented as being the original software.
  * 
  * 4. The name of the author may not be used to endorse or promote 

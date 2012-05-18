@@ -178,7 +178,7 @@ namespace IExtendFramework.IO.Compression.Zip.Compression
 		/// <summary>
 		/// Write bits to internal buffer
 		/// </summary>
-		/// <param name="b">source of bits</param>
+		/// <param name="b">sources of bits</param>
 		/// <param name="count">number of bits to write</param>
 		public void WriteBits(int b, int count)
 		{

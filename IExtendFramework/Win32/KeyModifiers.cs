@@ -6,7 +6,7 @@
 * This enum defines the modifiers to generate the WM_HOTKEY message. 
 * See http://msdn.microsoft.com/en-us/library/ms646309(VS.85).aspx.
 * 
-* This source is subject to the Microsoft Public License.
+* This sources is subject to the Microsoft Public License.
 * See http://www.microsoft.com/opensource/licenses.mspx#Ms-PL.
 * All other rights reserved.
 * 

@@ -1,7 +1,7 @@
 ﻿/*
  * User: elijah
- * Date: 1/27/2012
- * Time: 5:21 PM
+ * Date: 4/11/2012
+ * Time: 2:43 PM
  */
 using System;
 using System.Collections.Generic;
@@ -9,16 +9,16 @@ using System.Collections.Generic;
 namespace IExtendFramework.Collections.Generic
 {
     /// <summary>
-    /// Uses priority to decide what to give next
+    /// Uses a numeric priority system to decide what to give next
     /// </summary>
-    public class PriorityQueue<T>
+    public class NumericPriorityQueue<T>
     {
-        List<System.Tuple<Priority, T>> list = new List<Tuple<Priority, T>>();
+        List<System.Tuple<int, T>> list = new List<Tuple<int, T>>();
         
         /// <summary>
-        /// Creates a new PriorityQueue
+        /// Creates a new NumericPriorityQueue
         /// </summary>
-        public PriorityQueue()
+        public NumericPriorityQueue()
         {
         }
         
@@ -26,26 +26,26 @@ namespace IExtendFramework.Collections.Generic
         /// Pushes an object to the queue with normal priority
         /// </summary>
         /// <param name="o"></param>
-        public void Push(T o)
-        {
-            Push(o, Priority.Normal);
-        }
+        //public void Push(T o)
+        //{
+        //    Push(o, Priority.Normal);
+        //}
         
         /// <summary>
         /// Pushes an object to the queue with specified priority
         /// </summary>
         /// <param name="o"></param>
         /// <param name="p"></param>
-        public void Push(T o, Priority p)
+        public void Push(T o, int p)
         {
-            list.Add(new Tuple<Priority, T>(p, o));
+            list.Add(new Tuple<int, T>(p, o));
         }
         
         /// <summary>
         /// Pops the item with the highest priority off the queue
         /// </summary>
         /// <returns></returns>
-        public Tuple<Priority, T> Pop()
+        public Tuple<int, T> Pop()
         {
             // its empty.
             if (list.Count == 0)
@@ -53,37 +53,22 @@ namespace IExtendFramework.Collections.Generic
             
             // find the highest item
             int highest = -1;
-            Tuple<Priority, T> thatItem = null;
-            foreach (Tuple<Priority, T> t in list)
+            Tuple<int, T> thatItem = null;
+            foreach (Tuple<int, T> t in list)
             {
-                bool b = (int)t.Item1 > highest;
+                bool b = t.Item1 > highest;
                 if (b)
                 {
-                    highest = (int)t.Item1;
+                    highest = t.Item1;
                     thatItem = t;
                 }
             }
             
-            switch (highest)
-            {
-                case 5:
-                    list.RemoveAt(list.IndexOf(thatItem));
-                    return thatItem;
-                case 4:
-                    list.RemoveAt(list.IndexOf(thatItem));
-                    return thatItem;
-                case 3:
-                    list.RemoveAt(list.IndexOf(thatItem));
-                    return thatItem;
-                case 2:
-                    list.RemoveAt(list.IndexOf(thatItem));
-                    return thatItem;
-                case 1:
-                    list.RemoveAt(list.IndexOf(thatItem));
-                    return thatItem;
-                default:
-                    throw new Exception("Impossible! No Items were found to return!");
-            }
+            if (highest == -1)
+                return null;
+            
+            this.list.RemoveAt(this.list.IndexOf(thatItem));
+            return thatItem;
         }
         
         /// <summary>
@@ -117,5 +102,4 @@ namespace IExtendFramework.Collections.Generic
         }
         
     }
-
 }

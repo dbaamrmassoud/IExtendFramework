@@ -178,7 +178,7 @@ namespace IExtendFramework.IO.Compression.Zip.Compression
 		/// huffman tree.
 		/// </summary>
 		/// <param name="input">
-		/// input the input source.
+		/// input the input sources.
 		/// </param>
 		/// <returns>
 		/// the next symbol, or -1 if not enough input is available.

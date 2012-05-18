@@ -304,7 +304,7 @@
                 // Use the default conversion
                 EmfToWmfBitsFlagsDefault = 0x00000000,
 
-                // Embedded the source of the EMF metafiel within the resulting WMF
+                // Embedded the sources of the EMF metafiel within the resulting WMF
                 // metafile
                 EmfToWmfBitsFlagsEmbedEmf = 0x00000001,
 

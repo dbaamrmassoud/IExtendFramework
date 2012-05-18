@@ -144,7 +144,7 @@ namespace IExtendFramework.IO.Compression.Checksums
 		/// Updates the checksum with an array of bytes.
 		/// </summary>
 		/// <param name="buffer">
-		/// The source of the data to update with.
+		/// The sources of the data to update with.
 		/// </param>
 		public void Update(byte[] buffer)
 		{

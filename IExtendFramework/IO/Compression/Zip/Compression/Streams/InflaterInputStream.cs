@@ -492,7 +492,7 @@ namespace IExtendFramework.IO.Compression.Zip.Compression.Streams
 		/// and a default buffer size of 4KB.
 		/// </summary>
 		/// <param name = "baseInputStream">
-		/// The source of input data
+		/// The sources of input data
 		/// </param>
 		/// <param name = "inf">
 		/// The decompressor used to decompress data read from baseInputStream

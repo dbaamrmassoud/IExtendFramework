@@ -116,7 +116,7 @@ namespace IExtendFramework.IO.Compression.Zip.Compression.Streams
 		/// <summary>
 		/// Copy from input manipulator to internal window
 		/// </summary>
-		/// <param name="input">source of data</param>
+		/// <param name="input">sources of data</param>
 		/// <param name="len">length of data to copy</param>
 		/// <returns>the number of bytes copied</returns>
 		public int CopyStored(StreamManipulator input, int len)
@@ -142,8 +142,8 @@ namespace IExtendFramework.IO.Compression.Zip.Compression.Streams
 		/// <summary>
 		/// Copy dictionary to window
 		/// </summary>
-		/// <param name="dict">source dictionary</param>
-		/// <param name="offset">offset of start in source dictionary</param>
+		/// <param name="dict">sources dictionary</param>
+		/// <param name="offset">offset of start in sources dictionary</param>
 		/// <param name="len">length of dictionary</param>
 		/// <exception cref="InvalidOperationException">
 		/// If window isnt empty

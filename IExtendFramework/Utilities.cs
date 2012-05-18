@@ -21,7 +21,7 @@ namespace IExtendFramework
     /// A delegate that can be used when invoking a Wpf Control using Dispatcher
     /// </summary>
     public delegate void WpfInvokeControlDelegate();
-    
+
     /// <summary>
     /// Useful functions
     /// </summary>
@@ -31,21 +31,21 @@ namespace IExtendFramework
         {
             if (c.Count == 0)
                 return "";
-            
+
             StringBuilder sb = new StringBuilder();
             foreach (char c2 in c)
                 sb.Append(c2);
             return sb.ToString();
         }
-        
+
         public static string FormatByteToSize(long bytes)
         {
             const long scale = 1024;
-            
+
             string[] orders = new string[] { "EB", "PB", "TB", "GB", "MB", "KB", "Bytes" };
-            
-            var max = (long) Math.Pow(scale, (orders.Length - 1));
-            
+
+            var max = (long)Math.Pow(scale, (orders.Length - 1));
+
             // Go from Large to small
             foreach (string order in orders)
             {
@@ -53,7 +53,7 @@ namespace IExtendFramework
                 {
                     return string.Format("{0:##.##} {1}", Decimal.Divide(bytes, max), order);
                 }
-                
+
                 max /= scale;
             }
             return bytes.ToString() + " Unknown size";
@@ -70,9 +70,9 @@ namespace IExtendFramework
             using (System.IO.FileStream fs = System.IO.File.OpenRead(fileName))
             {
                 System.Security.Cryptography.MD5 sscMD5 = System.Security.Cryptography.MD5.Create();
-                
+
                 byte[] mHash = sscMD5.ComputeHash(fs);
-                
+
                 result = Convert.ToBase64String(mHash);
             }
             return result;
@@ -94,17 +94,17 @@ namespace IExtendFramework
                 Directory.Delete(path, recursive);
             }
         }
-        
+
         public static string ByteToString(byte[] i)
         {
             return new ASCIIEncoding().GetString(i);
         }
-        
+
         public static byte[] StringToByte(string i)
         {
             return new ASCIIEncoding().GetBytes(i.ToCharArray());
         }
-        
+
         public static string PrettyByteToString(byte[] i)
         {
             string o = "{ ";
@@ -116,13 +116,25 @@ namespace IExtendFramework
             o += " }";
             return o;
         }
-        
+
         public static Icon BitmapToIcon(Bitmap i)
         {
             return Icon.FromHandle(i.GetHicon());
         }
-        
 
+        /// <summary>
+        /// Converts an array to a list
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        public static List<T> ToList<T>(T[] array)
+        {
+            List<T> t = new List<T>();
+            foreach (T t2 in array)
+                t.Add(t2);
+            return t;
+        }
         /// <summary>
         /// Performs an unsigned bitwise right shift with the specified number
         /// </summary>
@@ -289,13 +301,13 @@ namespace IExtendFramework
         /// </param>
         /// <param name="value">the value to write
         /// </param>
-        #if SILVERLIGHT || MONO || PORTABLE
+#if SILVERLIGHT || MONO || PORTABLE
         public static void WriteLittleEndian(byte[] array, int pos, short value)
         {
             byte[] newBytes = BitConverter.GetBytes(value);
             Array.Copy(newBytes, 0, array, pos, newBytes.Length);
         }
-        #else
+#else
         unsafe public static void WriteLittleEndian(byte[] array, int pos, short value)
         {
             fixed (byte* numRef = &(array[pos]))
@@ -303,7 +315,7 @@ namespace IExtendFramework
                 *((short*)numRef) = value;
             }
         }
-        #endif
+#endif
 
         /// <summary> Increment a short value at the specified position by the specified amount
         /// (little endian).
@@ -331,13 +343,13 @@ namespace IExtendFramework
         /// </param>
         /// <param name="value">the value to write
         /// </param>
-        #if SILVERLIGHT || MONO || PORTABLE
+#if SILVERLIGHT || MONO || PORTABLE
         public static void WriteLittleEndian(byte[] array, int pos, int value)
         {
             byte[] newBytes = BitConverter.GetBytes(value);
             Array.Copy(newBytes, 0, array, pos, newBytes.Length);
         }
-        #else
+#else
         unsafe public static void WriteLittleEndian(byte[] array, int pos, int value)
         {
             fixed (byte* numRef = &(array[pos]))
@@ -345,8 +357,8 @@ namespace IExtendFramework
                 *((int*)numRef) = value;
             }
         }
-        #endif
-        
+#endif
+
         public static byte[] UInt32ToBigEndianBytes(uint x)
         {
             return new byte[] {

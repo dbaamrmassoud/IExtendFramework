@@ -6,8 +6,8 @@
 * Source: $HeadURL$
 * Last changed: $LastChangedDate$
 * 
-* the unrar licence applies to all junrar source and binary distributions 
-* you are not allowed to use this source to re-create the RAR compression algorithm
+* the unrar licence applies to all junrar sources and binary distributions 
+* you are not allowed to use this sources to re-create the RAR compression algorithm
 * 
 * Here some html entities which can be used for escaping javadoc tags:
 * "&":  "&#038;" or "&amp;"

@@ -33,10 +33,6 @@ IExtendFramework
     StringFactorials                         Gets the Factorial of a string
     INIDocument                              Read/Write .INI Files
     FileOpened                               Delegate for when a file is opened with FileExtensionManager
-  Compiler
-    ILanguage                                Interface for a language
-    IParser                                  Interface for a parser
-    ICompiler                                Interface for a compiler
   Win32
     NativeSubclasser                         A NativeWindow override
     Win32Messages                            Contains some Win32 Messages in Hex, useful when overriding WndProc in controls
@@ -107,9 +103,9 @@ CPOL (CodeProject Open License): EnumHelper (Enum) Ideafixxxer 2011 (see notice 
 CPOL : AdvancedTextBox (AdvancedTextBox/ChreneLib)
 CPOL : CommonEventHandler (EventHandlerFactory)
 
-Freeware: UnRar archiving (Nunrar http://nunrar.codeplex.com)
+Freeware: UnRar archiving (NUnrar http://nunrar.codeplex.com)
 
-Compression: BZip2, GZip, Tar under LGPL License from DotNetFireball (dotnetfireball.org)
+Compression: BZip2, GZip, Tar under LGPL License from DotNetFireball (dotnetfireball.org), ICSharpCode.SharpZipLib
 7z compression from 7zip (7-zip.org), DotNetFireball (dotnetfireball.org)
 Zip Compression from ICSharpCode.SharpZipLib, DotNetFireball - LGPL License (dotnetfireball.org)
 Win32.NativeSubclasser under LGPL License - dotnetfireball.org

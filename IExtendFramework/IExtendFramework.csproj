@@ -95,11 +95,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedString.cs" />
+    <Compile Include="Collections\Generic\FIFOList.cs" />
+    <Compile Include="Collections\Generic\Hashtable.cs" />
+    <Compile Include="Collections\Generic\NumericPriorityQueue.cs" />
     <Compile Include="Collections\Generic\PriorityQueue.cs" />
-    <Compile Include="Collections\Generic\SpecializedFIFOList.cs" />
-    <Compile Include="Collections\Generic\SpecializedPriorityQueue.cs" />
     <Compile Include="Collections\Generic\TinyList.cs" />
     <Compile Include="Collections\Priority.cs" />
+    <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Collections\Specialized\LazyReadOnlyCollection.cs" />
     <Compile Include="Collections\Specialized\StringCollection.cs" />
     <Compile Include="Collections\TinyList.cs" />
@@ -123,6 +125,9 @@
     <Compile Include="Events\CommonEventHandler.cs" />
     <Compile Include="Inflector.cs" />
     <Compile Include="IO\AdvancedFileStream.cs" />
+    <Compile Include="IO\Compression\Packages\PackEntry.cs" />
+    <Compile Include="IO\Compression\Packages\PackArchive.cs" />
+    <Compile Include="IO\Compression\Packages\PackFileInfoCollection.cs" />
     <Compile Include="IO\Compression\Rar\Archive\FileInfoRarArchiveVolume.cs" />
     <Compile Include="IO\Compression\Rar\Archive\FileInfoRarFilePart.cs" />
     <Compile Include="IO\Compression\Rar\Archive\RarArchive.cs" />
@@ -211,6 +216,9 @@
     <Compile Include="IO\Compression\Rar\Unpack\VMPreparedProgram.cs" />
     <Compile Include="IO\Compression\Rar\Unpack\VMStandardFilters.cs" />
     <Compile Include="IO\Compression\Rar\Unpack\VMStandardFilterSignature.cs" />
+    <Compile Include="IO\Compression\x01\x01Archive.cs" />
+    <Compile Include="IO\Compression\x01\x01ArchiveFile.cs" />
+    <Compile Include="IO\Compression\x01\ArchiveLoader.cs" />
     <Compile Include="IO\EncryptedFileStream.cs" />
     <Compile Include="IO\IFileStream.cs" />
     <Compile Include="IO\MarkingBinaryReader.cs" />
@@ -226,9 +234,6 @@
     <Compile Include="Collections\Generic\LightCollection.cs" />
     <Compile Include="Collections\Generic\ReadOnlyCollection.cs" />
     <Compile Include="Collections\Generic\ReadOnlyKeyedCollection.cs" />
-    <Compile Include="Compiler\ICompiler.cs" />
-    <Compile Include="Compiler\ILanguage.cs" />
-    <Compile Include="Compiler\IParser.cs" />
     <Compile Include="Controls\AdvancedMessageBox\CommandLink.xaml.cs">
       <DependentUpon>CommandLink.xaml</DependentUpon>
     </Compile>
@@ -598,8 +603,6 @@
     <EmbeddedResource Include="Controls\AdvancedMessageBox\Resources\shield-16.png" />
     <EmbeddedResource Include="Controls\AdvancedMessageBox\Resources\shield-32.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="School" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

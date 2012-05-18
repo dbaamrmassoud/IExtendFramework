@@ -342,7 +342,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// <summary>
 		/// The string to be used for the dialog’s primary content. If the EnableHyperlinks member is true,
 		/// then this string may contain hyperlinks in the form: <A HREF="executablestring">Hyperlink Text</A>. 
-		/// WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+		/// WARNING: Enabling hyperlinks when using content from an unsafe sources may cause security vulnerabilities.
 		/// </summary>
 		private string content;
 
@@ -425,7 +425,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// displayed either immediately below the content or below the footer text depending on whether
 		/// the ExpandFooterArea member is true. If the EnableHyperlinks member is true, then this string
 		/// may contain hyperlinks in the form: <A HREF="executablestring">Hyperlink Text</A>.
-		/// WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+		/// WARNING: Enabling hyperlinks when using content from an unsafe sources may cause security vulnerabilities.
 		/// </summary>
 		private string expandedInformation;
 
@@ -449,7 +449,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// The string to be used in the footer area of the dialog box. If the EnableHyperlinks member
 		/// is true, then this string may contain hyperlinks in the form: <A HREF="executablestring">
 		/// Hyperlink Text</A>.
-		/// WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+		/// WARNING: Enabling hyperlinks when using content from an unsafe sources may cause security vulnerabilities.
 		/// </summary>
 		private string footer;
 
@@ -520,7 +520,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// <summary>
 		/// The string to be used for the dialog’s primary content. If the EnableHyperlinks member is true,
 		/// then this string may contain hyperlinks in the form: <A HREF="executablestring">Hyperlink Text</A>. 
-		/// WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+		/// WARNING: Enabling hyperlinks when using content from an unsafe sources may cause security vulnerabilities.
 		/// </summary>
 		public string Content
 		{
@@ -632,7 +632,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// Enables hyperlink processing for the strings specified in the Content, ExpandedInformation
 		/// and FooterText members. When enabled, these members may be strings that contain hyperlinks
 		/// in the form: <A HREF="executablestring">Hyperlink Text</A>. 
-		/// WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+		/// WARNING: Enabling hyperlinks when using content from an unsafe sources may cause security vulnerabilities.
 		/// Note: Task Dialog will not actually execute any hyperlinks. Hyperlink execution must be handled
 		/// in the callback function specified by Callback member.
 		/// </summary>
@@ -816,7 +816,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// displayed either immediately below the content or below the footer text depending on whether
 		/// the ExpandFooterArea member is true. If the EnameHyperlinks member is true, then this string
 		/// may contain hyperlinks in the form: <A HREF="executablestring">Hyperlink Text</A>.
-		/// WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+		/// WARNING: Enabling hyperlinks when using content from an unsafe sources may cause security vulnerabilities.
 		/// </summary>
 		public string ExpandedInformation
 		{
@@ -852,7 +852,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// The string to be used in the footer area of the dialog box. If the EnableHyperlinks member
 		/// is true, then this string may contain hyperlinks in the form: <A HREF="executablestring">
 		/// Hyperlink Text</A>.
-		/// WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+		/// WARNING: Enabling hyperlinks when using content from an unsafe sources may cause security vulnerabilities.
 		/// </summary>
 		public string Footer
 		{

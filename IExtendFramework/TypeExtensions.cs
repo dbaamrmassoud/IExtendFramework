@@ -31,10 +31,10 @@ namespace IExtendFramework
         {
             if (o is AdvancedString)
                 return o as AdvancedString;
-            
+
             return AdvancedString.From(o.ToString());
         }
-        
+
         #region String Extensions
         /// <summary>
         /// Formats a string according to the given FormatType
@@ -52,17 +52,17 @@ namespace IExtendFramework
             {
                 if (string.IsNullOrWhiteSpace(s))
                     return s;
-                
+
                 var len = s.Length;
-                
+
                 if (len == 1)
                     return s.ToUpper();
-                
+
                 if (len > 1)
                 {
                     return char.ToUpper(s[0]) + s.Substring(1);
                 }
-                
+
                 return s;
             }
             if (t == FormatType.TitleCase)
@@ -71,13 +71,13 @@ namespace IExtendFramework
             {
                 if (string.IsNullOrEmpty(s))
                     return s;
-                
+
                 if (s.EndsWith("!"))
                     return s;
                 // other sentence types
-                if (s.EndsWith(".") ||  s.EndsWith("?"))
+                if (s.EndsWith(".") || s.EndsWith("?"))
                     return s.Substring(0, s.Length - 1) + "!"; //s.Substring(s.Length - 1, 1);
-                
+
                 // anything else
                 return s + "!";
             }
@@ -85,13 +85,13 @@ namespace IExtendFramework
             {
                 if (string.IsNullOrEmpty(s))
                     return s;
-                
+
                 if (s.EndsWith("?"))
                     return s;
                 // other sentence types
-                if (s.EndsWith(".") ||  s.EndsWith("!"))
+                if (s.EndsWith(".") || s.EndsWith("!"))
                     return s.Substring(0, s.Length - 1) + "?"; //s.Substring(s.Length - 1, 1);
-                
+
                 // anything else
                 return s + "?";
             }
@@ -99,13 +99,13 @@ namespace IExtendFramework
             {
                 if (string.IsNullOrEmpty(s))
                     return s;
-                
+
                 if (s.EndsWith("."))
                     return s;
                 // other sentence types
-                if (s.EndsWith("!") ||  s.EndsWith("?"))
+                if (s.EndsWith("!") || s.EndsWith("?"))
                     return s.Substring(0, s.Length - 1) + "."; //s.Substring(s.Length - 1, 1);
-                
+
                 // anything else
                 return s + ".";
             }
@@ -133,7 +133,7 @@ namespace IExtendFramework
             {
                 if (s.Length == 0)
                     return "";
-                
+
                 // get words
                 string[] s2 = s.Split(' ');
                 for (int i = 0; i < s2.Length; i++)
@@ -150,10 +150,10 @@ namespace IExtendFramework
                 }
                 return result.SpecialFormat(FormatType.AllUppercase);
             }
-            
+
             throw new NotImplementedException("type '" + t.ToString() + "' not implemented or exitant!");
         }
-        
+
         /// <summary>
         /// Checks if a string is a palindrome (same read forward and back)
         /// </summary>
@@ -163,7 +163,7 @@ namespace IExtendFramework
         {
             if (s.Length == 1 || s.Length == 0)
                 return true;
-            if (s.Substring(0, 1).ToLower() == s.Substring(s.Length -1, 1).ToLower())
+            if (s.Substring(0, 1).ToLower() == s.Substring(s.Length - 1, 1).ToLower())
             {
                 if (s.Length == 2)
                     return true;
@@ -173,8 +173,8 @@ namespace IExtendFramework
             // its not a palindrome
             return false;
         }
-        
-        
+
+
         /// <summary>
         /// Remove leading strings with zeros and adjust for singular/plural
         /// </summary>
@@ -182,21 +182,23 @@ namespace IExtendFramework
         /// <param name="previousStr">The previous string.</param>
         /// <param name="t">The t.</param>
         /// <returns></returns>
-        private static string FormatString(this string str, string previousStr, int t) {
+        private static string FormatString(this string str, string previousStr, int t)
+        {
             if ((t == 0) && (previousStr.Length == 0))
                 return String.Empty;
 
             string suffix = (t == 1) ? String.Empty : "s";
             return String.Concat(t, " ", str, suffix, " ");
         }
-        
+
         /// <summary>
         /// Strips the last specified chars from a string.
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <param name="removeFromEnd">The remove from end.</param>
         /// <returns></returns>
-        public static string Chop(this string sourceString, int removeFromEnd) {
+        public static string Chop(this string sourceString, int removeFromEnd)
+        {
             string result = sourceString;
             if ((removeFromEnd > 0) && (sourceString.Length > removeFromEnd - 1))
                 result = result.Remove(sourceString.Length - removeFromEnd, removeFromEnd);
@@ -206,10 +208,11 @@ namespace IExtendFramework
         /// <summary>
         /// Strips the last specified chars from a string.
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <param name="backDownTo">The back down to.</param>
         /// <returns></returns>
-        public static string Chop(this string sourceString, string backDownTo) {
+        public static string Chop(this string sourceString, string backDownTo)
+        {
             int removeDownTo = sourceString.LastIndexOf(backDownTo);
             int removeFromEnd = 0;
             if (removeDownTo > 0)
@@ -226,18 +229,20 @@ namespace IExtendFramework
         /// <summary>
         /// Plurals to singular.
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <returns></returns>
-        public static string PluralToSingular(this string sourceString) {
+        public static string PluralToSingular(this string sourceString)
+        {
             return sourceString.MakeSingular();
         }
 
         /// <summary>
         /// Singulars to plural.
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <returns></returns>
-        public static string SingularToPlural(this string sourceString) {
+        public static string SingularToPlural(this string sourceString)
+        {
             return sourceString.MakePlural();
         }
 
@@ -245,9 +250,10 @@ namespace IExtendFramework
         /// Make plural when count is not one
         /// </summary>
         /// <param name="number">The number of things</param>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <returns></returns>
-        public static string Pluralize(this int number, string sourceString) {
+        public static string Pluralize(this int number, string sourceString)
+        {
             if (number == 1)
                 return String.Concat(number, " ", sourceString.MakeSingular());
             return String.Concat(number, " ", sourceString.MakePlural());
@@ -256,10 +262,11 @@ namespace IExtendFramework
         /// <summary>
         /// Removes the specified chars from the beginning of a string.
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <param name="removeFromBeginning">The remove from beginning.</param>
         /// <returns></returns>
-        public static string Clip(this string sourceString, int removeFromBeginning) {
+        public static string Clip(this string sourceString, int removeFromBeginning)
+        {
             string result = sourceString;
             if (sourceString.Length > removeFromBeginning)
                 result = result.Remove(0, removeFromBeginning);
@@ -269,10 +276,11 @@ namespace IExtendFramework
         /// <summary>
         /// Removes chars from the beginning of a string, up to the specified string
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <param name="removeUpTo">The remove up to.</param>
         /// <returns></returns>
-        public static string Clip(this string sourceString, string removeUpTo) {
+        public static string Clip(this string sourceString, string removeUpTo)
+        {
             int removeFromBeginning = sourceString.IndexOf(removeUpTo);
             string result = sourceString;
 
@@ -281,15 +289,16 @@ namespace IExtendFramework
 
             return result;
         }
-        
+
         /// <summary>
         /// Returns text that is located between the startText and endText tags.
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <param name="startText">The text from which to start the crop</param>
         /// <param name="endText">The endpoint of the crop</param>
         /// <returns></returns>
-        public static string Crop(this string sourceString, string startText, string endText) {
+        public static string Crop(this string sourceString, string startText, string endText)
+        {
             int startIndex = sourceString.IndexOf(startText, StringComparison.CurrentCultureIgnoreCase);
             if (startIndex == -1)
                 return String.Empty;
@@ -305,13 +314,15 @@ namespace IExtendFramework
         /// <summary>
         /// Removes excess white space in a string.
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <returns></returns>
-        public static string RemoveExcessWhiteSpace(this string sourceString) {
+        public static string RemoveExcessWhiteSpace(this string sourceString)
+        {
             char[] delim = { ' ' };
             string[] lines = sourceString.Split(delim, StringSplitOptions.RemoveEmptyEntries);
             StringBuilder sb = new StringBuilder();
-            foreach (string s in lines) {
+            foreach (string s in lines)
+            {
                 if (!String.IsNullOrEmpty(s.Trim()))
                     sb.Append(s + " ");
             }
@@ -323,18 +334,20 @@ namespace IExtendFramework
         /// <summary>
         /// Removes all non-alpha numeric characters in a string
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <returns></returns>
-        public static string ToAlphaNumericOnly(this string sourceString) {
+        public static string ToAlphaNumericOnly(this string sourceString)
+        {
             return Regex.Replace(sourceString, @"\W*", "");
         }
-        
+
         /// <summary>
         /// Strips all HTML tags from a string
         /// </summary>
         /// <param name="htmlString">The HTML string.</param>
         /// <returns></returns>
-        public static string StripHTML(this string htmlString) {
+        public static string StripHTML(this string htmlString)
+        {
             return StripHTML(htmlString, String.Empty);
         }
 
@@ -344,7 +357,8 @@ namespace IExtendFramework
         /// <param name="htmlString">The HTML string.</param>
         /// <param name="htmlPlaceHolder">The HTML place holder.</param>
         /// <returns></returns>
-        public static string StripHTML(this string htmlString, string htmlPlaceHolder) {
+        public static string StripHTML(this string htmlString, string htmlPlaceHolder)
+        {
             const string pattern = @"<(.|\n)*?>";
             string sOut = Regex.Replace(htmlString, pattern, htmlPlaceHolder);
             sOut = sOut.Replace("&nbsp;", String.Empty);
@@ -354,7 +368,8 @@ namespace IExtendFramework
             return sOut;
         }
 
-        public static List<string> FindMatches(this string source, string find) {
+        public static List<string> FindMatches(this string source, string find)
+        {
             Regex reg = new Regex(find, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
 
             List<string> result = new List<string>();
@@ -368,7 +383,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="list">The list.</param>
         /// <returns></returns>
-        public static string ToDelimitedList(this IEnumerable<string> list) {
+        public static string ToDelimitedList(this IEnumerable<string> list)
+        {
             return ToDelimitedList(list, ",");
         }
 
@@ -378,7 +394,8 @@ namespace IExtendFramework
         /// <param name="list">The list.</param>
         /// <param name="delimiter">The delimiter.</param>
         /// <returns></returns>
-        public static string ToDelimitedList(this IEnumerable<string> list, string delimiter) {
+        public static string ToDelimitedList(this IEnumerable<string> list, string delimiter)
+        {
             StringBuilder sb = new StringBuilder();
             foreach (string s in list)
                 sb.Append(String.Concat(s, delimiter));
@@ -390,13 +407,16 @@ namespace IExtendFramework
         /// <summary>
         /// Strips the specified input.
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <param name="stripValue">The strip value.</param>
         /// <returns></returns>
-        public static string Strip(this string sourceString, string stripValue) {
-            if (!String.IsNullOrEmpty(stripValue)) {
+        public static string Strip(this string sourceString, string stripValue)
+        {
+            if (!String.IsNullOrEmpty(stripValue))
+            {
                 string[] replace = stripValue.Split(new[] { ',' });
-                for (int i = 0; i < replace.Length; i++) {
+                for (int i = 0; i < replace.Length; i++)
+                {
                     if (!String.IsNullOrEmpty(sourceString))
                         sourceString = Regex.Replace(sourceString, replace[i], String.Empty);
                 }
@@ -409,7 +429,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="asciiCode">The ASCII code.</param>
         /// <returns></returns>
-        public static string AsciiToUnicode(this int asciiCode) {
+        public static string AsciiToUnicode(this int asciiCode)
+        {
             Encoding utf = Encoding.UTF32;
             char c = (char)asciiCode;
             Byte[] b = utf.GetBytes(c.ToString());
@@ -424,7 +445,8 @@ namespace IExtendFramework
         /// <param name="fmt">The format string passed to String.Format</param>
         /// <param name="args">The args passed to String.Format</param>
         /// <returns></returns>
-        public static string ToFormattedString(this string format, params object[] args) {
+        public static string ToFormattedString(this string format, params object[] args)
+        {
             return String.Format(format, args);
         }
 
@@ -434,41 +456,46 @@ namespace IExtendFramework
         /// <typeparam name="T"></typeparam>
         /// <param name="Value">The value.</param>
         /// <returns></returns>
-        public static T ToEnum<T>(this string Value) {
+        public static T ToEnum<T>(this string Value)
+        {
             T oOut = default(T);
             Type t = typeof(T);
-            foreach (FieldInfo fi in t.GetFields()) {
+            foreach (FieldInfo fi in t.GetFields())
+            {
                 if (fi.Name.Matches(Value))
                     oOut = (T)fi.GetValue(null);
             }
 
             return oOut;
         }
-        
-        public static bool Matches(this string source, string compare) {
+
+        public static bool Matches(this string source, string compare)
+        {
             return String.Equals(source, compare, StringComparison.OrdinalIgnoreCase);
         }
 
-        public static bool MatchesTrimmed(this string source, string compare) {
+        public static bool MatchesTrimmed(this string source, string compare)
+        {
             return String.Equals(source.Trim(), compare.Trim(), StringComparison.OrdinalIgnoreCase);
         }
 
-        public static bool MatchesRegex(this string inputString, string matchPattern) {
+        public static bool MatchesRegex(this string inputString, string matchPattern)
+        {
             return Regex.IsMatch(inputString, matchPattern,
                                  RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
         }
-        
+
         public static bool IsUpperCase(this string s)
         {
             return (s.ToUpper() == s) ? true : false;
         }
-        
+
         public static bool IsLowerCase(this string s)
         {
             return (s.ToLower() == s) ? true : false;
         }
         #endregion
-        
+
         #region Object Iterators
         public static IEnumerable<object> Iterate(this object o, IterateType t = IterateType.Object)
         {
@@ -488,7 +515,7 @@ namespace IExtendFramework
             }
             if (t == IterateType.Properties)
             {
-                PropertyInfo[] pic =o.GetType().GetProperties();
+                PropertyInfo[] pic = o.GetType().GetProperties();
                 foreach (PropertyInfo pi in pic)
                     yield return pi;
             }
@@ -506,7 +533,7 @@ namespace IExtendFramework
                     yield return o2;
         }
         #endregion
-        
+
         #region Encryption/Decryption
         /*
         public static string Encrypt(this string s, EncryptionType e, params object[] args)
@@ -634,7 +661,7 @@ namespace IExtendFramework
         }
          */
         #endregion
-        
+
         /// <summary>
         /// Fancier tostring
         /// </summary>
@@ -644,12 +671,12 @@ namespace IExtendFramework
         public static string PrettyToString(this object obj, string indent = " ")
         {
             string result = "";
-            
+
             // Type name
-            result += (indent == " " ? "" : indent) + "[Type '"+ obj.GetType().FullName + "']\n" +
+            result += (indent == " " ? "" : indent) + "[Type '" + obj.GetType().FullName + "']\n" +
                 (indent == " " ? "" : indent) +
                 "{\n";
-            
+
             // Check if enumerator/iterator
             IEnumerable ienumberable = obj as IEnumerable;
             if (ienumberable != null)
@@ -658,7 +685,7 @@ namespace IExtendFramework
                 foreach (object o in ienumberable)
                     result += o.PrettyToString(indent + "  ");
             }
-            
+
             // Properties
             if (obj.GetType().GetProperties().Length > 0)
             {
@@ -669,11 +696,11 @@ namespace IExtendFramework
             }
             result += indent + " ToString: '" + obj.ToString() + "'\n";
             result += indent + " Hashcode: '" + obj.GetHashCode() + "'\n";
-            
+
             result += (indent == " " ? "" : indent) + "}\n";
             return result;
         }
-        
+
         #region ENUM
         public static bool Has<T>(this Enum type, T value)
         {
@@ -724,20 +751,20 @@ namespace IExtendFramework
                     "Could not remove value from enumerated type '{0}'.", typeof(T).Name), ex);
             }
         }
-        
+
         public static AdvancedString ToReadableString(this Enum val)
         {
             // Gets the field info for the value
             FieldInfo fi = val.GetType().GetField(val.ToString());
-            Enums.ReadableEnumAttribute[] attribs = (Enums.ReadableEnumAttribute[]) fi.GetCustomAttributes(typeof(Enums.ReadableEnumAttribute), false);
+            Enums.ReadableEnumAttribute[] attribs = (Enums.ReadableEnumAttribute[])fi.GetCustomAttributes(typeof(Enums.ReadableEnumAttribute), false);
             if (attribs.Length == 0)
                 return val.ToAdvancedString();
             else
                 return attribs[0].Value;
-            
+
         }
         #endregion
-        
+
         #region SLICING
         /// <summary>
         /// Get the string slice between the two indexes.
@@ -753,10 +780,10 @@ namespace IExtendFramework
             }
 
             int length = end - start;
-            
+
             return s.Substring(start, length);
         }
-        
+
         /// <summary>
         /// Get the array slice between the two indexes.
         /// Inclusive for start index, exclusive for end index.
@@ -782,7 +809,7 @@ namespace IExtendFramework
             return result;
         }
         #endregion
-        
+
         #region MATH
         public static double Log10(this double d) { return Math.Log10(d); }
         public static double Exp10(this double d) { return Math.Pow(10d, d); }
@@ -931,18 +958,19 @@ namespace IExtendFramework
         {
             if (double.IsNaN(d1) || double.IsNaN(d2))
                 return false;
-            
+
             return LexicographicQuantaDifference(d1, d2) <= nQuanta;
         }
         #endregion
-        
+
         #region FILES
         /// <summary>
         /// Read a text file and obtain it's contents.
         /// </summary>
         /// <param name="absolutePath">The complete file path to write to.</param>
         /// <returns>String containing the content of the file.</returns>
-        public static string GetFileText(this string absolutePath) {
+        public static string GetFileText(this string absolutePath)
+        {
             using (StreamReader sr = new StreamReader(absolutePath))
                 return sr.ReadToEnd();
         }
@@ -952,7 +980,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="absolutePath">The complete file path to write to.</param>
         /// <param name="fileText">A String containing text to be written to the file.</param>
-        public static void CreateToFile(this string fileText, string absolutePath) {
+        public static void CreateToFile(this string fileText, string absolutePath)
+        {
             using (StreamWriter sw = File.CreateText(absolutePath))
                 sw.Write(fileText);
         }
@@ -963,7 +992,8 @@ namespace IExtendFramework
         /// <param name="absolutePath">The complete file path to write to.</param>
         /// <param name="lookFor">A String to be replaced.</param>
         /// <param name="replaceWith">A String to replace all occurrences of lookFor.</param>
-        public static void UpdateFileText(this string absolutePath, string lookFor, string replaceWith) {
+        public static void UpdateFileText(this string absolutePath, string lookFor, string replaceWith)
+        {
             string newText = GetFileText(absolutePath).Replace(lookFor, replaceWith);
             WriteToFile(absolutePath, newText);
         }
@@ -973,7 +1003,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="absolutePath">The complete file path to write to.</param>
         /// <param name="fileText">A String containing text to be written to the file.</param>
-        public static void WriteToFile(this string absolutePath, string fileText) {
+        public static void WriteToFile(this string absolutePath, string fileText)
+        {
             using (StreamWriter sw = new StreamWriter(absolutePath, false))
                 sw.Write(fileText);
         }
@@ -983,7 +1014,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <returns></returns>
-        public static string ReadWebPage(this string url) {
+        public static string ReadWebPage(this string url)
+        {
             return ReadWebResponse(GetWebResponse(url));
         }
 
@@ -1013,7 +1045,7 @@ namespace IExtendFramework
 
         }
         #endregion
-        
+
         #region STRING MATCHING
         /// <summary>
         /// Determines whether the specified eval string contains only alpha characters.
@@ -1022,7 +1054,8 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if the specified eval string is alpha; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsAlpha(this string evalString) {
+        public static bool IsAlpha(this string evalString)
+        {
             return !Regex.IsMatch(evalString, RegexPattern.ALPHA);
         }
 
@@ -1033,7 +1066,8 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if the string is alphanumeric; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsAlphaNumeric(this string evalString) {
+        public static bool IsAlphaNumeric(this string evalString)
+        {
             return !Regex.IsMatch(evalString, RegexPattern.ALPHA_NUMERIC);
         }
 
@@ -1045,7 +1079,8 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if the string is alphanumeric; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsAlphaNumeric(this string evalString, bool allowSpaces) {
+        public static bool IsAlphaNumeric(this string evalString, bool allowSpaces)
+        {
             if (allowSpaces)
                 return !Regex.IsMatch(evalString, RegexPattern.ALPHA_NUMERIC_SPACE);
             return IsAlphaNumeric(evalString);
@@ -1058,7 +1093,8 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if the string is numeric; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsNumeric(this string evalString) {
+        public static bool IsNumeric(this string evalString)
+        {
             return !Regex.IsMatch(evalString, RegexPattern.NUMERIC);
         }
 
@@ -1069,10 +1105,11 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if the specified email address is valid; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsEmail(this string emailAddressString) {
+        public static bool IsEmail(this string emailAddressString)
+        {
             return Regex.IsMatch(emailAddressString, RegexPattern.EMAIL);
         }
-        
+
         /// <summary>
         /// Determines whether the specified string is a valid GUID.
         /// </summary>
@@ -1080,7 +1117,8 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if the specified string is a valid GUID; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsGuid(this string guid) {
+        public static bool IsGuid(this string guid)
+        {
             return Regex.IsMatch(guid, RegexPattern.GUID);
         }
 
@@ -1091,7 +1129,8 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if it is a valid zip code; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsZipCodeAny(this string zipCode) {
+        public static bool IsZipCodeAny(this string zipCode)
+        {
             return Regex.IsMatch(zipCode, RegexPattern.US_ZIPCODE_PLUS_FOUR_OPTIONAL);
         }
 
@@ -1102,7 +1141,8 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if it is a valid zip code; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsZipCodeFive(this string zipCode) {
+        public static bool IsZipCodeFive(this string zipCode)
+        {
             return Regex.IsMatch(zipCode, RegexPattern.US_ZIPCODE);
         }
 
@@ -1113,7 +1153,8 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if it is a valid zip code; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsZipCodeFivePlusFour(this string zipCode) {
+        public static bool IsZipCodeFivePlusFour(this string zipCode)
+        {
             return Regex.IsMatch(zipCode, RegexPattern.US_ZIPCODE_PLUS_FOUR);
         }
 
@@ -1124,7 +1165,8 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if it is a valid Social Security number; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsSocialSecurityNumber(this string socialSecurityNumber) {
+        public static bool IsSocialSecurityNumber(this string socialSecurityNumber)
+        {
             return Regex.IsMatch(socialSecurityNumber, RegexPattern.SOCIAL_SECURITY);
         }
 
@@ -1135,7 +1177,8 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsIPAddress(this string ipAddress) {
+        public static bool IsIPAddress(this string ipAddress)
+        {
             return Regex.IsMatch(ipAddress, RegexPattern.IP_ADDRESS);
         }
 
@@ -1146,12 +1189,14 @@ namespace IExtendFramework
         /// <returns>
         /// 	<c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsUSTelephoneNumber(this string telephoneNumber) {
+        public static bool IsUSTelephoneNumber(this string telephoneNumber)
+        {
             return Regex.IsMatch(telephoneNumber, RegexPattern.US_TELEPHONE);
         }
-public static bool IsUSShortTelephoneNumber(this string meh) {
-    return Regex.IsMatch(meh, RegexPattern.US_TELEPHONE_SHORT);
-}
+        public static bool IsUSShortTelephoneNumber(this string meh)
+        {
+            return Regex.IsMatch(meh, RegexPattern.US_TELEPHONE_SHORT);
+        }
 
         /// <summary>
         /// Determines whether the specified string is a valid currency string using the referenced regex string.
@@ -1160,10 +1205,11 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <returns>
         /// 	<c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsUSCurrency(this string currency) {
+        public static bool IsUSCurrency(this string currency)
+        {
             return Regex.IsMatch(currency, RegexPattern.US_CURRENCY);
         }
-        
+
         /// <summary>
         /// Determines whether the specified string is consider a strong password based on the supplied string.
         /// </summary>
@@ -1171,14 +1217,15 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <returns>
         /// 	<c>true</c> if strong; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsStrongPassword(this string password) {
+        public static bool IsStrongPassword(this string password)
+        {
             return Regex.IsMatch(password, RegexPattern.STRONG_PASSWORD);
         }
 
         #endregion
-        
+
         #region DATES
-        
+
         #region Date Math
 
         /// <summary>
@@ -1186,7 +1233,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// </summary>
         /// <param name="days">The days.</param>
         /// <returns></returns>
-        public static DateTime DaysAgo(this int days) {
+        public static DateTime DaysAgo(this int days)
+        {
             TimeSpan t = new TimeSpan(days, 0, 0, 0);
             return DateTime.Now.Subtract(t);
         }
@@ -1196,7 +1244,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// </summary>
         /// <param name="days">The days.</param>
         /// <returns></returns>
-        public static DateTime DaysFromNow(this int days) {
+        public static DateTime DaysFromNow(this int days)
+        {
             TimeSpan t = new TimeSpan(days, 0, 0, 0);
             return DateTime.Now.Add(t);
         }
@@ -1206,7 +1255,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// </summary>
         /// <param name="hours">The hours.</param>
         /// <returns></returns>
-        public static DateTime HoursAgo(this int hours) {
+        public static DateTime HoursAgo(this int hours)
+        {
             TimeSpan t = new TimeSpan(hours, 0, 0);
             return DateTime.Now.Subtract(t);
         }
@@ -1216,7 +1266,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// </summary>
         /// <param name="hours">The hours.</param>
         /// <returns></returns>
-        public static DateTime HoursFromNow(this int hours) {
+        public static DateTime HoursFromNow(this int hours)
+        {
             TimeSpan t = new TimeSpan(hours, 0, 0);
             return DateTime.Now.Add(t);
         }
@@ -1226,7 +1277,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// </summary>
         /// <param name="minutes">The minutes.</param>
         /// <returns></returns>
-        public static DateTime MinutesAgo(this int minutes) {
+        public static DateTime MinutesAgo(this int minutes)
+        {
             TimeSpan t = new TimeSpan(0, minutes, 0);
             return DateTime.Now.Subtract(t);
         }
@@ -1236,7 +1288,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// </summary>
         /// <param name="minutes">The minutes.</param>
         /// <returns></returns>
-        public static DateTime MinutesFromNow(this int minutes) {
+        public static DateTime MinutesFromNow(this int minutes)
+        {
             TimeSpan t = new TimeSpan(0, minutes, 0);
             return DateTime.Now.Add(t);
         }
@@ -1246,7 +1299,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// </summary>
         /// <param name="seconds">The seconds.</param>
         /// <returns></returns>
-        public static DateTime SecondsAgo(this int seconds) {
+        public static DateTime SecondsAgo(this int seconds)
+        {
             TimeSpan t = new TimeSpan(0, 0, seconds);
             return DateTime.Now.Subtract(t);
         }
@@ -1256,13 +1310,14 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// </summary>
         /// <param name="seconds">The seconds.</param>
         /// <returns></returns>
-        public static DateTime SecondsFromNow(this int seconds) {
+        public static DateTime SecondsFromNow(this int seconds)
+        {
             TimeSpan t = new TimeSpan(0, 0, seconds);
             return DateTime.Now.Add(t);
         }
 
         #endregion
-        
+
         #region Diffs
 
         /// <summary>
@@ -1271,7 +1326,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="dateOne">The date one.</param>
         /// <param name="dateTwo">The date two.</param>
         /// <returns></returns>
-        public static TimeSpan Diff(this DateTime dateOne, DateTime dateTwo) {
+        public static TimeSpan Diff(this DateTime dateOne, DateTime dateTwo)
+        {
             TimeSpan t = dateOne.Subtract(dateTwo);
             return t;
         }
@@ -1282,7 +1338,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="dateOne">The date one.</param>
         /// <param name="dateTwo">The date two.</param>
         /// <returns></returns>
-        public static double DiffDays(this string dateOne, string dateTwo) {
+        public static double DiffDays(this string dateOne, string dateTwo)
+        {
             DateTime dtOne;
             DateTime dtTwo;
             if (DateTime.TryParse(dateOne, out dtOne) && DateTime.TryParse(dateTwo, out dtTwo))
@@ -1296,7 +1353,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="dateOne">The date one.</param>
         /// <param name="dateTwo">The date two.</param>
         /// <returns></returns>
-        public static double DiffDays(this DateTime dateOne, DateTime dateTwo) {
+        public static double DiffDays(this DateTime dateOne, DateTime dateTwo)
+        {
             return Diff(dateOne, dateTwo).TotalDays;
         }
 
@@ -1306,7 +1364,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="dateOne">The date one.</param>
         /// <param name="dateTwo">The date two.</param>
         /// <returns></returns>
-        public static double DiffHours(this string dateOne, string dateTwo) {
+        public static double DiffHours(this string dateOne, string dateTwo)
+        {
             DateTime dtOne;
             DateTime dtTwo;
             if (DateTime.TryParse(dateOne, out dtOne) && DateTime.TryParse(dateTwo, out dtTwo))
@@ -1320,7 +1379,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="dateOne">The date one.</param>
         /// <param name="dateTwo">The date two.</param>
         /// <returns></returns>
-        public static double DiffHours(this DateTime dateOne, DateTime dateTwo) {
+        public static double DiffHours(this DateTime dateOne, DateTime dateTwo)
+        {
             return Diff(dateOne, dateTwo).TotalHours;
         }
 
@@ -1330,7 +1390,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="dateOne">The date one.</param>
         /// <param name="dateTwo">The date two.</param>
         /// <returns></returns>
-        public static double DiffMinutes(this string dateOne, string dateTwo) {
+        public static double DiffMinutes(this string dateOne, string dateTwo)
+        {
             DateTime dtOne;
             DateTime dtTwo;
             if (DateTime.TryParse(dateOne, out dtOne) && DateTime.TryParse(dateTwo, out dtTwo))
@@ -1344,7 +1405,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="dateOne">The date one.</param>
         /// <param name="dateTwo">The date two.</param>
         /// <returns></returns>
-        public static double DiffMinutes(this DateTime dateOne, DateTime dateTwo) {
+        public static double DiffMinutes(this DateTime dateOne, DateTime dateTwo)
+        {
             return Diff(dateOne, dateTwo).TotalMinutes;
         }
 
@@ -1354,7 +1416,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="startTime">The start time.</param>
         /// <param name="endTime">The end time.</param>
         /// <returns></returns>
-        public static string ReadableDiff(this DateTime startTime, DateTime endTime) {
+        public static string ReadableDiff(this DateTime startTime, DateTime endTime)
+        {
             string result;
 
             int seconds = endTime.Second - startTime.Second;
@@ -1364,52 +1427,65 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
             int months = endTime.Month - startTime.Month;
             int years = endTime.Year - startTime.Year;
 
-            if (seconds < 0) {
+            if (seconds < 0)
+            {
                 minutes--;
                 seconds += 60;
             }
-            if (minutes < 0) {
+            if (minutes < 0)
+            {
                 hours--;
                 minutes += 60;
             }
-            if (hours < 0) {
+            if (hours < 0)
+            {
                 days--;
                 hours += 24;
             }
 
-            if (days < 0) {
+            if (days < 0)
+            {
                 months--;
                 int previousMonth = (endTime.Month == 1) ? 12 : endTime.Month - 1;
                 int year = (previousMonth == 12) ? endTime.Year - 1 : endTime.Year;
                 days += DateTime.DaysInMonth(year, previousMonth);
             }
-            if (months < 0) {
+            if (months < 0)
+            {
                 years--;
                 months += 12;
             }
 
             //put this in a readable format
-            if (years > 0) {
+            if (years > 0)
+            {
                 result = years.Pluralize("year");
                 if (months != 0)
                     result += ", " + months.Pluralize("month");
                 result += " ago";
-            } else if (months > 0) {
+            }
+            else if (months > 0)
+            {
                 result = months.Pluralize("month");
                 if (days != 0)
                     result += ", " + days.Pluralize("day");
                 result += " ago";
-            } else if (days > 0) {
+            }
+            else if (days > 0)
+            {
                 result = days.Pluralize("day");
                 if (hours != 0)
                     result += ", " + hours.Pluralize("hour");
                 result += " ago";
-            } else if (hours > 0) {
+            }
+            else if (hours > 0)
+            {
                 result = hours.Pluralize("hour");
                 if (minutes != 0)
                     result += ", " + minutes.Pluralize("minute");
                 result += " ago";
-            } else if (minutes > 0)
+            }
+            else if (minutes > 0)
                 result = minutes.Pluralize("minute") + " ago";
             else
                 result = seconds.Pluralize("second") + " ago";
@@ -1429,11 +1505,13 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="startTime">The start time.</param>
         /// <param name="endTime">The end time.</param>
         /// <returns></returns>
-        public static int CountWeekdays(this DateTime startTime, DateTime endTime) {
+        public static int CountWeekdays(this DateTime startTime, DateTime endTime)
+        {
             TimeSpan ts = endTime - startTime;
             Console.WriteLine(ts.Days);
             int cnt = 0;
-            for (int i = 0; i < ts.Days; i++) {
+            for (int i = 0; i < ts.Days; i++)
+            {
                 DateTime dt = startTime.AddDays(i);
                 if (IsWeekDay(dt))
                     cnt++;
@@ -1447,11 +1525,13 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="startTime">The start time.</param>
         /// <param name="endTime">The end time.</param>
         /// <returns></returns>
-        public static int CountWeekends(this DateTime startTime, DateTime endTime) {
+        public static int CountWeekends(this DateTime startTime, DateTime endTime)
+        {
             TimeSpan ts = endTime - startTime;
             Console.WriteLine(ts.Days);
             int cnt = 0;
-            for (int i = 0; i < ts.Days; i++) {
+            for (int i = 0; i < ts.Days; i++)
+            {
                 DateTime dt = startTime.AddDays(i);
                 if (IsWeekEnd(dt))
                     cnt++;
@@ -1466,7 +1546,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <returns>
         /// 	<c>true</c> if the specified dt is date; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsDate(this object dt) {
+        public static bool IsDate(this object dt)
+        {
             DateTime newDate;
             return DateTime.TryParse(dt.ToString(), out newDate);
         }
@@ -1478,7 +1559,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <returns>
         /// 	<c>true</c> if [is week day] [the specified dt]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsWeekDay(this DateTime dt) {
+        public static bool IsWeekDay(this DateTime dt)
+        {
             return (dt.DayOfWeek != DayOfWeek.Saturday && dt.DayOfWeek != DayOfWeek.Sunday);
         }
 
@@ -1489,7 +1571,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <returns>
         /// 	<c>true</c> if [is week end] [the specified dt]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsWeekEnd(this DateTime dt) {
+        public static bool IsWeekEnd(this DateTime dt)
+        {
             return (dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday);
         }
 
@@ -1499,32 +1582,38 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// <param name="startTime">The start time.</param>
         /// <param name="endTime">The end time.</param>
         /// <returns></returns>
-        public static string TimeDiff(this DateTime startTime, DateTime endTime) {
+        public static string TimeDiff(this DateTime startTime, DateTime endTime)
+        {
             int seconds = endTime.Second - startTime.Second;
             int minutes = endTime.Minute - startTime.Minute;
             int hours = endTime.Hour - startTime.Hour;
             int days = endTime.Day - startTime.Day;
             int months = endTime.Month - startTime.Month;
             int years = endTime.Year - startTime.Year;
-            if (seconds < 0) {
+            if (seconds < 0)
+            {
                 minutes--;
                 seconds += 60;
             }
-            if (minutes < 0) {
+            if (minutes < 0)
+            {
                 hours--;
                 minutes += 60;
             }
-            if (hours < 0) {
+            if (hours < 0)
+            {
                 days--;
                 hours += 24;
             }
-            if (days < 0) {
+            if (days < 0)
+            {
                 months--;
                 int previousMonth = (endTime.Month == 1) ? 12 : endTime.Month - 1;
                 int year = (previousMonth == 12) ? endTime.Year - 1 : endTime.Year;
                 days += DateTime.DaysInMonth(year, previousMonth);
             }
-            if (months < 0) {
+            if (months < 0)
+            {
                 years--;
                 months += 12;
             }
@@ -1544,7 +1633,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// </summary>
         /// <param name="date">The date to extract the string from</param>
         /// <returns></returns>
-        public static string GetFormattedMonthAndDay(this DateTime date) {
+        public static string GetFormattedMonthAndDay(this DateTime date)
+        {
             return String.Concat(String.Format("{0:MMMM}", date), " ", GetDateDayWithSuffix(date));
         }
 
@@ -1553,7 +1643,8 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         /// </summary>
         /// <param name="date">The date to extract the string from</param>
         /// <returns></returns>
-        public static string GetDateDayWithSuffix(this DateTime date) {
+        public static string GetDateDayWithSuffix(this DateTime date)
+        {
             int dayNumber = date.Day;
             string suffix = "th";
 
@@ -1567,12 +1658,12 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
             return String.Concat(dayNumber, suffix);
         }
         #endregion
-        
+
         public static LazyReadOnlyCollection<T> ToReadOnly<T>(this IEnumerable<T> items)
         {
             return new LazyReadOnlyCollection<T>(items.ToList<T>());
         }
-        
+
         public static void MemSet(this List<byte> mem, int offset, int length)
         {
             if (mem.Count < offset + length)
@@ -1639,6 +1730,44 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
             } while (true);
         }
 
+        /// <summary>
+        /// Gets a range of items from the array
+        /// </summary>
+        /// <typeparam name="T">The type of the array</typeparam>
+        /// <param name="t">The array</param>
+        /// <param name="low">The number to begin copying from</param>
+        /// <param name="high">The number to copy up to</param>
+        /// <returns></returns>
+        public static T[] Range<T>(this T[] t, int low, int high)
+        {
+            List<T> l = new List<T>();
+            for (int i = low; i < high; i++)
+                l.Add(t[i]);
+            return l.ToArray();
+        }
+
+        /// <summary>
+        /// Converts an array from one type to another
+        /// </summary>
+        /// <typeparam name="TIn"></typeparam>
+        /// <typeparam name="TOut"></typeparam>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        public static TOut[] Convert<TIn, TOut>(this TIn[] array)
+        {
+            TOut[] ret = new TOut[array.Length];
+            for (int i = 0; i < array.Length; i++)
+                ret[i] = (TOut)(object)array[i];
+            return ret;
+        }
+
+        public static List<string> ToFileList(this FileInfo[] files)
+        {
+            List<string> ret = new List<string>();
+            foreach (FileInfo fi in files)
+                ret.Add(fi.FullName);
+            return ret;
+        }
     }
 
     public enum FormatType
@@ -1654,7 +1783,7 @@ public static bool IsUSShortTelephoneNumber(this string meh) {
         ToQuestion,
         ToStatement,
         ToExclamation,
-        
+
         // Other random stuff
         CreateAcronym
     }

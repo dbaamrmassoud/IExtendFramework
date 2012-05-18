@@ -17,17 +17,18 @@ namespace IExtendFramework.School
         {
             GradeNumber = 0;
         }
-        
+
         public Grade(int gradeNum)
         {
             GradeNumber = gradeNum;
         }
-        
+
         public int GradeNumber
         {
-            get; set;
+            get;
+            set;
         }
-        
+
         //TODO: better name
         public Grades CurrentGrade
         {
@@ -40,39 +41,39 @@ namespace IExtendFramework.School
                 this.GradeNumber = (int)value;
             }
         }
-        
+
         #region Operator Overloads
         public static implicit operator int(Grade g)
         {
             return g.GradeNumber;
         }
-        
+
         public static explicit operator Grade(int i)
         {
             Grade g = new Grade();
             g.GradeNumber = i;
             return g;
         }
-        
+
         public static bool operator ==(Grade a, Grade b)
         {
             if (a.GradeNumber == b.GradeNumber)
                 return true;
             return false;
         }
-        
+
         public static bool operator !=(Grade a, Grade b)
         {
             return !(a == b);
         }
-        
+
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
         }
 
         #endregion
-        
+
         /// <summary>
         /// Tries to infer the age from the current grade
         /// </summary>
@@ -81,7 +82,7 @@ namespace IExtendFramework.School
         public static int InferAgeFromGrade(Grade g)
         {
             int age = -1;
-            
+
             // roughly 1 year per grade, so
             // Preschool = 3-4
             // Kindergarten = 5-6
@@ -97,8 +98,9 @@ namespace IExtendFramework.School
             // 10th grade = 16
             // 11th grade = 17
             // 12th grade = 18
-            
-            switch (g.CurrentGrade) {
+
+            switch (g.CurrentGrade)
+            {
                 case IExtendFramework.School.Grades.Preschool:
                     age = 4;
                     break;
@@ -144,28 +146,33 @@ namespace IExtendFramework.School
                 default:
                     throw new Exception("Unknown Grade");
             }
-            
+
             return age;
         }
-        
+
         public static int InferYearFromGrade(Grade g)
         {
             int age = InferAgeFromGrade(g);
             DateTime now = DateTime.Now;
             return now.Year - age;
         }
+
+        public override int GetHashCode()
+        {
+            return this.CurrentGrade.GetHashCode();
+        }
     }
-    
+
     public enum Grades
     {
         // No ReadableEnumAttribute for these - they dont need it.
-        
+
         Preschool = -1,
         Kindergarten = 0,
-        
+
         // ReadableEnums for these
         // these are grades from elementary school - high school
-        
+
         [ReadableEnum("First grade")]
         First,
         [ReadableEnum("Second grade")]

@@ -47,7 +47,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 	/// Represents the method that will handle the
 	/// <see cref="T:IExtendFramework.Controls.AdvancedMessageBox.TaskDialog.Showing"/> event.
 	/// </summary>
-	/// <param name="sender">The source of the event.</param>
+	/// <param name="sender">The sources of the event.</param>
 	/// <param name="e">
 	/// A <see cref="T:IExtendFramework.Controls.AdvancedMessageBox.TaskDialogShowingEventArgs"/> that contains the event data.
 	/// </param>
@@ -56,7 +56,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 	/// Represents the method that will handle the
 	/// <see cref="T:IExtendFramework.Controls.AdvancedMessageBox.TaskDialog.Closed"/> event.
 	/// </summary>
-	/// <param name="sender">The source of the event.</param>
+	/// <param name="sender">The sources of the event.</param>
 	/// <param name="e">
 	/// A <see cref="T:IExtendFramework.Controls.AdvancedMessageBox.TaskDialogClosedEventArgs"/> that contains the event data.
 	/// </param>

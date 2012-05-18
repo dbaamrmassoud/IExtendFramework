@@ -34,7 +34,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// <summary>
 		/// Handles the Loaded event of the TaskDialog control.
 		/// </summary>
-		/// <param name="sender">The source of the event.</param>
+		/// <param name="sender">The sources of the event.</param>
 		/// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
 		private void TaskDialog_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -83,7 +83,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// <summary>
 		/// Handles the SourceInitialized event of the TaskDialog control.
 		/// </summary>
-		/// <param name="sender">The source of the event.</param>
+		/// <param name="sender">The sources of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void TaskDialog_SourceInitialized(object sender, EventArgs e)
 		{
@@ -103,7 +103,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// <summary>
 		/// Handles the KeyDown event of the TaskDialog control.
 		/// </summary>
-		/// <param name="sender">The source of the event.</param>
+		/// <param name="sender">The sources of the event.</param>
 		/// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
 		private void TaskDialog_KeyDown(object sender, KeyEventArgs e)
 		{
@@ -127,7 +127,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// <summary>
 		/// Handles the Click event of NormalButton controls.
 		/// </summary>
-		/// <param name="sender">The source of the event.</param>
+		/// <param name="sender">The sources of the event.</param>
 		/// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
 		private void NormalButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -136,7 +136,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// <summary>
 		/// Handles the Click event of CommandLink controls.
 		/// </summary>
-		/// <param name="sender">The source of the event.</param>
+		/// <param name="sender">The sources of the event.</param>
 		/// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
 		private void CommandLink_Click(object sender, RoutedEventArgs e)
 		{

@@ -177,7 +177,7 @@ namespace IExtendFramework.IO.Compression.Zip
 		/// Create a zip file.
 		/// </summary>
 		/// <param name="zipFileName">The name of the zip file to create.</param>
-		/// <param name="sourceDirectory">The directory to source files from.</param>
+		/// <param name="sourceDirectory">The directory to sources files from.</param>
 		/// <param name="recurse">True to recurse directories, false for no recursion.</param>
 		/// <param name="fileFilter">The file filter to apply.</param>
 		/// <param name="directoryFilter">The directory filter to apply.</param>

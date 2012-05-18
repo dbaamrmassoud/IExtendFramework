@@ -596,7 +596,7 @@ namespace IExtendFramework.IO.Compression.Zip.Compression
 		/// returns true.
 		/// </summary>
 		/// <param name="buffer">
-		/// The source of input data
+		/// The sources of input data
 		/// </param>
 		/// <param name="offset">
 		/// The offset into buffer where the input starts.

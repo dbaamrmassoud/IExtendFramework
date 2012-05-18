@@ -188,7 +188,7 @@ namespace IExtendFramework.IO.Compression.Tar
 		/// <summary>
 		/// Construct a TarInputStream with default block factor
 		/// </summary>
-		/// <param name="inputStream">stream to source data from</param>
+		/// <param name="inputStream">stream to sources data from</param>
 		public TarInputStream(Stream inputStream) : this(inputStream, TarBuffer.DefaultBlockFactor)
 		{
 		}
@@ -196,7 +196,7 @@ namespace IExtendFramework.IO.Compression.Tar
 		/// <summary>
 		/// Construct a TarInputStream with user specified block factor
 		/// </summary>
-		/// <param name="inputStream">stream to source data from</param>
+		/// <param name="inputStream">stream to sources data from</param>
 		/// <param name="blockFactor">block factor to apply to archive</param>
 		public TarInputStream(Stream inputStream, int blockFactor)
 		{

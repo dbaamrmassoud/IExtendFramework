@@ -48,7 +48,7 @@ namespace IExtendFramework.Controls.AdvancedMessageBox
 		/// <summary>
 		/// Handles the Loaded event of the CommandLink control.
 		/// </summary>
-		/// <param name="sender">The source of the event.</param>
+		/// <param name="sender">The sources of the event.</param>
 		/// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
 		private void CommandLink_Loaded(object sender, RoutedEventArgs e)
 		{

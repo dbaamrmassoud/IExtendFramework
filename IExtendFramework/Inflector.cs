@@ -215,7 +215,7 @@ namespace IExtendFramework
         /// <summary>
         /// Convert string to proper case
         /// </summary>
-        /// <param name="sourceString">The source string.</param>
+        /// <param name="sourceString">The sources string.</param>
         /// <returns></returns>
         public static string ToProper(this string sourceString) {
             string propertyName = sourceString.ToPascalCase();
