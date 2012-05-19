@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace IExtendFramework.IO.Compression.Packages
 {
@@ -14,6 +15,7 @@ namespace IExtendFramework.IO.Compression.Packages
         /// A list of entries in the pack archive
         /// </summary>
         public List<PackEntry> Entries { get; set; }
+
         /// <summary>
         /// The filename of the pack archive
         /// </summary>
@@ -107,6 +109,22 @@ namespace IExtendFramework.IO.Compression.Packages
         {
             if (string.IsNullOrEmpty(Filename))// || System.IO.File.Exists(Filename) == true)
                 return false;
+
+            if (System.IO.File.Exists(Filename))
+            {
+                System.IO.File.Delete(Filename);
+            }
+            System.IO.File.WriteAllBytes(Filename, Compress());
+            return true;
+        }
+
+        public System.IO.MemoryStream CompressToStream()
+        {
+            return new MemoryStream(Compress());
+        }
+
+        byte[] Compress()
+        {
             AdvancedString Info = "";
             foreach (PackEntry entry in Entries)
             {
@@ -138,27 +156,26 @@ namespace IExtendFramework.IO.Compression.Packages
                     }
                 }
             }
-            if (System.IO.File.Exists(Filename))
-            {
-                System.IO.File.Delete(Filename);
-            }
-            System.IO.FileStream packFile = new System.IO.FileStream(Filename, System.IO.FileMode.CreateNew);
+            MemoryStream ms = new MemoryStream();
 
             //Write InfoByteSize as Bytes[]
-            packFile.Write(ByteInfoBytesSize, 0, 4);
+            ms.Write(ByteInfoBytesSize, 0, 4);
 
             //Write Info as Bytes[]
-            packFile.Write(InfoBytes, 0, InfoBytes.Length);
+            ms.Write(InfoBytes, 0, InfoBytes.Length);
 
             //Write Files as Bytes[]
 
             foreach (PackEntry e in Entries)
             {
-                packFile.Write(e.Data, 0, e.Data.Length);
+                ms.Write(e.Data, 0, e.Data.Length);
             }
-            packFile.Close();
-
-            return true;
+            ms.Close();
+            byte[] buf = new byte[1024];
+            List<byte> data = new List<byte>();
+            while (ms.Read(buf, 0, 1024) > 0)
+                data.AddRange(buf);
+            return data.ToArray();
         }
     }
 }

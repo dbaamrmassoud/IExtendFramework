@@ -1,6 +1,6 @@
-// BZip2.cs
+// LzwConstants.cs
 //
-// Copyright 2004 John Reilly
+// Copyright (C) 2009 Gabriel Burca
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -33,45 +33,64 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 
-using System;
-
-#if !NETCF_1_0 && !NETCF_2_0
-using System.Runtime.Serialization;
-#endif
-
-namespace IExtendFramework.IO.Compression.BZip2
+namespace IExtendFramework.IO.Compression.LZW
 {
+
     /// <summary>
-    /// BZip2Exception represents exceptions specific to Bzip2 algorithm
+    /// This class contains constants used for LZW
     /// </summary>
-#if !NETCF_1_0 && !NETCF_2_0
-    [Serializable]
-#endif
-    public class BZip2Exception : SharpZipBaseException
+    sealed public class LzwConstants
     {
         /// <summary>
-        /// Initialise a new instance of BZip2Exception.
+        /// Magic number found at start of LZW header: 0x1f 0x9d
         /// </summary>
-        public BZip2Exception()
-        {
-        }
+        public const int MAGIC = 0x1f9d;
 
         /// <summary>
-        /// Initialise a new instance of BZip2Exception with its message set to message.
+        /// Maximum number of bits per code
         /// </summary>
-        /// <param name="message">The message describing the error.</param>
-        public BZip2Exception(string message)
-            : base(message)
-        {
-        }
+        public const int MAX_BITS = 16;
+
+        /* 3rd header byte:
+         * bit 0..4 Number of compression bits
+         * bit 5    Extended header
+         * bit 6    Free
+         * bit 7    Block mode
+         */
 
         /// <summary>
-        /// Initialise an instance of BZip2Exception
+        /// Mask for 'number of compression bits'
         /// </summary>
-        /// <param name="message">A message describing the error.</param>
-        /// <param name="exception">The exception that is the cause of the current exception.</param>
-        public BZip2Exception(string message, Exception exception)
-            : base(message, exception)
+        public const int BIT_MASK = 0x1f;
+
+        /// <summary>
+        /// Indicates the presence of a fourth header byte
+        /// </summary>
+        public const int EXTENDED_MASK = 0x20;
+        //public const int FREE_MASK      = 0x40;
+
+        /// <summary>
+        /// Reserved bits
+        /// </summary>
+        public const int RESERVED_MASK = 0x60;
+
+        /// <summary>
+        /// Block compression: if table is full and compression rate is dropping,
+        /// clear the dictionary.
+        /// </summary>
+        public const int BLOCK_MODE_MASK = 0x80;
+
+        /// <summary>
+        /// LZW file header size (in bytes)
+        /// </summary>
+        public const int HDR_SIZE = 3;
+
+        /// <summary>
+        /// Initial number of bits per code
+        /// </summary>
+        public const int INIT_BITS = 9;
+
+        LzwConstants()
         {
         }
     }

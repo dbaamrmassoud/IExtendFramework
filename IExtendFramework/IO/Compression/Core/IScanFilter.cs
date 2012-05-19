@@ -1,6 +1,6 @@
-// BZip2.cs
+﻿// IScanFilter.cs
 //
-// Copyright 2004 John Reilly
+// Copyright 2006 John Reilly
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -33,46 +33,18 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 
-using System;
-
-#if !NETCF_1_0 && !NETCF_2_0
-using System.Runtime.Serialization;
-#endif
-
-namespace IExtendFramework.IO.Compression.BZip2
+namespace IExtendFramework.IO.Compression.Core
 {
     /// <summary>
-    /// BZip2Exception represents exceptions specific to Bzip2 algorithm
+    /// Scanning filters support filtering of names.
     /// </summary>
-#if !NETCF_1_0 && !NETCF_2_0
-    [Serializable]
-#endif
-    public class BZip2Exception : SharpZipBaseException
+    public interface IScanFilter
     {
         /// <summary>
-        /// Initialise a new instance of BZip2Exception.
+        /// Test a name to see if it 'matches' the filter.
         /// </summary>
-        public BZip2Exception()
-        {
-        }
-
-        /// <summary>
-        /// Initialise a new instance of BZip2Exception with its message set to message.
-        /// </summary>
-        /// <param name="message">The message describing the error.</param>
-        public BZip2Exception(string message)
-            : base(message)
-        {
-        }
-
-        /// <summary>
-        /// Initialise an instance of BZip2Exception
-        /// </summary>
-        /// <param name="message">A message describing the error.</param>
-        /// <param name="exception">The exception that is the cause of the current exception.</param>
-        public BZip2Exception(string message, Exception exception)
-            : base(message, exception)
-        {
-        }
+        /// <param name="name">The name to test.</param>
+        /// <returns>Returns true if the name matches the filter, false if it does not match.</returns>
+        bool IsMatch(string name);
     }
 }

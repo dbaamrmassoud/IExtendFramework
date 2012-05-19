@@ -32,18 +32,18 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 
-namespace IExtendFramework.IO.Compression.BZip2 
+namespace IExtendFramework.IO.Compression.BZip2
 {
-	
-	/// <summary>
-	/// Defines internal values for both compression and decompression
-	/// </summary>
-	public sealed class BZip2Constants
-	{
-		/// <summary>
-		/// Random numbers used to randomise repetitive blocks
-		/// </summary>
-		public readonly static int[] rNums = {
+
+    /// <summary>
+    /// Defines internal values for both compression and decompression
+    /// </summary>
+    internal sealed class BZip2Constants
+    {
+        /// <summary>
+        /// Random numbers used to randomise repetitive blocks
+        /// </summary>
+        public readonly static int[] RandomNumbers = {
 			619, 720, 127, 481, 931, 816, 813, 233, 566, 247,
 			985, 724, 205, 454, 863, 491, 741, 242, 949, 214,
 			733, 859, 335, 708, 621, 574,  73, 654, 730, 472,
@@ -98,63 +98,63 @@ namespace IExtendFramework.IO.Compression.BZip2
 			936, 638
 		};
 
-		/// <summary>
-		/// When multiplied by compression parameter (1-9) gives the block size for compression
-		/// 9 gives the best compresssion but uses the most memory.
-		/// </summary>		
-		public readonly static int baseBlockSize = 100000;
-		
-		/// <summary>
-		/// Backend constant
-		/// </summary>
-		public readonly static int MAX_ALPHA_SIZE = 258;
-		
-		/// <summary>
-		/// Backend constant
-		/// </summary>
-		public readonly static int MAX_CODE_LEN = 23;
-		
-		/// <summary>
-		/// Backend constant
-		/// </summary>
-		public readonly static int RUNA = 0;
-		
-		/// <summary>
-		/// Backend constant
-		/// </summary>
-		public readonly static int RUNB = 1;
-		
-		/// <summary>
-		/// Backend constant
-		/// </summary>
-		public readonly static int N_GROUPS = 6;
-		
-		/// <summary>
-		/// Backend constant
-		/// </summary>
-		public readonly static int G_SIZE = 50;
-		
-		/// <summary>
-		/// Backend constant
-		/// </summary>
-		public readonly static int N_ITERS = 4;
-		
-		/// <summary>
-		/// Backend constant
-		/// </summary>
-		public readonly static int MAX_SELECTORS = (2 + (900000 / G_SIZE));
-		
-		/// <summary>
-		/// Backend constant
-		/// </summary>
-		public readonly static int NUM_OVERSHOOT_BYTES = 20;
-		
-		private BZip2Constants()
-		{
-		}
-	}
+        /// <summary>
+        /// When multiplied by compression parameter (1-9) gives the block size for compression
+        /// 9 gives the best compression but uses the most memory.
+        /// </summary>		
+        public const int BaseBlockSize = 100000;
+
+        /// <summary>
+        /// Backend constant
+        /// </summary>
+        public const int MaximumAlphaSize = 258;
+
+        /// <summary>
+        /// Backend constant
+        /// </summary>
+        public const int MaximumCodeLength = 23;
+
+        /// <summary>
+        /// Backend constant
+        /// </summary>
+        public const int RunA = 0;
+
+        /// <summary>
+        /// Backend constant
+        /// </summary>
+        public const int RunB = 1;
+
+        /// <summary>
+        /// Backend constant
+        /// </summary>
+        public const int GroupCount = 6;
+
+        /// <summary>
+        /// Backend constant
+        /// </summary>
+        public const int GroupSize = 50;
+
+        /// <summary>
+        /// Backend constant
+        /// </summary>
+        public const int NumberOfIterations = 4;
+
+        /// <summary>
+        /// Backend constant
+        /// </summary>
+        public const int MaximumSelectors = (2 + (900000 / GroupSize));
+
+        /// <summary>
+        /// Backend constant
+        /// </summary>
+        public const int OvershootBytes = 20;
+
+        private BZip2Constants()
+        {
+        }
+    }
 }
-	
+
 /* This file was derived from a file containing this license:
  * 
  * This file is a part of bzip2 and/or libbzip2, a program and
@@ -162,11 +162,11 @@ namespace IExtendFramework.IO.Compression.BZip2
  * 
  * Copyright (C) 1996-1998 Julian R Seward.  All rights reserved.
  * 
- * Redistribution and use in sources and binary forms, with or without
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
  * 
- * 1. Redistributions of sources code must retain the above copyright
+ * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
  * 
  * 2. The origin of this software must not be misrepresented; you must 
@@ -174,7 +174,7 @@ namespace IExtendFramework.IO.Compression.BZip2
  * software in a product, an acknowledgment in the product 
  * documentation would be appreciated but is not required.
  * 
- * 3. Altered sources versions must be plainly marked as such, and must
+ * 3. Altered source versions must be plainly marked as such, and must
  * not be misrepresented as being the original software.
  * 
  * 4. The name of the author may not be used to endorse or promote 

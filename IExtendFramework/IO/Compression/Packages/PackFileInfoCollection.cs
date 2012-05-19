@@ -11,6 +11,7 @@ namespace IExtendFramework.IO.Compression.Packages
     /// <summary>
     /// Collection for creating Packages
     /// </summary>
+    [Obsolete("Use IExtendFramework.IO.Compression.Packages.PackArchive instead")]
     public class PackFileInfoCollection
     {
         public System.Collections.ArrayList FileList;

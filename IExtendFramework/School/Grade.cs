@@ -9,7 +9,7 @@ using IExtendFramework.Enums;
 namespace IExtendFramework.School
 {
     /// <summary>
-    /// Description of Grade.
+    /// Contains a school grade
     /// </summary>
     public class Grade
     {

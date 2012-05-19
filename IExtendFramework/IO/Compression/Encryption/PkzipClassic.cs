@@ -35,41 +35,45 @@
 // exception statement from your version.
 //
 
+
+#if !NETCF_1_0
+
 using System;
 using System.Security.Cryptography;
-
 using IExtendFramework.IO.Compression.Checksums;
 
 namespace IExtendFramework.IO.Compression.Encryption
 {
     /// <summary>
     /// PkzipClassic embodies the classic or original encryption facilities used in Pkzip archives.
-    /// While it has been superceded by more recent and more powerful algorithms, its still in use and
+    /// While it has been superceded by more recent and more powerful algorithms, its still in use and 
     /// is viable for preventing casual snooping
     /// </summary>
-    public abstract class PkzipClassic  : SymmetricAlgorithm
+    public abstract class PkzipClassic : SymmetricAlgorithm
     {
         /// <summary>
         /// Generates new encryption keys based on given seed
         /// </summary>
+        /// <param name="seed">The seed value to initialise keys with.</param>
+        /// <returns>A new key value.</returns>
         static public byte[] GenerateKeys(byte[] seed)
         {
-            if ( seed == null )
+            if (seed == null)
             {
                 throw new ArgumentNullException("seed");
             }
 
-            if ( seed.Length == 0 )
+            if (seed.Length == 0)
             {
-                throw new ArgumentException("seed");
+                throw new ArgumentException("Length is zero", "seed");
             }
 
             uint[] newKeys = new uint[] {
-                0x12345678,
-                0x23456789,
-                0x34567890
-            };
-            
+				0x12345678,
+				0x23456789,
+				0x34567890
+			 };
+
             for (int i = 0; i < seed.Length; ++i)
             {
                 newKeys[0] = Crc32.ComputeCrc32(newKeys[0], seed[i]);
@@ -101,10 +105,8 @@ namespace IExtendFramework.IO.Compression.Encryption
     /// </summary>
     class PkzipClassicCryptoBase
     {
-        uint[] keys     = null;
-
         /// <summary>
-        /// Transform a single byte
+        /// Transform a single byte 
         /// </summary>
         /// <returns>
         /// The transformed value
@@ -115,16 +117,22 @@ namespace IExtendFramework.IO.Compression.Encryption
             return (byte)((temp * (temp ^ 1)) >> 8);
         }
 
+        /// <summary>
+        /// Set the key schedule for encryption/decryption.
+        /// </summary>
+        /// <param name="keyData">The data use to set the keys from.</param>
         protected void SetKeys(byte[] keyData)
         {
-            if ( keyData == null ) {
+            if (keyData == null)
+            {
                 throw new ArgumentNullException("keyData");
             }
-            
-            if ( keyData.Length != 12 ) {
-                throw new InvalidOperationException("Keys not valid");
+
+            if (keyData.Length != 12)
+            {
+                throw new InvalidOperationException("Key length is not valid");
             }
-            
+
             keys = new uint[3];
             keys[0] = (uint)((keyData[3] << 24) | (keyData[2] << 16) | (keyData[1] << 8) | keyData[0]);
             keys[1] = (uint)((keyData[7] << 24) | (keyData[6] << 16) | (keyData[5] << 8) | keyData[4]);
@@ -132,8 +140,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         }
 
         /// <summary>
-        /// Update encryption keys
-        /// </summary>
+        /// Update encryption keys 
+        /// </summary>		
         protected void UpdateKeys(byte ch)
         {
             keys[0] = Crc32.ComputeCrc32(keys[0], ch);
@@ -151,6 +159,10 @@ namespace IExtendFramework.IO.Compression.Encryption
             keys[1] = 0;
             keys[2] = 0;
         }
+
+        #region Instance Fields
+        uint[] keys;
+        #endregion
     }
 
     /// <summary>
@@ -184,7 +196,7 @@ namespace IExtendFramework.IO.Compression.Encryption
         }
 
         /// <summary>
-        /// Transforms the specified region of the input byte array and copies
+        /// Transforms the specified region of the input byte array and copies 
         /// the resulting transform to the specified region of the output byte array.
         /// </summary>
         /// <param name="inputBuffer">The input for which to compute the transform.</param>
@@ -195,7 +207,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// <returns>The number of bytes written.</returns>
         public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
         {
-            for (int i = inputOffset; i < inputOffset + inputCount; ++i) {
+            for (int i = inputOffset; i < inputOffset + inputCount; ++i)
+            {
                 byte oldbyte = inputBuffer[i];
                 outputBuffer[outputOffset++] = (byte)(inputBuffer[i] ^ TransformByte());
                 UpdateKeys(oldbyte);
@@ -208,7 +221,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public bool CanReuseTransform
         {
-            get {
+            get
+            {
                 return true;
             }
         }
@@ -218,7 +232,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public int InputBlockSize
         {
-            get {
+            get
+            {
                 return 1;
             }
         }
@@ -228,7 +243,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public int OutputBlockSize
         {
-            get {
+            get
+            {
                 return 1;
             }
         }
@@ -238,7 +254,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public bool CanTransformMultipleBlocks
         {
-            get {
+            get
+            {
                 return true;
             }
         }
@@ -290,7 +307,7 @@ namespace IExtendFramework.IO.Compression.Encryption
         }
 
         /// <summary>
-        /// Transforms the specified region of the input byte array and copies
+        /// Transforms the specified region of the input byte array and copies 
         /// the resulting transform to the specified region of the output byte array.
         /// </summary>
         /// <param name="inputBuffer">The input for which to compute the transform.</param>
@@ -301,7 +318,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// <returns>The number of bytes written.</returns>
         public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
         {
-            for (int i = inputOffset; i < inputOffset + inputCount; ++i) {
+            for (int i = inputOffset; i < inputOffset + inputCount; ++i)
+            {
                 byte newByte = (byte)(inputBuffer[i] ^ TransformByte());
                 outputBuffer[outputOffset++] = newByte;
                 UpdateKeys(newByte);
@@ -314,7 +332,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public bool CanReuseTransform
         {
-            get {
+            get
+            {
                 return true;
             }
         }
@@ -324,7 +343,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public int InputBlockSize
         {
-            get {
+            get
+            {
                 return 1;
             }
         }
@@ -334,7 +354,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public int OutputBlockSize
         {
-            get {
+            get
+            {
                 return 1;
             }
         }
@@ -344,7 +365,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public bool CanTransformMultipleBlocks
         {
-            get {
+            get
+            {
                 return true;
             }
         }
@@ -365,21 +387,28 @@ namespace IExtendFramework.IO.Compression.Encryption
     }
 
     /// <summary>
-    /// Defines a wrapper object to access the Pkzip algorithm.
+    /// Defines a wrapper object to access the Pkzip algorithm. 
     /// This class cannot be inherited.
     /// </summary>
     public sealed class PkzipClassicManaged : PkzipClassic
     {
         /// <summary>
-        /// Get / set the applicable block size.
+        /// Get / set the applicable block size in bits.
         /// </summary>
         /// <remarks>The only valid block size is 8.</remarks>
         public override int BlockSize
         {
-            get { return 8; }
-            set {
+            get
+            {
+                return 8;
+            }
+
+            set
+            {
                 if (value != 8)
-                    throw new CryptographicException();
+                {
+                    throw new CryptographicException("Block size is invalid");
+                }
             }
         }
 
@@ -388,7 +417,8 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public override KeySizes[] LegalKeySizes
         {
-            get {
+            get
+            {
                 KeySizes[] keySizes = new KeySizes[1];
                 keySizes[0] = new KeySizes(12 * 8, 12 * 8, 0);
                 return keySizes;
@@ -408,26 +438,42 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public override KeySizes[] LegalBlockSizes
         {
-            get {
+            get
+            {
                 KeySizes[] keySizes = new KeySizes[1];
                 keySizes[0] = new KeySizes(1 * 8, 1 * 8, 0);
                 return keySizes;
             }
         }
 
-        byte[] key;
-
         /// <summary>
         /// Get / set the key value applicable.
         /// </summary>
         public override byte[] Key
         {
-            get {
-                return key;
+            get
+            {
+                if (key_ == null)
+                {
+                    GenerateKey();
+                }
+
+                return (byte[])key_.Clone();
             }
-            
-            set {
-                key = value;
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+
+                if (value.Length != 12)
+                {
+                    throw new CryptographicException("Key size is illegal");
+                }
+
+                key_ = (byte[])value.Clone();
             }
         }
 
@@ -436,9 +482,9 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// </summary>
         public override void GenerateKey()
         {
-            key = new byte[12];
+            key_ = new byte[12];
             System.Random rnd = new System.Random();
-            rnd.NextBytes(key);
+            rnd.NextBytes(key_);
         }
 
         /// <summary>
@@ -449,10 +495,10 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// <returns>Returns a new PkzipClassic encryptor</returns>
         public override ICryptoTransform CreateEncryptor(
             byte[] rgbKey,
-            byte[] rgbIV
-           )
+            byte[] rgbIV)
         {
-            return new PkzipClassicEncryptCryptoTransform(rgbKey);
+            key_ = rgbKey;
+            return new PkzipClassicEncryptCryptoTransform(Key);
         }
 
         /// <summary>
@@ -463,10 +509,15 @@ namespace IExtendFramework.IO.Compression.Encryption
         /// <returns>Returns a new decryptor.</returns>
         public override ICryptoTransform CreateDecryptor(
             byte[] rgbKey,
-            byte[] rgbIV
-           )
+            byte[] rgbIV)
         {
-            return new PkzipClassicDecryptCryptoTransform(rgbKey);
+            key_ = rgbKey;
+            return new PkzipClassicDecryptCryptoTransform(Key);
         }
+
+        #region Instance Fields
+        byte[] key_;
+        #endregion
     }
 }
+#endif

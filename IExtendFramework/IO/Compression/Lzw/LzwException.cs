@@ -1,6 +1,6 @@
-// BZip2.cs
+﻿// LzwException.cs
 //
-// Copyright 2004 John Reilly
+// Copyright (C) 2009 Gabriel Burca
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -39,39 +39,40 @@ using System;
 using System.Runtime.Serialization;
 #endif
 
-namespace IExtendFramework.IO.Compression.BZip2
+namespace IExtendFramework.IO.Compression.LZW
 {
+
     /// <summary>
-    /// BZip2Exception represents exceptions specific to Bzip2 algorithm
+    /// LzwException represents a LZW specific exception
     /// </summary>
 #if !NETCF_1_0 && !NETCF_2_0
     [Serializable]
 #endif
-    public class BZip2Exception : SharpZipBaseException
+    public class LzwException : SharpZipBaseException
     {
         /// <summary>
-        /// Initialise a new instance of BZip2Exception.
+        /// Initialize a new instance of LzwException
         /// </summary>
-        public BZip2Exception()
+        public LzwException()
         {
         }
 
         /// <summary>
-        /// Initialise a new instance of BZip2Exception with its message set to message.
+        /// Initialise a new instance of LzwException with its message string.
         /// </summary>
-        /// <param name="message">The message describing the error.</param>
-        public BZip2Exception(string message)
+        /// <param name="message">A <see cref="string"/> that describes the error.</param>
+        public LzwException(string message)
             : base(message)
         {
         }
 
         /// <summary>
-        /// Initialise an instance of BZip2Exception
+        /// Initialise a new instance of <see cref="LzwException"></see>.
         /// </summary>
-        /// <param name="message">A message describing the error.</param>
-        /// <param name="exception">The exception that is the cause of the current exception.</param>
-        public BZip2Exception(string message, Exception exception)
-            : base(message, exception)
+        /// <param name="message">A <see cref="string"/> that describes the error.</param>
+        /// <param name="innerException">The <see cref="Exception"/> that caused this exception.</param>
+        public LzwException(string message, Exception innerException)
+            : base(message, innerException)
         {
         }
     }

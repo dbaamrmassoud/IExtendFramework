@@ -9,9 +9,9 @@ namespace IExtendFramework.IO
     /// <summary>
     /// A collection of useful file extension methods not found in the BCL. It includes new methods and asynchronous versions of existing methods
     /// </summary>
-    public class File
+    public class FileEx
     {
-        private File() { }
+        private FileEx() { }
 
         /// <summary>
         /// Copies a file asynchronously

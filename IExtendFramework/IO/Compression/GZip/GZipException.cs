@@ -1,4 +1,4 @@
-// GzipOutputStream.cs
+// GZipException.cs
 //
 // Copyright 2004 John Reilly
 //
@@ -34,28 +34,45 @@
 // exception statement from your version.
 
 using System;
-using IExtendFramework.IO.Compression;
+
+#if !NETCF_1_0 && !NETCF_2_0
+using System.Runtime.Serialization;
+#endif
 
 namespace IExtendFramework.IO.Compression.GZip
 {
-	/// <summary>
-	/// GZipException represents a Gzip specific exception	
-	/// </summary>
-	public class GZipException : SharpZipBaseException
-	{
-		/// <summary>
-		/// Initialise a new instance of GZipException
-		/// </summary>
-		public GZipException()
-		{
-		}
-		
-		/// <summary>
-		/// Initialise a new instance of GZipException with its message string.
-		/// </summary>
-		/// <param name="message">A <see cref="string"></see>string that describes the error.</param>
-		public GZipException(string message) : base(message)
-		{
-		}
-	}
+    /// <summary>
+    /// GZipException represents a Gzip specific exception	
+    /// </summary>
+#if !NETCF_1_0 && !NETCF_2_0
+    [Serializable]
+#endif
+    public class GZipException : SharpZipBaseException
+    {
+        /// <summary>
+        /// Initialise a new instance of GZipException
+        /// </summary>
+        public GZipException()
+        {
+        }
+
+        /// <summary>
+        /// Initialise a new instance of GZipException with its message string.
+        /// </summary>
+        /// <param name="message">A <see cref="string"/> that describes the error.</param>
+        public GZipException(string message)
+            : base(message)
+        {
+        }
+
+        /// <summary>
+        /// Initialise a new instance of <see cref="GZipException"></see>.
+        /// </summary>
+        /// <param name="message">A <see cref="string"/> that describes the error.</param>
+        /// <param name="innerException">The <see cref="Exception"/> that caused this exception.</param>
+        public GZipException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+    }
 }

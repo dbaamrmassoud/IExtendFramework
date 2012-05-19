@@ -37,21 +37,22 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 
-namespace IExtendFramework.IO.Compression.Zip.Compression 
+namespace IExtendFramework.IO.Compression.Zip
 {
-	
-	/// <summary>
-	/// This class stores the pending output of the Deflater.
-	/// 
-	/// author of the original java version : Jochen Hoenicke
-	/// </summary>
-	public class DeflaterPending : PendingBuffer
-	{
-		/// <summary>
-		/// Construct instance with default buffer size
-		/// </summary>
-		public DeflaterPending() : base(DeflaterConstants.PENDING_BUF_SIZE)
-		{
-		}
-	}
+
+    /// <summary>
+    /// This class stores the pending output of the Deflater.
+    /// 
+    /// author of the original java version : Jochen Hoenicke
+    /// </summary>
+    public class DeflaterPending : PendingBuffer
+    {
+        /// <summary>
+        /// Construct instance with default buffer size
+        /// </summary>
+        public DeflaterPending()
+            : base(DeflaterConstants.PENDING_BUF_SIZE)
+        {
+        }
+    }
 }
