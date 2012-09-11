@@ -37,7 +37,7 @@ IExtendFramework
     NativeSubclasser                         A NativeWindow override
     Win32Messages                            Contains some Win32 Messages in Hex, useful when overriding WndProc in controls
   Compression
-    Pack                                     PACK compression, can extract, create, and read filenames from a Pack file
+    Packages                                 PACK compression, full archive support
     SevenZip                                 7z archive support
     Tar                                      Tar archive support
     GZip                                     GZip (gz) archive support
@@ -91,6 +91,8 @@ IExtendFramework
     Html                                     (namespace) contains stuff for parsing and creating Html documents
   School
     Grade/Grades                             Provides a way to manipulate grades (from Preschool-12th grade)
+
+
 LICENSE INFO: 
 CPOL (CodeProject Open License): AdvancedForm (gTitleBar), AdvancedLabel (gLabel), AdvancedTrackBar (gTrackBar) Copyright (C) 2009
 CPOL (CodeProject Open License): ChromeProgressBar Copyright (C) 2011

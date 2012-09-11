@@ -116,6 +116,22 @@ namespace IExtendFramework.Collections.Generic
             }
         }
 
+        /// <summary>
+        /// Gets the key corresponding to the specified value
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        //public TKey this[TValue val]
+        //{
+        //    get
+        //    {
+        //        foreach (TKey k in Keys)
+        //            if (tbl[k].Equals(val))
+        //                return k;
+        //        return default(TKey);
+        //    }
+        //}
+
         public void Clear()
         {
             tbl.Clear();

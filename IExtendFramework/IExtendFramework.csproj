@@ -123,6 +123,7 @@
     <Compile Include="Enums\EnumHelper.cs" />
     <Compile Include="Enums\ReadableAttribute.cs" />
     <Compile Include="Events\CommonEventHandler.cs" />
+    <Compile Include="Text\Font.cs" />
     <Compile Include="Inflector.cs" />
     <Compile Include="IO\AdvancedFileStream.cs" />
     <Compile Include="IO\Compression\Core\IScanFilter.cs" />
@@ -146,6 +147,11 @@
     <Compile Include="IO\Compression\Rar\Archive\RarArchiveVolumeFactory.cs" />
     <Compile Include="IO\Compression\Rar\Archive\SeekableStreamFilePart.cs" />
     <Compile Include="IO\Compression\Rar\Archive\StreamRarArchiveVolume.cs" />
+    <Compile Include="Mathematics\BigDecimal.cs" />
+    <Compile Include="Mathematics\BigIntegerV4.cs" />
+    <Compile Include="Mathematics\Complex64.cs" />
+    <Compile Include="Mathematics\Fraction.cs" />
+    <Compile Include="Mathematics\DLRMath.cs" />
     <None Include="..\Readme.txt">
       <Link>Readme.txt</Link>
     </None>
@@ -398,6 +404,7 @@
     <Compile Include="Net\HostPinger.cs" />
     <Compile Include="Net\IPRouteTracer.cs" />
     <Compile Include="Net\IPScanner.cs" />
+    <Compile Include="Number.cs" />
     <Compile Include="Parser\IParserInput.cs" />
     <Compile Include="Parser\MathParser.cs" />
     <Compile Include="Parser\TextInput.cs" />
@@ -442,6 +449,8 @@
     <Compile Include="Text\RTF\RTFRowDefinition.cs" />
     <Compile Include="Text\RTF\RTFUtil.cs" />
     <Compile Include="School\Grade.cs" />
+    <Compile Include="Units\Unit.cs" />
+    <Compile Include="Units\UnitConverter.cs" />
     <Compile Include="Win32\HotKeyRegister.cs" />
     <Compile Include="Win32\KeyModifiers.cs" />
     <Compile Include="Win32\Webcam.cs" />

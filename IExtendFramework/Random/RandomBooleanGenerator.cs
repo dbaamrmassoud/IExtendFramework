@@ -8,16 +8,16 @@ using System;
 namespace IExtendFramework.Random
 {
     /// <summary>
-    /// Description of RandomBooleanGenerator.
+    /// Generates random booleans
     /// </summary>
     public class RandomBooleanGenerator
     {
         RandomNumberGenerator RNG = new RandomNumberGenerator(DateTime.Now.Millisecond);
-        
+
         public RandomBooleanGenerator()
         {
         }
-        
+
         /// <summary>
         /// Simple but powerful. What else needs said?
         /// </summary>

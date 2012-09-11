@@ -1,6 +1,5 @@
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\bin\Debug\IExtendFramework.dll
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\bin\Debug\IExtendFramework.pdb
-C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\Controls\AdvancedMessageBox\ResourceDictionaries\Common.baml
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\Controls\AdvancedMessageBox\CommandLink.g.cs
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\Controls\AdvancedMessageBox\TaskDialog.g.cs
@@ -21,7 +20,7 @@ C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFr
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\IExtendFramework.Controls.AdvancedTrackBar.resources
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\IExtendFramework.Controls.TitleBar.resources
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\IExtendFramework.Controls.AdvancedForm.resources
-C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\GenerateResource.read.1.tlog
-C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\GenerateResource.write.1.tlog
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\IExtendFramework.dll
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\IExtendFramework.pdb
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\IExtendFramework.csprojResolveAssemblyReference.cache
+C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\IExtendFramework\obj\x86\Debug\IExtendFramework.csproj.GenerateResource.Cache

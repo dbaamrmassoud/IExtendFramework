@@ -20,7 +20,13 @@ namespace IExtendFramework
         private AssemblyHelper()
         {
         }
-        
+
+        /// <summary>
+        /// Assembly defaults to the current IExtendFramework assembly
+        /// </summary>
+        /// <param name="resourceName"></param>
+        /// <param name="asm"></param>
+        /// <returns></returns>
         public static Stream GetEmbeddedResource(string resourceName, Assembly asm = null)
         {
             if (asm == null)
@@ -31,7 +37,7 @@ namespace IExtendFramework
             Stream s = asm.GetManifestResourceStream(resourceName);
             if (s == null)
                 throw new Exception("Could not load '" + resourceName + "' from '" + asm.ToString() + "'!");
-            
+
             return s;
         }
     }

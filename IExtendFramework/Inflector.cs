@@ -16,11 +16,12 @@ namespace IExtendFramework
     //******************
     // !! BSD LICENSE !!
     //******************
-    
+
     /// <summary>
-    /// Inflection... used in TypeExtensions
+    /// Inflection... used by TypeExtensions
     /// </summary>
-    public static class Inflector {
+    public static class Inflector
+    {
         private static readonly List<InflectorRule> _plurals = new List<InflectorRule>();
         private static readonly List<InflectorRule> _singulars = new List<InflectorRule>();
         private static readonly List<string> _uncountables = new List<string>();
@@ -122,7 +123,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="singular">The singular.</param>
         /// <param name="plural">The plural.</param>
-        private static void AddIrregularRule(string singular, string plural) {
+        private static void AddIrregularRule(string singular, string plural)
+        {
             AddPluralRule(String.Concat("(", singular[0], ")", singular.Substring(1), "$"),
                           String.Concat("$1", plural.Substring(1)));
             AddSingularRule(String.Concat("(", plural[0], ")", plural.Substring(1), "$"),
@@ -133,7 +135,8 @@ namespace IExtendFramework
         /// Adds the unknown count rule.
         /// </summary>
         /// <param name="word">The word.</param>
-        private static void AddUnknownCountRule(string word) {
+        private static void AddUnknownCountRule(string word)
+        {
             _uncountables.Add(word.ToLower());
         }
 
@@ -142,7 +145,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="rule">The rule.</param>
         /// <param name="replacement">The replacement.</param>
-        private static void AddPluralRule(string rule, string replacement) {
+        private static void AddPluralRule(string rule, string replacement)
+        {
             _plurals.Add(new InflectorRule(rule, replacement));
         }
 
@@ -151,7 +155,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="rule">The rule.</param>
         /// <param name="replacement">The replacement.</param>
-        private static void AddSingularRule(string rule, string replacement) {
+        private static void AddSingularRule(string rule, string replacement)
+        {
             _singulars.Add(new InflectorRule(rule, replacement));
         }
 
@@ -160,7 +165,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns></returns>
-        public static string MakePlural(this string word) {
+        public static string MakePlural(this string word)
+        {
             return ApplyRules(_plurals, word);
         }
 
@@ -169,7 +175,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns></returns>
-        public static string MakeSingular(this string word) {
+        public static string MakeSingular(this string word)
+        {
             return ApplyRules(_singulars, word);
         }
 
@@ -179,12 +186,16 @@ namespace IExtendFramework
         /// <param name="rules">The rules.</param>
         /// <param name="word">The word.</param>
         /// <returns></returns>
-        private static string ApplyRules(IList<InflectorRule> rules, string word) {
+        private static string ApplyRules(IList<InflectorRule> rules, string word)
+        {
             string result = word;
-            if (!_uncountables.Contains(word.ToLower())) {
-                for (int i = rules.Count - 1; i >= 0; i--) {
+            if (!_uncountables.Contains(word.ToLower()))
+            {
+                for (int i = rules.Count - 1; i >= 0; i--)
+                {
                     string currentPass = rules[i].Apply(word);
-                    if (currentPass != null) {
+                    if (currentPass != null)
+                    {
                         result = currentPass;
                         break;
                     }
@@ -198,7 +209,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns></returns>
-        public static string ToTitleCase(this string word) {
+        public static string ToTitleCase(this string word)
+        {
             return Regex.Replace(Humanize(AddUnderscores(word)), @"\b([a-z])",
                                  match => match.Captures[0].Value.ToUpper());
         }
@@ -208,7 +220,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="lowercaseAndUnderscoredWord">The lowercase and underscored word.</param>
         /// <returns></returns>
-        public static string Humanize(this string lowercaseAndUnderscoredWord) {
+        public static string Humanize(this string lowercaseAndUnderscoredWord)
+        {
             return MakeInitialCaps(Regex.Replace(lowercaseAndUnderscoredWord, @"_", " "));
         }
 
@@ -217,7 +230,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="sourceString">The sources string.</param>
         /// <returns></returns>
-        public static string ToProper(this string sourceString) {
+        public static string ToProper(this string sourceString)
+        {
             string propertyName = sourceString.ToPascalCase();
             return propertyName;
         }
@@ -227,7 +241,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="lowercaseAndUnderscoredWord">The lowercase and underscored word.</param>
         /// <returns></returns>
-        public static string ToPascalCase(this string lowercaseAndUnderscoredWord) {
+        public static string ToPascalCase(this string lowercaseAndUnderscoredWord)
+        {
             return ToPascalCase(lowercaseAndUnderscoredWord, true);
         }
 
@@ -237,16 +252,20 @@ namespace IExtendFramework
         /// <param name="text">The text.</param>
         /// <param name="removeUnderscores">if set to <c>true</c> [remove underscores].</param>
         /// <returns></returns>
-        public static string ToPascalCase(this string text, bool removeUnderscores) {
+        public static string ToPascalCase(this string text, bool removeUnderscores)
+        {
             if (String.IsNullOrEmpty(text))
                 return text;
 
             text = text.Replace("_", " ");
             string joinString = removeUnderscores ? String.Empty : "_";
             string[] words = text.Split(' ');
-            if (words.Length > 1 || words[0].IsUpperCase()) {
-                for (int i = 0; i < words.Length; i++) {
-                    if (words[i].Length > 0) {
+            if (words.Length > 1 || words[0].IsUpperCase())
+            {
+                for (int i = 0; i < words.Length; i++)
+                {
+                    if (words[i].Length > 0)
+                    {
                         string word = words[i];
                         string restOfWord = word.Substring(1);
 
@@ -267,7 +286,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="lowercaseAndUnderscoredWord">The lowercase and underscored word.</param>
         /// <returns></returns>
-        public static string ToCamelCase(this string lowercaseAndUnderscoredWord) {
+        public static string ToCamelCase(this string lowercaseAndUnderscoredWord)
+        {
             return MakeInitialLowerCase(ToPascalCase(lowercaseAndUnderscoredWord));
         }
 
@@ -276,7 +296,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="pascalCasedWord">The pascal cased word.</param>
         /// <returns></returns>
-        public static string AddUnderscores(this string pascalCasedWord) {
+        public static string AddUnderscores(this string pascalCasedWord)
+        {
             return
                 Regex.Replace(
                     Regex.Replace(Regex.Replace(pascalCasedWord, @"([A-Z]+)([A-Z][a-z])", "$1_$2"), @"([a-z\d])([A-Z])",
@@ -288,7 +309,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns></returns>
-        public static string MakeInitialCaps(this string word) {
+        public static string MakeInitialCaps(this string word)
+        {
             return String.Concat(word.Substring(0, 1).ToUpper(), word.Substring(1).ToLower());
         }
 
@@ -297,7 +319,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns></returns>
-        public static string MakeInitialLowerCase(this string word) {
+        public static string MakeInitialLowerCase(this string word)
+        {
             return String.Concat(word.Substring(0, 1).ToLower(), word.Substring(1));
         }
 
@@ -306,15 +329,18 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="number">The number.</param>
         /// <returns></returns>
-        public static string AddOrdinalSuffix(this string number) {
-            if (number.IsNumeric()) {
+        public static string AddOrdinalSuffix(this string number)
+        {
+            if (number.IsNumeric())
+            {
                 int n = int.Parse(number);
                 int nMod100 = n % 100;
 
                 if (nMod100 >= 11 && nMod100 <= 13)
                     return String.Concat(number, "th");
 
-                switch (n % 10) {
+                switch (n % 10)
+                {
                     case 1:
                         return String.Concat(number, "st");
                     case 2:
@@ -333,7 +359,8 @@ namespace IExtendFramework
         /// </summary>
         /// <param name="underscoredWord">The underscored word.</param>
         /// <returns></returns>
-        public static string ConvertUnderscoresToDashes(this string underscoredWord) {
+        public static string ConvertUnderscoresToDashes(this string underscoredWord)
+        {
             return underscoredWord.Replace('_', '-');
         }
 
@@ -342,7 +369,8 @@ namespace IExtendFramework
         /// <summary>
         /// Summary for the InflectorRule class
         /// </summary>
-        private class InflectorRule {
+        private class InflectorRule
+        {
             /// <summary>
             /// 
             /// </summary>
@@ -358,7 +386,8 @@ namespace IExtendFramework
             /// </summary>
             /// <param name="regexPattern">The regex pattern.</param>
             /// <param name="replacementText">The replacement text.</param>
-            public InflectorRule(string regexPattern, string replacementText) {
+            public InflectorRule(string regexPattern, string replacementText)
+            {
                 regex = new Regex(regexPattern, RegexOptions.IgnoreCase);
                 replacement = replacementText;
             }
@@ -368,7 +397,8 @@ namespace IExtendFramework
             /// </summary>
             /// <param name="word">The word.</param>
             /// <returns></returns>
-            public string Apply(string word) {
+            public string Apply(string word)
+            {
                 if (!regex.IsMatch(word))
                     return null;
 

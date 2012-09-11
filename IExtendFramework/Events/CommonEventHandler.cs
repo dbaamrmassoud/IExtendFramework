@@ -7,7 +7,7 @@ using System.Threading;
 namespace IExtendFramework.Events
 {
     /// <summary>
-    /// This delegate describes the signature of the event, which is emited by the generated helper classes.
+    /// This delegate describes the signature of the event, which is emitted by the generated helper classes.
     /// </summary>
     public delegate void CommonEventHandlerDelegate(Type EventType, object[] args);
 
@@ -42,20 +42,20 @@ namespace IExtendFramework.Events
             if (eventHandler == null)
             {
                 Type eventHandlerType = emitter.GetEventHandlerType(Info);
-                
+
                 // Call constructor of event handler type to create event handler
-                ConstructorInfo myCtor = eventHandlerType.GetConstructor(new Type[] { typeof(EventInfo) } );
+                ConstructorInfo myCtor = eventHandlerType.GetConstructor(new Type[] { typeof(EventInfo) });
                 object[] ctorArgs = new object[] { Info };
                 eventHandler = myCtor.Invoke(ctorArgs);
-                
+
                 eventHandlers.Add(handlerName, eventHandler);
             }
             return eventHandler;
         }
-        
+
         private class EventHandlerTypeEmitter
         {
-            private static  Hashtable handlerTypes = new Hashtable();
+            private static Hashtable handlerTypes = new Hashtable();
             string assemblyName;
             AssemblyBuilder asmBuilder = null;
             ModuleBuilder helperModule = null;
@@ -86,7 +86,7 @@ namespace IExtendFramework.Events
                 }
                 return tpEventHandler;
             }
-            
+
             private Type EmitHelperClass(string HandlerName, EventInfo Info)
             {
                 if (helperModule == null)
@@ -116,12 +116,12 @@ namespace IExtendFramework.Events
                 // Build constructor with arguments (Type)
                 Type[] ctorParams = new Type[] { typeof(EventInfo) };
                 ConstructorBuilder ctor = helperTypeBld.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, ctorParams);
-                
+
                 // Call constructor of base class
                 ILGenerator ctorIL = ctor.GetILGenerator();
                 ctorIL.Emit(OpCodes.Ldarg_0);
                 ctorIL.Emit(OpCodes.Call, objCtor);
-                
+
                 // store first argument to typeField
                 ctorIL.Emit(OpCodes.Ldarg_0);
                 ctorIL.Emit(OpCodes.Ldarg_1);
@@ -142,7 +142,7 @@ namespace IExtendFramework.Events
                 // Build the type list of the parameter
                 int paramCount = eventParams.Length;
                 Type[] invokeParams = new Type[paramCount];
-                for (int i= 0; i<paramCount; i++)
+                for (int i = 0; i < paramCount; i++)
                 {
                     invokeParams[i] = eventParams[i].ParameterType;
                 }
@@ -167,13 +167,13 @@ namespace IExtendFramework.Events
                 ilGen.Emit(OpCodes.Stloc_0);
 
                 // Now put all arguments in the object array
-                for (int i= 0; i<paramCount; i++)
+                for (int i = 0; i < paramCount; i++)
                 {
-                    byte i1b = Convert.ToByte(i+1);
+                    byte i1b = Convert.ToByte(i + 1);
                     ilGen.Emit(OpCodes.Ldloc_0);
                     ilGen.Emit(OpCodes.Ldc_I4, i);
                     ilGen.Emit(OpCodes.Ldarg_S, i1b);
-                    
+
                     // Is argument value type?
                     if (invokeParams[i].IsValueType)
                     {
@@ -194,7 +194,7 @@ namespace IExtendFramework.Events
                 ilGen.Emit(OpCodes.Ldfld, typeField);
                 ilGen.Emit(OpCodes.Ldloc_0);
                 MethodInfo raiseEventMethod = typeof(CommonEventHandlerDelegate).GetMethod("Invoke", BindingFlags.Public | BindingFlags.Instance);
-                if (raiseEventMethod== null) throw new ApplicationException("CommonEventHandlerDlg:Invoke not found");
+                if (raiseEventMethod == null) throw new ApplicationException("CommonEventHandlerDlg:Invoke not found");
                 ilGen.Emit(OpCodes.Callvirt, raiseEventMethod);
 
                 // return

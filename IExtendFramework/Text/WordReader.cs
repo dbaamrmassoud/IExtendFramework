@@ -3,8 +3,6 @@
  * User: elijah
  * Date: 1/13/2012
  * Time: 8:58 PM
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
 using System.Collections.Generic;
@@ -33,15 +31,16 @@ namespace IExtendFramework.Text
                 IsAtEndOfText = false;
             }
         }
-        
+
         public bool IsAtEndOfText
         { get; set; }
-        
+
         public string EndOfWordCharacters
         {
-            get; set;
+            get;
+            set;
         }
-        
+
         public WordReader()
             : base(new Parser.TextInput(""))
         {
@@ -49,7 +48,7 @@ namespace IExtendFramework.Text
             EndOfWordCharacters = ",.!?\"\' ;:\t\r\n[]{}<>/\\|+=_)(*&^%$#@`~";
             IsAtEndOfText = false;
         }
-        
+
         public WordReader(string text)
             : base(new Parser.TextInput(text))
         {
@@ -58,12 +57,12 @@ namespace IExtendFramework.Text
             EndOfWordCharacters = ",.!?\"\' ;:\t\r\n[]{}<>/\\|+=_)(*&^%$#@`~";
             IsAtEndOfText = false;
         }
-        
+
         public override string Parse()
         {
             return ReadWord();
         }
-        
+
         public string ReadWord()
         {
             // read until end of stream or a word.
@@ -77,10 +76,10 @@ namespace IExtendFramework.Text
             if (!Input.HasInput(Position))
                 IsAtEndOfText = true;
             ReadWhitespace();
-            
+
             return s;
         }
-        
+
         public List<string> ReadAllWords()
         {
             WordList wl = new WordList();
@@ -91,7 +90,7 @@ namespace IExtendFramework.Text
                 if (!string.IsNullOrEmpty(s))
                     wl.Words.Add(s);
                 ReadWhitespace();
-                
+
                 if (!Input.HasInput(Position))
                 {
                     IsAtEndOfText = true;
@@ -101,32 +100,32 @@ namespace IExtendFramework.Text
             // return the word list
             return wl.Words;
         }
-        
+
         public void Reset()
         {
             IsAtEndOfText = false;
             Position = 0;
         }
-        
+
         public int GetPosition()
         {
             return Position;
         }
-        
+
         class WordList
         {
             public List<string> Words = new List<string>();
-            
+
             public WordList()
             {
             }
-            
+
             public override string ToString()
             {
-                string r= string.Format("[Wordlist Words=");
+                string r = string.Format("[Wordlist Words=");
                 foreach (string s in Words)
                     r += "'" + s + "', ";
-                if (Words.Count  == 0)
+                if (Words.Count == 0)
                     return r + "]";
                 else
                     return r.Substring(0, r.Length - 2) + "]";

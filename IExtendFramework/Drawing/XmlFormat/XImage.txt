@@ -14,5 +14,5 @@ Normally extensions are: .ximg
 TODO: 
 * Load as a System.Drawing.Image
 * Convert to and from other file types
-* Render in a control
+* Render in a ImageBox
 * Create a drawing board to create XImages

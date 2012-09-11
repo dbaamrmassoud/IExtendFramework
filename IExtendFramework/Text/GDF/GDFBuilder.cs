@@ -17,7 +17,8 @@ namespace IExtendFramework.Text.GDF
         /// Initializes a new instance of the <see cref="GDFBuilder"/> class.
         /// </summary>
         /// <param name="manager">The manager.</param>
-        public GDFBuilder(GDFPageManager manager) : base(RTFFont.Arial, 20F)
+        public GDFBuilder(GDFPageManager manager)
+            : base(RTFFont.Arial, 20F)
         {
             this.Manager = manager;
             _sf.FormatFlags |= StringFormatFlags.LineLimit;
@@ -153,7 +154,7 @@ namespace IExtendFramework.Text.GDF
             parser.AppendRTF(rtf);
         }
 
-        protected override IEnumerable <RTFBuilderBase> EnumerateCellsInternal(RTFRowDefinition rowDefinition, RTFCellDefinition[] cellDefinitions)
+        protected override IEnumerable<RTFBuilderBase> EnumerateCellsInternal(RTFRowDefinition rowDefinition, RTFCellDefinition[] cellDefinitions)
         {
             using (GDFRow row = new GDFRow(this, rowDefinition, cellDefinitions))
             {
@@ -220,12 +221,11 @@ namespace IExtendFramework.Text.GDF
         {
             Font font = null;
             string raw = base._rawFonts[_font];
-            string ResultString = null;
             try
             {
                 string reg =
                     "(\\\\fcharset(?<fcharset>\\d{1,3}) (?<FONT>[\\w -]+);\\})";
-                Match m = Regex.Match(raw, reg,RegexOptions.Singleline);
+                Match m = Regex.Match(raw, reg, RegexOptions.Singleline);
                 if (m.Success)
                 {
                     Group g = m.Groups["FONT"];
@@ -243,8 +243,8 @@ namespace IExtendFramework.Text.GDF
             {
                 font = new Font("Arial", _fontSize * 0.6F, _fontStyle, GraphicsUnit.Pixel);
             }
-   
-       
+
+
 
             return font;
         }

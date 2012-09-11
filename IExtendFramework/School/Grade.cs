@@ -78,7 +78,7 @@ namespace IExtendFramework.School
         /// Tries to infer the age from the current grade
         /// </summary>
         /// <param name="g"></param>
-        /// <returns>the infered age, -1 if not successful</returns>
+        /// <returns>the inferred age, -1 if not successful</returns>
         public static int InferAgeFromGrade(Grade g)
         {
             int age = -1;
@@ -195,7 +195,7 @@ namespace IExtendFramework.School
         Tenth,
         [ReadableEnum("Eleventh grade")]
         Eleventh,
-        [ReadableEnum("Twelfth grade")]
+        [ReadableEnum("College")]
         Twelfth,
     }
 }

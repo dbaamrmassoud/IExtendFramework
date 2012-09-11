@@ -16,10 +16,10 @@ namespace IExtendFramework.Text
         public InvalidFileTypeException(string msg)
             : base(msg)
         {
-            
+
         }
     }
-    
+
     public delegate void FileOpened(string filename, ITextEditor editor);
     /// <summary>
     /// Class that contains methods for opening files
@@ -27,18 +27,17 @@ namespace IExtendFramework.Text
     public class FileExtensionManager
     {
         public static event FileOpened OpeningFile;
-        
+
         public static readonly List<ITextEditor> Editors = new List<ITextEditor>();
         private static List<ITextEditor> openEditors = new List<ITextEditor>();
-        
+
         private FileExtensionManager()
         {
         }
-        
+
         public static ITextEditor OpenDocument(string filename)
         {
             string ext = System.IO.Path.GetExtension(filename);
-            bool found = false;
             foreach (ITextEditor editor in Editors)
             {
                 if (editor.Extension.Extension.ToLower() == ext)
@@ -48,20 +47,17 @@ namespace IExtendFramework.Text
                     if (OpeningFile != null)
                         OpeningFile(filename, e);
                     openEditors.Add(e);
-                    found = true;
                     return e;
                 }
             }
-            if (!found)
-                throw new InvalidFileTypeException("Cannot find extension '" + ext.ToLower() + "' in extension list!");
-            return null;
+            throw new InvalidFileTypeException("No editor for type '" + ext + "'!");
         }
-        
+
         public static void AddEditor(ITextEditor editor)
         {
             Editors.Add(editor);
         }
-        
+
         public static void Reset()
         {
             Editors.Clear();
