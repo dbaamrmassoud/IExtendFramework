@@ -26,3 +26,15 @@ C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\XImageEdi
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\XImageEditor\bin\Debug\XImageEditor.pdb
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\XImageEditor\bin\Debug\IExtendFramework.dll
 C:\Users\elijah.FFHS2\Documents\SharpDevelop Projects\IExtendFramework\XImageEditor\bin\Debug\IExtendFramework.pdb
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\bin\Debug\XImageEditor.exe.config
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\obj\x86\Debug\XImageEditor.exe
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\obj\x86\Debug\XImageEditor.pdb
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\bin\Debug\XImageEditor.exe
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\bin\Debug\XImageEditor.pdb
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\bin\Debug\IExtendFramework.dll
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\bin\Debug\IExtendFramework.pdb
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\obj\x86\Debug\XImageEditor.AddRectangleForm.resources
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\obj\x86\Debug\XImageEditor.MainForm.resources
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\edfrederickson\Downloads\IExtendFramework-master\IExtendFramework-master\XImageEditor\obj\x86\Debug\GenerateResource.write.1.tlog

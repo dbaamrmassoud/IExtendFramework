@@ -33,7 +33,11 @@ namespace XImageEditor
             //
             // TODO: Add constructor code after the InitializeComponent() call.
             //
-            xImageControl1.Click += new EventHandler(xImageControl1_Click);
+            if (DesignMode == false)
+            {
+                xImageControl1.Click += new EventHandler(xImageControl1_Click);
+                xImageControl1.Image = Image;
+            }
         }
 
         void xImageControl1_Click(object sender, EventArgs e)
@@ -41,9 +45,9 @@ namespace XImageEditor
             // add a point (using the location clicked on form, not screen) 
             // the extra pixels removed increase accuracy to the end of the mouse (if regular sized)
             Image.Points.Add(new IExtendFramework.Drawing.XPoint(MousePosition.X - this.Location.X - 10, MousePosition.Y - this.Location.Y - 55, Pens.Black));
-            this.xImageControl1.LoadImage(Image);
-            this.Invalidate();
-            xImageControl1.Invalidate();
+            //this.xImageControl1.LoadImage(Image);
+            //this.Invalidate();
+            //xImageControl1.Invalidate();
         }
         
         void NEwToolStripMenuItem_Click(object sender, EventArgs e)
@@ -95,12 +99,12 @@ namespace XImageEditor
         void Timer1_Tick(object sender, EventArgs e)
         {
             if (filename == "")
-                this.Text = "XImage Editor - [Untitled] - Points: " + Image.Points.Count.ToString();
+                this.Text = "XImage Editor - [Untitled] - Points: " + xImageControl1.PointsCreated.ToString();
             else
-                this.Text = "XImage Editor - [" + Path.GetFileName(filename) + "] - Points: " + Image.Points.Count.ToString();
+                this.Text = "XImage Editor - [" + Path.GetFileName(filename) + "] - Points: " + xImageControl1.PointsCreated.ToString();
             // update UI
-            this.xImageControl1.Invalidate();
-            this.Invalidate();
+            //this.xImageControl1.Invalidate();
+            //this.Invalidate();
         }
         
         void RectangleToolStripMenuItem_Click(object sender, EventArgs e)

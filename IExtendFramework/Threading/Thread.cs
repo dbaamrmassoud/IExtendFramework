@@ -53,7 +53,7 @@ namespace IExtendFramework.Threading
         
         public void Stop()
         {
-            thread.Suspend();
+            thread.Abort();
         }
     }
 }

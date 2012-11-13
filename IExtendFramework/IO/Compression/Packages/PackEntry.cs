@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IExtendFramework.Encryption;
 
 namespace IExtendFramework.IO.Compression.Packages
 {
@@ -36,6 +37,26 @@ namespace IExtendFramework.IO.Compression.Packages
                 return Filename;
             else
                 return System.IO.Path.Combine(ArchiveDirectory, Filename);
+        }
+        
+        public void Encrypt(byte[] key)
+        {
+            Data = AESProvider.Encrypt(Data, key);
+        }
+        
+        public void Encrypt(string key)
+        {
+            Data = AESProvider.Encrypt(Data, key);
+        }
+        
+        public void Decrypt(byte[] key)
+        {
+            Data = AESProvider.Decrypt(Data, key);
+        }
+        
+        public void Decrypt(string key)
+        {
+            Data = AESProvider.Decrypt(Data, key);
         }
     }
 }

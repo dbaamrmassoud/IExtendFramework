@@ -66,7 +66,16 @@ namespace IExtendFramework.Drawing.XmlFormat
         /// <param name="image"></param>
         public void LoadImage(XImage image)
         {
+            if (this.ximg != null)
+                ximg.OnChanged -= changeHandler;
             this.ximg = image;
+            if (image != null)
+               ximg.OnChanged += changeHandler;
+        }
+
+        void changeHandler(object sender, EventArgs e)
+        {
+            Invalidate();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace IExtendFramework.Encryption
         private static AesCryptoServiceProvider AESCryptoServiceProvider = new AesCryptoServiceProvider();
         // define the string handler
         
-        private static UTF32Encoding utf32 = new UTF32Encoding();
+        private static UTF8Encoding utf8 = new UTF8Encoding();
         // define the local property arrays
         public static byte[] Key = SampleObjects.CreateAESKey();
         
@@ -29,6 +29,24 @@ namespace IExtendFramework.Encryption
             return Transform(input, AESCryptoServiceProvider.CreateEncryptor(Key, IV));
         }
         
+        public static byte[] Encrypt(byte[] input, byte[] key)
+        {
+            byte[] tmp = Key;
+            Key = key;
+            byte[] ret = Encrypt(input);
+            Key = tmp;
+            return ret;
+        }
+        
+        public static byte[] Encrypt(byte[] input, string key)
+        {
+            byte[] tmp = Key;
+            Key = utf8.GetBytes(key);
+            byte[] ret = Encrypt(input);
+            Key = tmp;
+            return ret;
+        }
+        
         public static byte[] Decrypt(byte[] input)
         {
             return Transform(input, AESCryptoServiceProvider.CreateDecryptor(Key, IV));
@@ -36,16 +54,34 @@ namespace IExtendFramework.Encryption
         
         public static string Encrypt(string text)
         {
-            byte[] input = utf32.GetBytes(text);
+            byte[] input = utf8.GetBytes(text);
             byte[] output = Transform(input, AESCryptoServiceProvider.CreateEncryptor(Key, IV));
-            return utf32.GetString(output);
+            return utf8.GetString(output);
         }
         
         public static string Decrypt(string text)
         {
-            byte[] input = utf32.GetBytes(text);
+            byte[] input = utf8.GetBytes(text);
             byte[] output = Transform(input, AESCryptoServiceProvider.CreateDecryptor(Key, IV));
-            return utf32.GetString(output);
+            return utf8.GetString(output);
+        }
+        
+        public static byte[] Decrypt(byte[] input, string key)
+        {
+            byte[] tmp = Key;
+            Key = utf8.GetBytes(key);
+            byte[] ret = Decrypt(input);
+            Key = tmp;
+            return ret;
+        }
+        
+        public static byte[] Decrypt(byte[] input, byte[] key)
+        {
+            byte[] tmp = Key;
+            Key = key;
+            byte[] ret = Decrypt(input);
+            Key = tmp;
+            return ret;
         }
         
         private static byte[] Transform(byte[] input, ICryptoTransform CryptoTransform)

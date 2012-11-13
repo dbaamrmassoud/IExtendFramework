@@ -20,12 +20,41 @@ namespace IExtendFramework.Drawing.XmlFormat
     /// </summary>
     public class XImage
     {
-        public List<IExtendFramework.Drawing.XPoint> Points = new List<IExtendFramework.Drawing.XPoint>();
-        
+        //public List<IExtendFramework.Drawing.XPoint> Points = new List<IExtendFramework.Drawing.XPoint>();
+        public IExtendFramework.Collections.Generic.LightCollection<XPoint> Points = new IExtendFramework.Collections.Generic.LightCollection<XPoint>();
+
+        public event EventHandler OnChanged = null;
+
         public XImage()
         {
+            Points.ItemAdd += raiseChanged;
+            Points.ItemRemove += new Collections.Generic.LightCollection<XPoint>.LightCollectionRemoveHandler(Points_ItemRemove);
+            Points.ItemMove += new Collections.Generic.LightCollection<XPoint>.LightCollectionMoveHandler(Points_ItemMove);
+            Points.ItemAddRange += new Collections.Generic.LightCollection<XPoint>.LightCollectionAddRangeHandler(Points_ItemAddRange);
         }
-        
+
+        void Points_ItemAddRange(object sender, Collections.Generic.LightCollection<XPoint>.LightCollectionAddRangeEventArgs e)
+        {
+            raiseChanged(null, null);
+        }
+
+        void Points_ItemMove(object sender, Collections.Generic.LightCollection<XPoint>.LightCollectionMoveEventArgs e)
+        {
+            raiseChanged(null, null);
+        }
+
+        void Points_ItemRemove(object sender, Collections.Generic.LightCollection<XPoint>.LightCollectionRemoveEventArgs e)
+        {
+            raiseChanged(null, null);
+        }
+
+
+        void raiseChanged(object sender, Collections.Generic.LightCollection<XPoint>.LightCollectionAddEventArgs e)
+        {
+            if (OnChanged != null)
+                OnChanged(this, new EventArgs());
+        }
+
         public static XImage FromFile(string filename)
         {
             XImage x = new XImage();
@@ -58,7 +87,7 @@ namespace IExtendFramework.Drawing.XmlFormat
         public static XImage FromPoints(List<IExtendFramework.Drawing.XPoint> points)
         {
             XImage i = new XImage();
-            i.Points = points;
+            i.Points = new IExtendFramework.Collections.Generic.LightCollection<XPoint>(points.ToArray());
             return i;
         }
 

@@ -75,6 +75,15 @@ namespace IExtendFramework
         }
 
         /// <summary>
+        /// Create an AdvancedString from the given char array
+        /// </summary>
+        /// <param name="chars"></param>
+        public AdvancedString(List<char> chars)
+        {
+            internalString = chars;
+        }
+
+        /// <summary>
         /// Creates an AdvancedString from the given normal char
         /// </summary>
         /// <param name="c"></param>
@@ -213,27 +222,26 @@ namespace IExtendFramework
 
         public static AdvancedString operator +(AdvancedString a1, AdvancedString a2)
         {
-            foreach (char c in a2)
-                a1.Append(c);
-            return a1;
+            List<char> tmp = new List<char>();
+            tmp.AddRange(a1.internalString);
+            tmp.AddRange(a2.internalString);
+            return new AdvancedString(tmp);
         }
 
         public static AdvancedString operator +(string a1, AdvancedString a2)
         {
-            AdvancedString a = "";
-            a.internalString.AddRange(a1.ToCharArray());
-            foreach (char c in a2)
-                a.Append(c);
-
-            return a;
+            List<char> tmp = new List<char>();
+            tmp.AddRange(a1.ToCharArray());
+            tmp.AddRange(a2.internalString);
+            return new AdvancedString(tmp);
         }
 
         public static AdvancedString operator +(AdvancedString a1, string a2)
         {
-            foreach (char c in a2)
-                a1.Append(c);
-
-            return a1;
+            List<char> tmp = new List<char>();
+            tmp.AddRange(a1.internalString);
+            tmp.AddRange(a2.ToCharArray());
+            return new AdvancedString(tmp);
         }
 
         public static AdvancedString operator *(AdvancedString a1, int count)
@@ -1816,7 +1824,7 @@ namespace IExtendFramework
 
         /// <summary>
         /// Converts the string into sentence case string. Not applied to the original string
-        /// Known Errors: If there is no space after the EoS punctuation char
+        /// Known Errors: If there is no space after the End-Of-Sentence punctuation char
         /// </summary>
         /// <returns></returns>
         public AdvancedString ToSentenceCase()

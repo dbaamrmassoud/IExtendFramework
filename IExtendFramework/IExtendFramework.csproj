@@ -123,6 +123,8 @@
     <Compile Include="Enums\EnumHelper.cs" />
     <Compile Include="Enums\ReadableAttribute.cs" />
     <Compile Include="Events\CommonEventHandler.cs" />
+    <Compile Include="IO\Compression\Packages\Deprecated\Packages.cs" />
+    <Compile Include="IO\Compression\Packages\Deprecated\PackFileInfoCollection.cs" />
     <Compile Include="Text\Font.cs" />
     <Compile Include="Inflector.cs" />
     <Compile Include="IO\AdvancedFileStream.cs" />
@@ -136,7 +138,6 @@
     <Compile Include="IO\Compression\Lzw\LzwInputStream.cs" />
     <Compile Include="IO\Compression\Packages\PackEntry.cs" />
     <Compile Include="IO\Compression\Packages\PackArchive.cs" />
-    <Compile Include="IO\Compression\Packages\PackFileInfoCollection.cs" />
     <Compile Include="IO\Compression\Rar\Archive\FileInfoRarArchiveVolume.cs" />
     <Compile Include="IO\Compression\Rar\Archive\FileInfoRarFilePart.cs" />
     <Compile Include="IO\Compression\Rar\Archive\RarArchive.cs" />
@@ -395,7 +396,6 @@
     <Compile Include="IO\Compression\Tar\TarHeader.cs" />
     <Compile Include="IO\Compression\Tar\TarInputStream.cs" />
     <Compile Include="IO\Compression\Tar\TarOutputStream.cs" />
-    <Compile Include="IO\Compression\Packages\Packages.cs" />
     <None Include="Drawing\XmlFormat\XImage.txt" />
     <Compile Include="IO\FilesCache.cs" />
     <None Include="Net\Mail\Mailer.txt" />
@@ -619,6 +619,8 @@
     <EmbeddedResource Include="Controls\AdvancedMessageBox\Resources\shield-16.png" />
     <EmbeddedResource Include="Controls\AdvancedMessageBox\Resources\shield-32.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="IO\Compression\Packages\Deprecated" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>
